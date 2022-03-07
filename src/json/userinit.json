@@ -45,8 +45,8 @@
     "spaces":[
         {
             "id": "default",
-            "goods": "",
-            "mob": ""
+            "goods": null,
+            "mob": null
         }
     ],
     "mobs":[

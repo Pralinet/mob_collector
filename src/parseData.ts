@@ -13,7 +13,7 @@ import { calcLotPrice, getIndexes } from "./utils";
 
 
 //idからインデックスを計算
-function getIndex(id: string, list: any[]) {
+function getIndex(id: string|null, list: any[]) {
     return list.findIndex(item => item.id === id);
 }
 //idからインデックスを計算

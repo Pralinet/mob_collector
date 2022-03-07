@@ -3,20 +3,62 @@
         "id": "bee",
         "name": "ハチ",
         "goods": ["flowers"],
-        "present": "honey",
+        "present": [],
+        "gift": null,
+        "exp": 5
+    },
+    {
+        "id": "sheep",
+        "name": "ヒツジ",
+        "goods": ["mushroom_parasol"],
+        "present": ["wool"],
+        "gift": null,
+        "exp": 5
+    },
+    {
+        "id": "cat",
+        "name": "ネコ",
+        "goods": ["balloon_bee", "balloon_squid", "balloon_ghast", "lush_hammock"],
+        "present": ["string", "rabbit_hide"],
+        "gift": null,
+        "exp": 5
+    },
+    {
+        "id": "wolf",
+        "name": "オオカミ",
+        "goods": [],
+        "present": ["bone"],
+        "gift": null,
         "exp": 5
     },
     {
         "id": "zombie",
         "name": "ゾンビ",
-        "goods": [],
-        "present": "potato",
+        "goods": ["lush_hammock", "warped_swing"],
+        "present": [],
+        "gift": "potato",
+        "exp": 10
+    },
+    {
+        "id": "skeleton",
+        "name": "スケルトン",
+        "goods": ["lush_hammock", "warped_swing"],
+        "present": ["stick", "string"],
+        "gift": "flint",
+        "exp": 10
+    },
+    {
+        "id": "creeper",
+        "name": "クリーパー",
+        "goods": ["minecart", "lush_hammock"],
+        "present": ["sugar_cane"],
+        "gift": "",
         "exp": 10
     },
     {
         "id": "villager",
         "name": "村人",
-        "goods": ["flowers"],
+        "goods": ["flowers", "warped_swing", "lush_hammock"],
         "present": "carrot",
         "exp": 10
     }
