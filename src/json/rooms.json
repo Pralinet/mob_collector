@@ -1,0 +1,50 @@
+[
+    {
+        "id": "overworld_garden",
+        "name": "庭先",
+        "spaces": [
+            {
+                "id": "o_g_tree"
+            },
+            {
+                "id": "o_g_bench"
+            },
+            {
+                "id": "o_g_ground1"
+            },
+            {
+                "id": "o_g_ground2"
+            },
+            {
+                "id": "o_g_terrace" 
+            }
+        ],
+        "food": [
+            "wheat"
+        ]
+    },
+    {
+        "id": "overworld_room",
+        "name": "部屋",
+        "spaces": [
+            {
+                "id": "o_r_bed_upper"
+            },
+            {
+                "id": "o_r_desk"
+            },
+            {
+                "id": "o_r_floor1"
+            },
+            {
+                "id": "o_r_floor2"
+            },
+            {
+                "id": "o_r_ceil"
+            }
+        ],
+        "food": [
+            "pumpkin_pie"
+        ]
+    }
+]

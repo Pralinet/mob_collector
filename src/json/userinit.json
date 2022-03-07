@@ -1,0 +1,58 @@
+{
+    "player": {
+        "name": "プレイヤー",
+        "money": 10,
+        "exp": 0
+    },
+    "goods": [
+        {
+            "id": "default",
+            "is_sold": false
+        }
+    ],
+    "ores": [
+        {
+            "id": "default",
+            "stock": 0
+        }
+    ],
+    "crops": [
+        {
+            "id": "default",
+            "unlocked": false,
+            "stock": 0,
+            "lots": [],
+            "redstone": 0
+        },
+        {
+            "id": "wheat",
+            "unlocked": true,
+            "stock": 0,
+            "lots": [],
+            "redstone": 0
+        }
+    ],
+    "rooms":[
+        {
+            "id": "default",
+            "unlocked": false
+        },
+        {
+            "id": "overworld_garden",
+            "unlocked": true
+        }
+    ],
+    "spaces":[
+        {
+            "id": "default",
+            "goods": "",
+            "mob": ""
+        }
+    ],
+    "mobs":[
+        {
+            "id": "default",
+            "visit": 0
+        }
+    ]
+}

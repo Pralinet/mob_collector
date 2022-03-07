@@ -1,0 +1,23 @@
+[
+    {
+        "id": "bee",
+        "name": "ハチ",
+        "goods": ["flowers"],
+        "present": "honey",
+        "exp": 5
+    },
+    {
+        "id": "zombie",
+        "name": "ゾンビ",
+        "goods": [],
+        "present": "potato",
+        "exp": 10
+    },
+    {
+        "id": "villager",
+        "name": "村人",
+        "goods": ["flowers"],
+        "present": "carrot",
+        "exp": 10
+    }
+]

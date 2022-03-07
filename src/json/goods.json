@@ -1,0 +1,150 @@
+[
+    {
+        "id": "flowers",
+        "name": "お花セット",
+        "price": 5,
+        "spaces": [
+            "o_g_ground1",
+            "o_g_ground2"
+        ]
+	},
+    {
+        "id": "mushroom_parasol",
+        "name": "きのこのパラソル",
+        "price": 150,
+        "spaces": [
+            "o_g_bench"
+        ]
+	},
+    {
+        "id": "glow_squid_lamp",
+        "name": "光るイカランプ",
+        "price": 50,
+    	"spaces":[
+		]
+	},
+    {
+        "id": "slime_sofa",
+        "name": "mobをダメにするスライム",
+        "price": 100,
+    	"spaces":[
+		]
+	},
+    {
+        "id": "balloon_ghast",
+        "name": "ガスト風船",
+        "price": 40,
+    	"spaces":[
+		]
+	},
+    {
+        "id": "balloon_bee",
+        "name": "ハチ風船",
+        "price": 20,
+    	"spaces":[
+		]
+	},
+    {
+        "id": "balloon_squid",
+        "name": "イカ風船",
+        "price": 30,
+    	"spaces":[
+		]
+	},
+    {
+        "id": "obsidian_puzzle",
+        "name": "黒曜石パズル",
+        "price": 60,
+    	"spaces":[
+		]
+	},
+    {
+        "id": "lava_lamp",
+        "name": "マグマランプ",
+        "price": 60,
+    	"spaces":[
+		]
+	},
+    {
+        "id": "jukebox",
+        "name": "ジュークボックス",
+        "price": 150,
+    	"spaces":[
+		]
+	},
+    {
+        "id": "note_block_drums",
+        "name": "音ブロックドラム",
+        "price": 300,
+    	"spaces":[
+		]
+	},
+    {
+        "id": "bookshelf",
+        "name": "本棚",
+        "price": 100,
+    	"spaces":[
+		]
+	},
+    {
+        "id": "brick_jenga",
+        "name": "レンガのジェンガ",
+        "price": 70,
+    	"spaces":[
+		]
+	},
+    {
+        "id": "skeleton_kit",
+        "name": "スケルトン組み立てキット",
+        "price": 120,
+    	"spaces":[
+		]
+	},
+    {
+        "id": "wither_kit",
+        "name": "ウィザー召喚キット",
+        "price": 80,
+    	"spaces":[
+		]
+	},
+    {
+        "id": "blaze_mobile",
+        "name": "ブレイズモビール",
+        "price": 100,
+    	"spaces":[
+		]
+	},
+    {
+        "id": "block_plush",
+        "name": "ブロックぬい",
+        "price": 240,
+    	"spaces":[
+		]
+	},
+    {
+        "id": "lush_hammock",
+        "name": "繁茂ック",
+        "price": 100,
+    	"spaces":[
+            "o_g_tree"
+		]
+	},
+    {
+        "id": "warped_swing",
+        "name": "歪んだブランコ",
+        "price": 120,
+    	"spaces":[
+            "o_g_tree"
+		]
+	},
+    {
+        "id": "minecart",
+        "name": "トロッコ",
+        "price": 200,
+    	"spaces":[
+            "o_g_ground1",
+            "o_g_ground2"
+		]
+    }
+]
+

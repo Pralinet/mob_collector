@@ -1,0 +1,65 @@
+[
+    {
+        "id": "wheat",
+        "name": "小麦",
+        "max_age": 7,
+        "tool": "hoe",
+        "drop": 1,
+        "speed": 0.1,
+        "amount": 20
+    },
+    {
+        "id": "potato",
+        "name": "ジャガイモ",
+        "max_age": 7,
+        "tool": "hoe",
+        "drop": 3,
+        "speed": 0.1,
+        "amount": 26
+    },
+    {
+        "id": "carrot",
+        "name": "ニンジン",
+        "max_age": 7,
+        "tool": "hoe",
+        "drop": 3,
+        "speed": 0.1,
+        "amount": 22
+    },
+    {
+        "id": "beetroot",
+        "name": "ビートルート",
+        "max_age": 3,
+        "tool": "hoe",
+        "drop": 1,
+        "speed": 0.1,
+        "amount": 15
+    },
+    {
+        "id": "pumpkin",
+        "name": "カボチャ",
+        "max_age": 7,
+        "tool": "axe",
+        "drop": 1,
+        "speed": 0.1,
+        "amount": 6
+    },
+    {
+        "id": "melon",
+        "name": "スイカ",
+        "max_age": 7,
+        "tool": "axe",
+        "drop": 1,
+        "speed": 0.1,
+        "amount": 4
+    },
+    {
+        "id": "sweetberry",
+        "name": "スイートベリー",
+        "max_age": 3,
+        "tool": "hand",
+        "drop": 1,
+        "speed": 0.1,
+        "amount": 10
+    }
+]
