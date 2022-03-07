@@ -12,14 +12,34 @@ import {Goods, Ore, Crop, Room, Mob} from "./ts/SystemData"
 import { calcLotPrice, getIndexes } from "./utils";
 
 
+//idからインデックスを計算
+function getIndex(id: string, list: any[]) {
+    return list.findIndex(item => item.id == id);
+}
+//idからインデックスを計算
+function getSpaceIndex(id: string, roomlist: Room[]) {
+    roomlist.forEach((room, id_room) => {
+        const id_space = room.spaces.findIndex(space => space.id == id);
+        if(id_space >= 0){
+            return {room: id_room, space: id_space}
+        }
+    })
+    return {room: -1, space: -1};
+}
+
+
 export const initData = () => {
     //jsonの読み込み
     const oreList: Ore[] = ores_data;
     const cropList: Crop[] = crops_data;
-    //文字列のidで指定されている部分を全て数字のindexに変える
-    const goodsList: Goods[] = goods_data//.map(); //space -> index
     const roomList: Room[] = rooms_data;
-    const mobList: Mob[] = mobs_data;
+    //文字列のidで指定されている部分を全て数字のindexに変える
+    const goodsList: Goods[] = goods_data.map((item) => {
+        return {...item, spaces: item.spaces.map(space => getSpaceIndex(space, roomList))}
+    }); //space -> index
+    const mobList: Mob[] = mobs_data.map((item) => {
+        return {...item, goods: item.goods.map(goodz => getIndex(goodz, goodsList))}
+    }); //goods -> index;
 
 
     const userData: UserData = {

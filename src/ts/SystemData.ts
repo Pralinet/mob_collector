@@ -12,7 +12,8 @@ export type Goods = {
     id: string;
     name: string;
     price: number;
-    spaces: string[]
+    //spaces: string[]
+    spaces: {room:number, space:number}[]
 };
 
 export type Ore = {
@@ -37,6 +38,7 @@ export type Space = {
 export type Mob = {
     id: string,
     name: string,
-    goods: string[]
+    //goods: string[]
+    goods: number[]
     exp: number;
 }
