@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useDataContext, getCropList, getOreList } from './DataContext';
 import { calcLotPrice } from "./utils";
@@ -16,15 +16,31 @@ const FarmMonitor = () => {
 
     const redstone_idx = 5; //ベタ打ちなので後で変える
 
+
+    //ここから、後で隔離する場所
+    const [timer, setTimer] = useState(null as any);
+
+    const handleMouseDown = (event: any) => {
+        event.preventDefault();
+        setTimer(setInterval(() => {
+            handleMine();
+        }, 1000) ); //この1000は道具をアップグレードすると変わる
+    };
+    const handleMouseUp = (event: any) => {
+        event.preventDefault();
+        clearInterval(timer);
+    };
+
+    //ここまで
+
     const handleMine = () => {
-        const newOreList = ores.map((item, i)=> {
+        setOres(ores => ores.map((item, i)=> {
             const r: Number = Math.random();
             const drop = Math.ceil(Math.random() * oreList[i].drop)
             return r < oreList[i].odds
             ? {...ores[i], stock: (ores[i].stock + drop)}
             : ores[i];
-        })
-        setOres(newOreList);
+        }));
     };
 
     const handleSellOre = (index: number) => {
@@ -110,7 +126,14 @@ const FarmMonitor = () => {
             <div>所持金:{money}</div>
             <div>経験値:{exp}</div>
             <div>
-                <button onClick={handleMine}>採掘</button>
+                <button 
+                onMouseDown={handleMouseDown} 
+                onMouseUp={handleMouseUp}
+                onTouchStart={handleMouseDown} 
+                onTouchEnd={handleMouseUp}
+                onMouseLeave={handleMouseUp}
+                onTouchMove={handleMouseUp}
+                 >採掘</button>
                 {oreCounter}
             </div>
             <div>
