@@ -10,13 +10,9 @@ import mobs_data from "./json/mobs.json";
 import { UserData, UserGoodsData, UserOreData, UserCropData, UserRoomData, UserSpaceData, UserMobData } from "./ts/UserData";
 import {Goods, Ore, Crop, Room, Mob} from "./ts/SystemData"
 import { calcLotPrice, getIndexes } from "./utils";
+import { initData } from "./ParseData";
 
-const goodsList: Goods[] = goods_data;
-const oreList: Ore[] = ores_data;
-const cropList: Crop[] = crops_data;
-const roomList: Room[] = rooms_data;
-const mobList: Mob[] = mobs_data;
-
+const {oreList, cropList, goodsList, roomList, mobList, userData} = initData();
 
 export const getGoodsList = () => {
     return goodsList;
@@ -33,39 +29,6 @@ export const getRoomList = () => {
 export const getMobList = () => {
     return mobList;
 }
-
-const userData: UserData = {
-    ...userinit, 
-    goods: (function(){
-        const df = userinit.goods.find(g => g.id === "default") ?? {} as UserGoodsData;
-        return goodsList.map((g) => userinit.goods.find(u => u.id === g.id) ?? {...df, id:g.id})
-    })(),
-    ores: (function(){
-        const df = userinit.ores.find(o => o.id === "default")?? {} as UserOreData;
-        return oreList.map((o) => userinit.ores.find(u => u.id === o.id) ?? {...df, id:o.id} as UserOreData)
-    })(),
-    crops: (function(){
-        const df = userinit.crops.find(c => c.id === "default")?? {} as UserCropData;
-        return cropList.map((c) => userinit.crops.find(u => u.id === c.id) ?? {...df, id:c.id, lots:[...df.lots]} as UserCropData)
-    })(),
-    rooms: (function(){
-        const df_r = userinit.rooms.find(r => r.id === "default")?? {} as UserRoomData;
-        const df_s = userinit.spaces.find(s => s.id === "default")?? {} as UserSpaceData;
-        return roomList.map((r) => {
-            const room = {
-                ...(userinit.rooms.find(u => u.id === r.id) ?? {...df_r, id:r.id} as UserRoomData),
-                spaces: r.spaces.map((s) => {
-                    return userinit.spaces.find(u => u.id === s.id) ?? {...df_s, id:s.id} as UserSpaceData
-                })
-            }
-            return room;
-        })
-    })(),
-    mobs: (function(){
-        const df = userinit.mobs.find(m => m.id === "default")?? {} as UserMobData;
-        return mobList.map((m) => userinit.mobs.find(u => u.id === m.id) ?? {...df, id:m.id} as UserMobData)
-    })(),
-};
 
 export interface IDataContext {
     money: number;
