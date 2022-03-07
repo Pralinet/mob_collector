@@ -38,6 +38,8 @@ export interface IDataContext {
     chooseGoods: (id_room:number, id_space: number, id_goods:number) => void;
     mobs: UserMobData[];
     setMobs: React.Dispatch<React.SetStateAction<UserMobData[]>>;
+
+    possibleGoods: number[][][];
 }
 
 const DataContext = createContext({} as IDataContext);
@@ -68,16 +70,16 @@ export function DataProvider({ children }: any) {
     const [rooms, setRooms] = useState(userData.rooms);
     const [mobs, setMobs] = useState(userData.mobs);
     const [possibleMobs, setPossibleMobs] = useState(roomList.map(r => r.spaces.map(s => [] as number[]) ));
+    const [possibleGoods, setPossibleGoods] = useState(roomList.map(r => r.spaces.map(s => [] as number[]) ));
 
     React.useEffect(() => {
-        onTick();  // これなら1増えた値が表示される
+        onTick(time); 
     }, [time]);
 
-    const onTick = () => {
+    const onTick = (time: number) => {
         CropGrows();
-        const sec = new Date().getSeconds();
         //30秒に一回判定
-        if(sec % 30 == 3){
+        if(time % 5 === 3){
             MobVisits();
         }
     }
@@ -103,25 +105,28 @@ export function DataProvider({ children }: any) {
         //実際に来るかどうか決めて更新
         setRooms(rooms => rooms.map((room,i_r) => {
             return {...room, spaces:room.spaces.map((space, i_s) => {
-                //来れるmobのリスト
+                //来られるmobのリスト
                 const pml = possibleMobs[i_r][i_s]
-                if(space.mob != ""){
+                if(space.mob >= 0){
                     //既にいる場合
                     if(Math.random() < 0.9){
+                        //console.log("続投");
                         return space;
                     }else{
                         //一定確率で退場
-                        return {...space, mob:""};
+                        //console.log("またきてね");
+                        return {...space, mob:-1};
                     }
                 }else if(pml.length) {
                     //いない場合、一定確率で選ばれる
                     const r = Math.floor(Math.random() * (pml.length + 5));
-                    console.log(pml, r);
                     if(r < pml.length){
                         //経験値を貰う
+                        //console.log("いらっしゃい");
                         setExp(exp => exp + mobList[pml[r]].exp);
-                        return {...space, mob:mobList[pml[r]].id}           
+                        return {...space, mob:pml[r]}           
                     }
+                    //console.log("だれもこない");
                 }
                 return space;
             })}
@@ -139,6 +144,8 @@ export function DataProvider({ children }: any) {
                     : item;
                 })
                 setGoods(newGoods);
+                //使えるグッズのリストを更新
+                updatePossibleGoods(index);
                 break;
             case 'crop':
                 setMoney(money - calcLotPrice(crops[index].lots.length));
@@ -184,10 +191,10 @@ export function DataProvider({ children }: any) {
     const chooseGoods = (id_room:number, id_space: number, id_goods:number) => {
         console.log(id_goods)
         const newrooms = rooms.map((room,i_r) => {
-            return id_room == i_r 
+            return id_room === i_r 
             ? {...room, spaces:room.spaces.map((space, i_s) => {
-                return id_space == i_s 
-                ? {...space, goods:(id_goods >= 0 ? goodsList[id_goods].id: "")}
+                return id_space === i_s 
+                ? {...space, goods:(id_goods)}
                 : space;})
             }
             : room;
@@ -199,16 +206,30 @@ export function DataProvider({ children }: any) {
     const updatePossibleMobs = (id_room:number, id_space: number, id_goods:number) => {
         console.log("updatePossibleMobs")
         const newPml = possibleMobs.map((room, i_r) => {
-            return id_room == i_r 
+            return id_room === i_r 
             ? room.map((space, i_s) => {
-                return id_space == i_s 
-                ? (id_goods >= 0 ? getIndexes(goodsList[id_goods].id, mobList) : [])
+                return id_space === i_s 
+                ? (id_goods >= 0 ? mobList.flatMap((mob, index) => mob.goods.includes(id_goods) ? index : []): [])
                 : space;
             })
             : room;
         })
         setPossibleMobs(newPml);
     }
+
+    const updatePossibleGoods = (id_goods: number) => {
+        //スペースごとに置けるグッズをリストアップ
+        console.log(goodsList[id_goods].spaces)
+        const newPgl = possibleGoods.map((room, i_r) => {
+            return room.map((space, i_s) => {
+                return goodsList[id_goods].spaces.some( (nums => nums.room === i_r&&nums.space === i_s) )
+                ? [...space, id_goods]
+                : space ;
+            })
+        })
+        console.log(newPgl);
+        setPossibleGoods(newPgl);
+    } 
     
     const value = {
         money,
@@ -225,14 +246,13 @@ export function DataProvider({ children }: any) {
         rooms,
         chooseGoods,
         mobs,
-        setMobs
+        setMobs,
+
+        possibleGoods,
     };
     
     return (
         <DataContext.Provider value={value}>
-            <div >
-                {possibleMobs}
-            </div>
             {children}
         </DataContext.Provider>
     );

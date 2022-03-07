@@ -14,16 +14,16 @@ import { calcLotPrice, getIndexes } from "./utils";
 
 //idからインデックスを計算
 function getIndex(id: string, list: any[]) {
-    return list.findIndex(item => item.id == id);
+    return list.findIndex(item => item.id === id);
 }
 //idからインデックスを計算
 function getSpaceIndex(id: string, roomlist: Room[]) {
-    roomlist.forEach((room, id_room) => {
-        const id_space = room.spaces.findIndex(space => space.id == id);
+    for(let id_room = 0 ; id_room < roomlist.length; id_room++){
+        const id_space = roomlist[id_room].spaces.findIndex(space => space.id === id);
         if(id_space >= 0){
             return {room: id_room, space: id_space}
         }
-    })
+    }
     return {room: -1, space: -1};
 }
 
@@ -35,7 +35,8 @@ export const initData = () => {
     const roomList: Room[] = rooms_data;
     //文字列のidで指定されている部分を全て数字のindexに変える
     const goodsList: Goods[] = goods_data.map((item) => {
-        return {...item, spaces: item.spaces.map(space => getSpaceIndex(space, roomList))}
+        const goods =  {...item, spaces: item.spaces.map(space => getSpaceIndex(space, roomList))}
+        return goods;
     }); //space -> index
     const mobList: Mob[] = mobs_data.map((item) => {
         return {...item, goods: item.goods.map(goodz => getIndex(goodz, goodsList))}
@@ -58,14 +59,18 @@ export const initData = () => {
         })(),
         rooms: (function(){
             const df_r = userinit.rooms.find(r => r.id === "default")?? {} as UserRoomData;
-            const df_s = userinit.spaces.find(s => s.id === "default")?? {} as UserSpaceData;
+            const df_s = userinit.spaces.find(s => s.id === "default")?? {};
             return roomList.map((r) => {
                 const room = {
-                    ...(userinit.rooms.find(u => u.id === r.id) ?? {...df_r, id:r.id} as UserRoomData),
+                    ...(userinit.rooms.find(u => u.id === r.id) ?? {...df_r, id:r.id}),
                     spaces: r.spaces.map((s) => {
-                        return userinit.spaces.find(u => u.id === s.id) ?? {...df_s, id:s.id} as UserSpaceData
+                        //spaceのデータを読み込み
+                        const userSpaceData = userinit.spaces.find(u => u.id === s.id);
+                        return userSpaceData
+                        ? {...userSpaceData, mob:getIndex(userSpaceData.mob, mobList), goods: getIndex(userSpaceData.goods, goodsList)} as UserSpaceData
+                        : {...df_s, id:s.id, mob:-1, goods:-1} as UserSpaceData;
                     })
-                }
+                } 
                 return room;
             })
         })(),

@@ -37,8 +37,10 @@ export type UserRoomData = {
 
 export type UserSpaceData = {
     id: string,
-    goods: string,
-    mob: string
+    //goods: string,
+    //mob: string
+    goods: number,
+    mob: number
 };
 
 export type UserMobData = {

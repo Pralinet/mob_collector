@@ -1,21 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDataContext, getGoodsList, getRoomList, getMobList } from "./DataContext";
 
 const goodsList = getGoodsList();
 const roomList = getRoomList();
 const mobList =getMobList();
 
-//スペースごとに置けるグッズをリストアップ
-const goodsBySpace = (function(){
-    return roomList.map((room, i_r) => {
-        return room.spaces.map((space, i_s) => [
-            ...goodsList.flatMap((g, ind) => g.spaces.includes(space.id)? ind : [])
-        ])
-    })
-})();
-
 const RoomMonitor = () => {
-    const {goods, rooms, mobs, chooseGoods} = useDataContext();
+    const {goods, rooms, mobs, chooseGoods, possibleGoods} = useDataContext();
 
     const handleGoodsChange = (i_r:number, i_s: number, i_g:number)=> {
         chooseGoods(i_r, i_s, i_g);
@@ -38,13 +29,17 @@ const RoomMonitor = () => {
                                                 <div>{space.id}:
                                                 <select onChange={(e) => handleGoodsChange(i_r, i_s, Number(e.target.value))}>
                                                 <option value={-1} key={-1}>なし</option>
-                                                {goodsBySpace[i_r][i_s].map((i_g, ind) => 
+                                                {possibleGoods[i_r][i_s].map((i_g, ind) => 
                                                     goods[i_g].is_sold
                                                     ? <option value={i_g} key={ind}>{goodsList[i_g].name}</option>
                                                     : null
                                                 )}
                                                 </select>
-                                                : {space.mob}</div>
+                                                : {
+                                                    space.mob >= 0
+                                                    ? mobList[space.mob].name
+                                                    : null
+                                                }</div>
                                             );
                                         })
                                     }
