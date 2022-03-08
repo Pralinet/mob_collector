@@ -14,9 +14,11 @@ function App() {
   return (
     <div className="App">
       <DataProvider>
-        <RoomMonitor />
-        <FarmMonitor />
-        <GoodsList />
+        <div style={{width: 1080}}>
+          <RoomMonitor/>
+          <FarmMonitor />
+          <GoodsList />
+        </div>
       </DataProvider>
     </div>
   );

@@ -30,10 +30,18 @@ export type Room = {
     name: string,
     spaces: Space[],
     food: string[]
+    stage: {
+        origin_x:number;
+        origin_y:number;
+        x: number;
+        y: number;
+    }
 };
 
 export type Space = {
     id: string,
+    x: number;
+    y: number;
 }
 export type Mob = {
     id: string,

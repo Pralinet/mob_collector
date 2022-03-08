@@ -5,7 +5,7 @@ import { useDataContext, getGoodsList } from './DataContext';
 const goodsList = getGoodsList();
 
 const GoodsList = () => {
-    const { goods, money, Buy } = useDataContext();
+    const { goods, money, Buy, exp } = useDataContext();
 
     const handleBuyGoods = (index: number) => {
         Buy("goods", index);

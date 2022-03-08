@@ -2,21 +2,37 @@
     {
         "id": "overworld_garden",
         "name": "庭先",
+        "stage": {
+            "origin_x": 0,
+            "origin_y": 203.5,
+            "x": 0,
+            "y": 0
+        },
         "spaces": [
             {
-                "id": "o_g_tree"
+                "id": "o_g_tree",
+                "x": 8,
+                "y": 8
             },
             {
-                "id": "o_g_bench"
+                "id": "o_g_bench",
+                "x": 2,
+                "y": 9
             },
             {
-                "id": "o_g_ground1"
+                "id": "o_g_ground1",
+                "x": 5,
+                "y": 5
             },
             {
-                "id": "o_g_ground2"
+                "id": "o_g_ground2",
+                "x": 2,
+                "y": 2
             },
             {
-                "id": "o_g_terrace" 
+                "id": "o_g_terrace" ,
+                "x": 5,
+                "y": 2
             }
         ],
         "food": [
@@ -26,21 +42,37 @@
     {
         "id": "overworld_room",
         "name": "部屋",
+        "stage": {
+            "origin_x": 0,
+            "origin_y": 425.5,
+            "x": 0,
+            "y": -11
+        },
         "spaces": [
             {
-                "id": "o_r_bed_upper"
+                "id": "o_r_bed_upper",
+                "x": 5,
+                "y": 2
             },
             {
-                "id": "o_r_desk"
+                "id": "o_r_desk",
+                "x": 6,
+                "y": 6
             },
             {
-                "id": "o_r_floor1"
+                "id": "o_r_floor1",
+                "x": 9,
+                "y": 2
             },
             {
-                "id": "o_r_floor2"
+                "id": "o_r_floor2",
+                "x": 2,
+                "y": 8
             },
             {
-                "id": "o_r_ceil"
+                "id": "o_r_ceil",
+                "x": 9,
+                "y": 9
             }
         ],
         "food": [
