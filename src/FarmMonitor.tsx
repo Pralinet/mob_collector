@@ -25,6 +25,7 @@ const cropImage = (() => {
     return image;
 })()
 
+const oreOddsList = oreList.reduce((prev, cur) => {return [...prev, prev[prev.length-1] + cur.odds]}, [0])
 
 
 const FarmMonitor = () => {
@@ -58,13 +59,16 @@ const FarmMonitor = () => {
 
     const handleMine = () => {
         //鉱石の確率の処理きたないので後で変える
-        setOres(ores => ores.map((item, i)=> {
-            const r: Number = Math.random();
-            const drop = Math.ceil(Math.random() * oreList[i].drop)
-            return r < oreList[i].odds
-            ? {...ores[i], stock: (ores[i].stock + drop)}
-            : ores[i];
-        }));
+        const r: Number = Math.random() * oreOddsList[oreOddsList.length -1];
+        setOres(ores => {
+            const i_o = oreOddsList.findIndex( (odds: number) => r < odds ) - 1;
+            const drop = Math.ceil(Math.random() * oreList[i_o].drop);
+            return ores.map((item, i)=> {
+                return i == i_o
+                ? {...ores[i], stock: (ores[i].stock + drop)}
+                : ores[i];
+            })
+        })
     };
 
     const handleSellOre = (index: number) => {
@@ -133,31 +137,6 @@ const FarmMonitor = () => {
         )
     }), [ores, money]);
 
-    /*const cropRows = useMemo( () => crops.map((item, i_c) => {
-        const Lots = crops[i_c].lots.map((l: number, i_l) => {
-            return l === cropList[i_c].max_age
-            ? (<button onClick={() => Harvest(i_c, i_l)} >●</button>)
-            : l;
-        });
-
-        const lotPrice = calcLotPrice(crops[i_c].lots.length);
-
-        return crops[i_c].unlocked ? (
-            <div key={cropList[i_c].id}>
-                <div>
-                    {cropList[i_c].name} : {crops[i_c].stock}個 : 土地{crops[i_c].lots.length}マス : {lotPrice}エメ
-                    :売却単位{cropList[i_c].amount}個
-                    <button onClick={() => handleSellCrop(i_c)} disabled={(crops[i_c].stock < cropList[i_c].amount)}>売る</button><br/>
-                    自動収穫{crops[i_c].redstone}/{crops[i_c].lots.length}
-                    <button disabled={ores[redstone_idx].stock<1 || crops[i_c].redstone >=crops[i_c].lots.length} onClick={() => buyAutoHarvest(i_c)}>+</button>
-                </div>
-                <div>
-                    {Lots}
-                    <button disabled={money < lotPrice} onClick={() => handleBuyLot(i_c)}>+</button>
-                </div>
-            </div>
-        ) : null; clip={{width: 160, height: 64}}
-    }), [crops, money]);*/
     const cropRows = useMemo( () => crops.map((item, i_c) => {
 
         const lotPrice = calcLotPrice(crops[i_c].lots.length);
