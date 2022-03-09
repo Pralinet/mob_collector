@@ -54,5 +54,30 @@
             "id": "default",
             "visit": 0
         }
+    ],
+    "furniture":[
+        {
+            "id": "default",
+            "unlocked": false,
+            "is_sold": false
+        }
+    ],
+    "recipes":[
+        {
+            "id": "default",
+            "unlocked": false,
+            "stock": 0
+        },
+        {
+            "id": "wheat",
+            "unlocked": true,
+            "stock": 0
+        }
+    ],
+    "flags":[
+        {
+            "id": "default",
+            "flag": false
+        }
     ]
 }

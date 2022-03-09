@@ -45,9 +45,23 @@
 		]
 	},
     {
-        "id": "balloon_squid",
-        "name": "イカ風船",
+        "id": "badminton",
+        "name": "イカミントン",
         "price": 30,
+    	"spaces":[
+		]
+	},
+    {
+        "id": "picnic",
+        "name": "ピクニックセット",
+        "price": 30,
+    	"spaces":[
+		]
+	},
+    {
+        "id": "telescope",
+        "name": "望遠鏡",
+        "price": 200,
     	"spaces":[
 		]
 	},
@@ -103,7 +117,7 @@
     {
         "id": "wither_kit",
         "name": "ウィザー召喚キット",
-        "price": 80,
+        "price": 800,
     	"spaces":[
 		]
 	},

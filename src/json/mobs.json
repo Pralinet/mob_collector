@@ -3,8 +3,16 @@
         "id": "bee",
         "name": "ハチ",
         "goods": ["flowers"],
-        "present": [],
-        "gift": null,
+        "present": ["honeycomb"],
+        "gift": "pollen",
+        "exp": 5
+    },
+    {
+        "id": "chicken",
+        "name": "ニワトリ",
+        "goods": ["flowers"],
+        "present": ["feather"],
+        "gift": "egg",
         "exp": 5
     },
     {
@@ -16,18 +24,27 @@
         "exp": 5
     },
     {
+        "id": "fox",
+        "name": "キツネ",
+        "goods": ["mushroom_parasol"],
+        "present": ["leather", "rabbit_hide"],
+        "gift": "sweet_berry",
+        "exp": 5
+    },
+    {
         "id": "cat",
         "name": "ネコ",
         "goods": ["balloon_bee", "balloon_squid", "balloon_ghast", "lush_hammock"],
+        "foods": "cocked_cod",
         "present": ["string", "rabbit_hide"],
-        "gift": null,
+        "gift": "raw_chicken",
         "exp": 5
     },
     {
         "id": "wolf",
         "name": "オオカミ",
         "goods": [],
-        "present": ["bone"],
+        "present": ["bone", "wool"],
         "gift": null,
         "exp": 5
     },
@@ -35,8 +52,8 @@
         "id": "zombie",
         "name": "ゾンビ",
         "goods": ["lush_hammock", "warped_swing"],
-        "present": [],
-        "gift": "potato",
+        "present": ["flower"],
+        "gift": "carrot",
         "exp": 10
     },
     {
@@ -48,18 +65,43 @@
         "exp": 10
     },
     {
+        "id": "drowned",
+        "name": "ドラウンド",
+        "goods": ["lush_hammock", "warped_swing"],
+        "present": ["ink_sac", "copper_ingot", "nautilus_shell"],
+        "gift": "fishing_rod",
+        "exp": 10
+    },
+    {
         "id": "creeper",
         "name": "クリーパー",
         "goods": ["minecart", "lush_hammock"],
         "present": ["sugar_cane"],
-        "gift": "",
+        "gift": "record",
         "exp": 10
+    },
+    {
+        "id": "enderman",
+        "name": "エンダーマン",
+        "goods": ["minecart", "lush_hammock"],
+        "present": ["cray", "flower"],
+        "gift": "pumpkin",
+        "exp": 10
+    },
+    {
+        "id": "slime",
+        "name": "スライム",
+        "goods": ["minecart", "lush_hammock"],
+        "present": ["flower", "sugar_cane"],
+        "gift": "",
+        "exp": 5
     },
     {
         "id": "villager",
         "name": "村人",
         "goods": ["flowers", "warped_swing", "lush_hammock"],
-        "present": "carrot",
-        "exp": 10
+        "present": [],
+        "gift": "",
+        "exp": 20
     }
 ]

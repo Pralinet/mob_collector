@@ -1,0 +1,32 @@
+[
+    {
+        "id": "wheat",
+        "name": "小麦",
+        "requirement": {
+            "item": "wheat",
+            "amount": 1
+        }
+    },
+    {
+        "id": "carrot",
+        "name": "にんじん",
+        "requirement": {
+            "item": "wheat",
+            "amount": 1
+        }
+    },
+    {
+        "id": "cocked_cod",
+        "requirement": {
+            "item": "money",
+            "amount": 3
+        }
+    },
+    {
+        "id": "cocked_salmon",
+        "requirement": {
+            "item": "money",
+            "amount": 5
+        }
+    }
+]

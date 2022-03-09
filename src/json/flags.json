@@ -1,0 +1,17 @@
+[
+    {
+        "id": "grill",
+        "conditions": [
+            {
+                "type": "item",
+                "id": "fishing_rod" 
+            },
+            {
+                "type": "furniture",
+                "id": "bbq_grill" 
+            }
+        ],
+        "unlock_type": "recipe",
+        "unlocks": ["cooked_cod"]
+    }
+]

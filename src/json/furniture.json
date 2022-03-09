@@ -1,0 +1,12 @@
+[
+    {
+        "id": "bbq_grill",
+        "name": "BBQグリル",
+        "space": "bbq"
+    },
+    {
+        "id": "flower_bed",
+        "name": "花壇",
+        "space": "flowers"
+    }
+]

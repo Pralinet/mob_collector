@@ -43,10 +43,37 @@ export type Space = {
     x: number;
     y: number;
 }
+
 export type Mob = {
     id: string,
     name: string,
-    //goods: string[]
     goods: number[]
     exp: number;
+}
+
+export type Furniture = {
+    id: string,
+    name: string,
+    space: number
+}
+
+export type Recipe = {
+    id: string,
+    name: string,
+    requirement: {
+        item: number
+        amount: number
+    }
+}
+
+export type Flag = {
+    id: string,
+    conditions: [
+        {
+            type: string,
+            id: number
+        },
+    ],
+    unlock_type: string,
+    unlocks: number[]
 }

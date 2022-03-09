@@ -97,6 +97,7 @@ export function DataProvider({ children }: any) {
                     return cropList[i_c].max_age;
                 }else return newage;
             });
+            if(autoharvest) console.log(autoharvest)
             return {...item, lots: lots, stock:(crops[i_c].stock+ autoharvest)}
         }));
     }
