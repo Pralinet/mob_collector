@@ -35,8 +35,22 @@
                 "y": 2
             }
         ],
+        "furniture_space": [
+            {
+                "id": "bbq",
+                "x": 0,
+                "y": 0
+            },
+            {
+                "id": "flowers",
+                "x": 0,
+                "y": 0
+            }
+        ],
         "food": [
-            "wheat"
+            "wheat",
+            "cooked_cod",
+            "cooked_chicken"
         ]
     },
     {
@@ -76,7 +90,9 @@
             }
         ],
         "food": [
-            "pumpkin_pie"
+            "pumpkin_pie",
+            "cookie",
+            "cake"
         ]
     }
 ]

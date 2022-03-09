@@ -25,6 +25,12 @@ const cropImage = (() => {
     return image;
 })()
 
+const cropGrowImage = (() => {
+    const image = new window.Image();
+    image.src = `${process.env.PUBLIC_URL}/img/others/crops_grow.png`;
+    return image;
+})()
+
 const oreOddsList = oreList.reduce((prev, cur) => {return [...prev, prev[prev.length-1] + cur.odds]}, [0])
 
 
@@ -61,7 +67,7 @@ const FarmMonitor = () => {
         //鉱石の確率の処理きたないので後で変える
         const r: Number = Math.random() * oreOddsList[oreOddsList.length -1];
         setOres(ores => {
-            const i_o = oreOddsList.findIndex( (odds: number) => r < odds ) - 1;
+            const i_o = oreOddsList.findIndex( (odds: number) => r <= odds ) - 1;
             const drop = Math.ceil(Math.random() * oreList[i_o].drop);
             return ores.map((item, i)=> {
                 return i == i_o
@@ -83,28 +89,24 @@ const FarmMonitor = () => {
     }
 
     const Harvest = (cropIdx:number, lotIdx:number) => {
-        const newCrops = crops.map((item, i_c) => {
+        setCrops(crops => crops.map((item, i_c) => {
             return (i_c === cropIdx)
             ? { ...item, lots: item.lots.map((l, i_l) => i_l==lotIdx? 0: l ), stock: (item.stock+1) }
             : item;
-        });
-        setCrops(newCrops);
+        }) );
     }
 
     const buyAutoHarvest = (cropIdx:number) => {
-        const newCrops = crops.map((item, i_c) => {
+        setCrops(crops => crops.map((item, i_c) => {
             return (i_c === cropIdx)
             ? { ...item, redstone:  item.redstone + 1}
             : item;
-        });
-        setCrops(newCrops);
-
-        const newOres = ores.map((item, i)=> {
+        }));
+        setOres( ores => ores.map((item, i)=> {
             return i === redstone_idx
             ? {...item, stock: (item.stock - 1)}
             : item;
-        })
-        setOres(newOres);
+        }));
     }
 
     const oreCounter = useMemo( () => ores.map((item, i) => {
@@ -135,7 +137,7 @@ const FarmMonitor = () => {
                 }
             </Group>
         )
-    }), [ores, money]);
+    }), [ores, money, oreImage]);
 
     const cropRows = useMemo( () => crops.map((item, i_c) => {
 
@@ -152,8 +154,8 @@ const FarmMonitor = () => {
                     {
                         crops[i_c].lots.map((l: number, i_l) => {
                         return l >= cropList[i_c].max_age
-                        ? (<Rect width={16} height={16} fill="yellow" x={ 16 + i_l * 16} onClick={() => Harvest(i_c, i_l)} />)
-                        : (<Rect width={16} height={16} fill="green" x={ 16 + i_l * 16} />)
+                        ? (<Rect width={16} height={16} fillPatternImage={cropGrowImage} fillPatternOffset={{x:16*l, y:16*i_c}} x={ 16 + i_l * 16} onClick={() => Harvest(i_c, i_l)} />)
+                        : (<Rect width={16} height={16} fillPatternImage={cropGrowImage} fillPatternOffset={{x:16*l, y:16*i_c}} x={ 16 + i_l * 16} />)
                         })
                     }
             </Group>
@@ -184,7 +186,7 @@ const FarmMonitor = () => {
                 {Lots}
             </Group>
         ): null
-    }), [crops, money]);
+    }), [crops, money, cropImage]);
 
     return(
         <div style={{display:"inline-block"}}>

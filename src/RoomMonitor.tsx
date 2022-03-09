@@ -72,7 +72,7 @@ const RoomMonitor = () => {
                                         }
                                         {
                                             space.mob >= 0
-                                            ? <Text text={mobList[space.mob].name} />
+                                            ? <Text y={16} text={mobList[space.mob].name} />
                                             : null
                                         }
                                     </Group>

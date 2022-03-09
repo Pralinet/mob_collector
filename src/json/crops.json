@@ -11,7 +11,7 @@
     {
         "id": "potato",
         "name": "ジャガイモ",
-        "max_age": 7,
+        "max_age": 4,
         "tool": "hoe",
         "drop": 3,
         "speed": 0.1,
@@ -20,7 +20,7 @@
     {
         "id": "carrot",
         "name": "ニンジン",
-        "max_age": 7,
+        "max_age": 4,
         "tool": "hoe",
         "drop": 3,
         "speed": 0.1,
@@ -56,7 +56,7 @@
     {
         "id": "sweetberry",
         "name": "スイートベリー",
-        "max_age": 3,
+        "max_age": 2,
         "tool": "hand",
         "drop": 1,
         "speed": 0.1,
