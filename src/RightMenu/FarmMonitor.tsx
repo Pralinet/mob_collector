@@ -1,8 +1,8 @@
 import React, { useState, useMemo } from "react";
 import { Stage, Layer, Text, Rect, Image, Group } from 'react-konva';
 
-import { useDataContext, getCropList, getOreList } from './DataContext';
-import { calcLotPrice } from "./utils";
+import { useDataContext, getCropList, getOreList } from '../DataContext';
+import { calcLotPrice } from "../utils";
 
 const cropList = getCropList();
 const oreList = getOreList();
@@ -189,8 +189,7 @@ const FarmMonitor = () => {
     }), [crops, money, cropImage]);
 
     return(
-        <div style={{display:"inline-block"}}>
-            <Stage width={320} height={480}>
+            <Stage width={320} height={400}>
             <Layer>
                 <Rect
                     x={64}
@@ -209,7 +208,6 @@ const FarmMonitor = () => {
                 {cropRows}
             </Layer>
             </Stage>
-        </div>
     );
 };
 
