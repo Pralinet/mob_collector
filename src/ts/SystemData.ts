@@ -12,7 +12,6 @@ export type Goods = {
     id: string;
     name: string;
     price: number;
-    //spaces: string[]
     spaces: {room:number, space:number}[]
 };
 
@@ -29,51 +28,60 @@ export type Room = {
     id: string,
     name: string,
     spaces: Space[],
-    food: string[]
+    food_space: FoodSpace;
     stage: {
         origin_x:number;
         origin_y:number;
         x: number;
         y: number;
-    }
+    };
 };
 
 export type Space = {
-    id: string,
+    id: string;
     x: number;
     y: number;
 }
 
+export type FoodSpace = Space & {
+    foods: number[]
+}
+
 export type Mob = {
-    id: string,
-    name: string,
-    goods: number[]
+    id: string;
+    name: string;
+    goods: number[];
+//    foods: number[];
+    present: {
+        id: number;
+        times: number;
+    }[];
     exp: number;
 }
 
 export type Furniture = {
     id: string,
     name: string,
-    space: number
+    space: {room:number, space:number};
 }
 
 export type Recipe = {
     id: string,
     name: string,
-    requirement: {
-        item: number
-        amount: number
-    }
+    price: number
 }
 
 export type Flag = {
     id: string,
-    conditions: [
-        {
-            type: string,
-            id: number
-        },
-    ],
+    conditions: {
+        id: number
+        type: string,
+    }[],
     unlock_type: string,
     unlocks: number[]
+}
+
+export type Item = {
+    id: string,
+    name: string
 }

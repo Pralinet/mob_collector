@@ -1,10 +1,11 @@
 import React, { createContext, useState, useContext } from 'react';
 
-import { UserData, UserGoodsData, UserOreData, UserCropData, UserRoomData, UserSpaceData, UserMobData } from "./ts/UserData";
+import { UserGoodsData, UserOreData, UserCropData, UserRoomData, UserItemData, UserMobData, UserRecipeData } from "./ts/UserData";
 import { calcLotPrice, getIndexes } from "./utils";
 import { initData } from "./parseData";
+import { Furniture } from './ts/SystemData';
 
-const {oreList, cropList, goodsList, roomList, mobList, userData} = initData();
+const {oreList, cropList, goodsList, roomList, mobList, itemList, recipeList, flagList, userData, getList} = initData();
 
 export const getGoodsList = () => {
     return goodsList;
@@ -20,6 +21,12 @@ export const getRoomList = () => {
 }
 export const getMobList = () => {
     return mobList;
+}
+export const getItemList = () => {
+    return itemList;
+}
+export const getRecipeList = () => {
+    return recipeList;
 }
 
 export interface IDataContext {
@@ -38,6 +45,10 @@ export interface IDataContext {
     chooseGoods: (id_room:number, id_space: number, id_goods:number) => void;
     mobs: UserMobData[];
     setMobs: React.Dispatch<React.SetStateAction<UserMobData[]>>;
+    items: UserItemData[];
+    recipes: UserRecipeData[];
+    logs: string[];
+
 
     possibleGoods: number[][][];
 }
@@ -69,12 +80,20 @@ export function DataProvider({ children }: any) {
     const [crops, setCrops] = useState(userData.crops);
     const [rooms, setRooms] = useState(userData.rooms);
     const [mobs, setMobs] = useState(userData.mobs);
+    const [items, setItems] = useState(userData.items);
+    const [recipes, setRecipes] = useState(userData.recipes);
+    const [flags, setFlags] = useState(userData.flags);
     const [possibleMobs, setPossibleMobs] = useState(roomList.map(r => r.spaces.map(s => [] as number[]) ));
     const [possibleGoods, setPossibleGoods] = useState(roomList.map(r => r.spaces.map(s => [] as number[]) ));
+    const [logs, setLogs] = useState([] as string[]);
 
     React.useEffect(() => {
         onTick(time); 
     }, [time]);
+
+    const addLog = (log: string) => {
+        setLogs(logs => [...logs, log]);
+    }
 
     const onTick = (time: number) => {
         CropGrows();
@@ -110,17 +129,17 @@ export function DataProvider({ children }: any) {
                 const pml = possibleMobs[i_r][i_s]
                 if(space.mob >= 0){
                     //既にいる場合
-                    if(Math.random() < 0.9){
+                    if(Math.random() < 0.9){ //0.9
                         //console.log("続投");
                         return space;
                     }else{
                         //一定確率で退場
-                        //console.log("またきてね");
+                        mobPresent(space.mob);
                         return {...space, mob:-1};
                     }
                 }else if(pml.length) {
                     //いない場合、一定確率で選ばれる
-                    const r = Math.floor(Math.random() * (pml.length + 5));
+                    const r = Math.floor(Math.random() * (pml.length + 5)); //+ 5
                     if(r < pml.length){
                         //経験値を貰う
                         //console.log("いらっしゃい");
@@ -133,6 +152,23 @@ export function DataProvider({ children }: any) {
             })}
         })
         );
+    }
+
+    const mobPresent = (mob_id: number) => {
+        //mobがアイテムをくれる
+        const present = mobList[mob_id].present;
+        if(present.length){
+            const p = Math.floor(Math.random() * present.length);
+            const item_id = present[p].id;
+            addLog(mobList[mob_id].name + "に" + itemList[item_id].name + "をもらいました");
+            setItems(items => {
+                return items.map((item, index) => {
+                    return index === item_id ? {...item, stock:(item.stock + 1)} : item;
+                })
+            })
+            //フラグを更新
+            checkFlags(item_id, "item");
+        }
     }
 
     const Buy = (type: string, index: number) => {
@@ -231,6 +267,55 @@ export function DataProvider({ children }: any) {
         console.log(newPgl);
         setPossibleGoods(newPgl);
     } 
+
+    const checkFlags = (index: number, type:string) => {
+        console.log("checkFlags")
+        //フラグが立ったかチェック
+        //フラグリストの中に、同じtypeとidのがあるか確認
+        setFlags(flags => {
+            return flagList.map((flag, i_f) => {
+                let flagChanged = false;
+                const newFlag = {...flags[i_f], conditions:
+                    flag.conditions.map((con, i_c) => {
+                        flagChanged = flagChanged || ((con.type === type && con.id === index) && !flags[i_f].conditions[i_c]);
+                        return (con.type === type && con.id === index) || flags[i_f].conditions[i_c];
+                    })
+                }
+                if(flagChanged && newFlag.conditions.every(c => c)){
+                    const anyList = getList(flag.unlock_type);
+                    flag.unlocks.forEach(unlock => {
+                        addLog(anyList[unlock].name + "がアンロックされました");
+                        //とりあえずなのでベタ書きしちゃう
+                        switch(flag.unlock_type){
+                            case "crop":
+                                setCrops(crops => {
+                                    return crops.map((crop, i) => {
+                                        return i === unlock
+                                        ? {...crop, unlocked:true}
+                                        : crop;
+                                    })
+                                })
+                                break;
+                            case "furniture":
+                            break;
+                            case "recipes":
+                                setRecipes(recipes => {
+                                    return recipes.map((recipe, i) => {
+                                        return i === unlock
+                                        ? {...recipe, unlocked:true}
+                                        : recipe;
+                                    })
+                                })
+                                break;
+                            default:
+                                break;
+                        }
+                    })
+                    return {...newFlag, unlocked: true}
+                }else return {...newFlag};
+            })
+        })
+    }
     
     const value = {
         money,
@@ -248,6 +333,9 @@ export function DataProvider({ children }: any) {
         chooseGoods,
         mobs,
         setMobs,
+        items,
+        recipes,
+        logs,
 
         possibleGoods,
     };

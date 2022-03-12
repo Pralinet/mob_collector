@@ -1,32 +1,32 @@
 [
     {
         "id": "wheat",
-        "name": "小麦",
-        "requirement": {
-            "item": "wheat",
-            "amount": 1
-        }
+        "name": "食べやすい小麦",
+        "price": 1
     },
     {
-        "id": "carrot",
-        "name": "にんじん",
-        "requirement": {
-            "item": "wheat",
-            "amount": 1
-        }
+        "id": "cooked_cod",
+        "name": "焼き鱈",
+        "price": 3
     },
     {
-        "id": "cocked_cod",
-        "requirement": {
-            "item": "money",
-            "amount": 3
-        }
+        "id": "cooked_salmon",
+        "name": "焼き鮭",
+        "price": 5
     },
     {
-        "id": "cocked_salmon",
-        "requirement": {
-            "item": "money",
-            "amount": 5
-        }
+        "id": "cooked_chicken",
+        "name": "焼き鳥",
+        "price": 5
+    },
+    {
+        "id": "squid_ink_pasta",
+        "name": "イカスミパスタ",
+        "price": 15
+    },
+    {
+        "id": "glow_ink_pasta",
+        "name": "発光イカスミパスタ",
+        "price": 30
     }
 ]

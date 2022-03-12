@@ -31,7 +31,7 @@
             },
             {
                 "id": "o_g_terrace" ,
-                "x": 5,
+                "x": 8,
                 "y": 2
             }
         ],
@@ -43,15 +43,20 @@
             },
             {
                 "id": "flowers",
-                "x": 0,
-                "y": 0
+                "x": 2,
+                "y": 5
             }
         ],
-        "food": [
-            "wheat",
-            "cooked_cod",
-            "cooked_chicken"
-        ]
+        "food_space": {
+            "id": "o_g_food",
+            "x": 0,
+            "y": 0,
+            "foods": [
+                "wheat",
+                "cooked_cod",
+                "cooked_chicken"
+            ]
+        }
     },
     {
         "id": "overworld_room",
@@ -89,10 +94,15 @@
                 "y": 9
             }
         ],
-        "food": [
-            "pumpkin_pie",
-            "cookie",
-            "cake"
-        ]
+        "food_space": {
+            "id": "o_r_food",
+            "x": 5,
+            "y": 5,
+            "foods": [
+                "pumpkin_pie",
+                "cookie",
+                "cake"
+            ]
+        }
     }
 ]

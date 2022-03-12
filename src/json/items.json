@@ -1,0 +1,107 @@
+[	
+    {
+		"id":"pollen",
+        "name": "花粉"
+	},
+	{
+		"id":"honeycomb",
+        "name": "ハニカム"
+	},
+	{
+		"id":"feather",
+        "name": "羽根"
+	},
+	{
+		"id":"egg",
+        "name": "卵"
+	},
+	{
+		"id":"wool",
+        "name": "羊毛"
+	},
+	{
+		"id":"leather",
+        "name": "革"
+	},
+	{
+		"id":"rabbit_hide",
+        "name": "ウサギの皮"
+	},
+	{
+		"id":"sweet_berry",
+        "name": "スイートベリー"
+	},
+	{
+		"id":"string",
+        "name": "糸"
+	},
+	{
+		"id":"raw_chicken",
+        "name": "鶏肉"
+	},
+	{
+		"id":"bone",
+        "name": "骨"
+	},
+	{
+		"id":"flower",
+        "name": "花"
+	},
+	{
+		"id":"carrot",
+        "name": "ニンジン"
+	},
+	{
+		"id":"stick",
+        "name": "木の棒"
+	},
+	{
+		"id":"string",
+        "name": "糸"
+	},
+	{
+		"id":"ink_sac",
+        "name": "イカスミ"
+	},
+	{
+		"id":"copper_ingot",
+        "name": "銅インゴット"
+	},
+	{
+		"id":"nautilus_shell",
+        "name": "オウムガイの殻"
+	},
+	{
+		"id":"fishing_rod",
+        "name": "釣り竿"
+	},
+	{
+		"id":"sugar_cane",
+        "name": "サトウキビ"
+	},
+	{
+		"id":"record",
+        "name": "レコード"
+	},
+	{
+		"id":"cray",
+        "name": "粘土"
+	},
+	{
+		"id":"pumpkin",
+        "name": "カボチャ"
+	},
+	{
+		"id":"glow_stone",
+        "name": "グロウストーン"
+	},
+
+	{
+		"id":"gunpowder",
+        "name": "火薬"
+	},
+	{
+		"id":"glass_bottle",
+        "name": "ガラス瓶"
+	}
+]

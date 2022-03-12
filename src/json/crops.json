@@ -54,7 +54,7 @@
         "amount": 4
     },
     {
-        "id": "sweetberry",
+        "id": "sweet_berry",
         "name": "スイートベリー",
         "max_age": 2,
         "tool": "hand",

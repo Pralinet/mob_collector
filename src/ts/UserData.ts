@@ -5,13 +5,22 @@ export type UserData = {
         exp: number,
     },
     goods: UserGoodsData[];
+    furniture: UserFurnitureData[];
     ores: UserOreData[];
     crops: UserCropData[];
     rooms: UserRoomData[];
     mobs: UserMobData[];
+    items: UserItemData[];
+    recipes: UserRecipeData[];
+    flags:UserFlagData[];
 };
 
 export type UserGoodsData = {
+    id: string,
+    is_sold: boolean
+};
+
+export type UserFurnitureData = {
     id: string,
     is_sold: boolean
 };
@@ -46,4 +55,21 @@ export type UserSpaceData = {
 export type UserMobData = {
     id: string,
     visit: number
+};
+
+export type UserItemData = {
+    id: string,
+    stock: number
+};
+
+export type UserRecipeData = {
+    id: string,
+    unlocked: boolean,
+    stock: number
+};
+
+export type UserFlagData = {
+    id: string,
+    conditions:boolean[],
+    unlocked: boolean
 };

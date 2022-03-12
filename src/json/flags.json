@@ -1,6 +1,6 @@
 [
     {
-        "id": "grill",
+        "id": "fishing_rod",
         "conditions": [
             {
                 "type": "item",
@@ -12,6 +12,72 @@
             }
         ],
         "unlock_type": "recipe",
-        "unlocks": ["cooked_cod"]
+        "unlocks": ["cooked_cod", "cooked_salmon"]
+    },
+    {
+        "id": "carrot",
+        "conditions": [
+            {
+                "type": "item",
+                "id": "carrot" 
+            }
+        ],
+        "unlock_type": "crop",
+        "unlocks": ["carrot"]
+    },
+    {
+        "id": "potato",
+        "conditions": [
+            {
+                "type": "item",
+                "id": "potato" 
+            }
+        ],
+        "unlock_type": "crop",
+        "unlocks": ["potato"]
+    },
+    {
+        "id": "sweet_berry",
+        "conditions": [
+            {
+                "type": "item",
+                "id": "sweet_berry" 
+            }
+        ],
+        "unlock_type": "crop",
+        "unlocks": ["sweet_berry"]
+    },
+    {
+        "id": "pumpkin",
+        "conditions": [
+            {
+                "type": "item",
+                "id": "pumpkin" 
+            }
+        ],
+        "unlock_type": "crop",
+        "unlocks": ["pumpkin"]
+    },
+    {
+        "id": "melon",
+        "conditions": [
+            {
+                "type": "item",
+                "id": "melon" 
+            }
+        ],
+        "unlock_type": "crop",
+        "unlocks": ["melon"]
+    },
+    {
+        "id": "flint",
+        "conditions": [
+            {
+                "type": "item",
+                "id": "flint" 
+            }
+        ],
+        "unlock_type": "furniture",
+        "unlocks": ["nether_gate"]
     }
 ]

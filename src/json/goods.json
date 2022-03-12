@@ -54,7 +54,7 @@
     {
         "id": "picnic",
         "name": "ピクニックセット",
-        "price": 30,
+        "price": 100,
     	"spaces":[
 		]
 	},
