@@ -3,8 +3,8 @@
         "id": "overworld_garden",
         "name": "庭先",
         "stage": {
-            "origin_x": 0,
-            "origin_y": 203.5,
+            "origin_x": 270,
+            "origin_y": 1693,
             "x": 0,
             "y": 0
         },

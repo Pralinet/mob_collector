@@ -12,8 +12,8 @@ const roomList = getRoomList();
 const recipeList = getRecipeList();
 const mobList =getMobList();
 
-const cellX:number = 32;
-const cellY:number = 18.5;
+const cellX:number = 64;
+const cellY:number = 37;
 
 const calcXY = (room:Room, space:Space) => {
     const {origin_x, origin_y} = room.stage;
@@ -35,6 +35,9 @@ const stageImages = roomList.map((room) => {
 const RoomMonitor = () => {
     const {money, exp, goods, rooms, mobs, chooseGoods, possibleGoods, recipes} = useDataContext();
     const [menuSpace, setMenuSpace] = useState([-1, -1]);
+    const [scale, setScale] = useState(0.25);
+    const stageRef = useRef(null as any);
+    const layerRef = useRef(null as any);
 
     const handleGoodsChange = (i_r:number, i_s: number, i_g:number)=> {
         chooseGoods(i_r, i_s, i_g);
@@ -72,7 +75,7 @@ const RoomMonitor = () => {
             if(room.unlocked){
                 return (
                     <Group>
-                        <Image image={stageImages[i_r]} />
+                        <Image image={stageImages[i_r]} perfectDrawEnabled={false}/>
                         {
                             rooms[i_r].spaces.map((space, i_s) => {
                                 return (
@@ -144,7 +147,8 @@ const RoomMonitor = () => {
         } else{
             //グッズの設置
             return (
-                <Group ref={dropdownRef} {...calcXY(roomList[i_r], roomList[i_r].spaces[i_s])}>
+                <Group ref={dropdownRef} {...calcXY(roomList[i_r], roomList[i_r].spaces[i_s])}
+                scaleX={1/scale} scaleY={1/scale} >
                     <Rect width={64} height={64} fill="gray"/>
                     <Text y={0}
                         onMouseDown={() => handleGoodsChange(i_r, i_s, -1)} 
@@ -166,13 +170,29 @@ const RoomMonitor = () => {
     };
 
     const FoodDropdown1 = () => {
-        
+
+    }
+
+    const zoomStage = (event:any) => {
+        const newScale = event.evt.deltaY < 0 ? scale * 2 : scale / 2;
+        const newScale2 =  Math.min(Math.max(newScale, 0.125), 1)
+        if (layerRef.current !== null && stageRef.current !== null) {
+            const layer = layerRef.current;
+            const stage = stageRef.current;
+            const { x: pointerX, y: pointerY } = stage.getPointerPosition();
+            const newPos = {
+                x: layer.x() + (pointerX - layer.x()) * (scale - newScale2)/scale,
+                y: layer.y() + (pointerY - layer.y()) * (scale - newScale2)/scale,
+            }
+            layer.position(newPos);
+        }
+        setScale(newScale2);
     }
 
     return(
         <div style={{display:"inline-block"}}>
-            <Stage width={640} height={480} >
-                <Layer draggable={true}>
+            <Stage width={640} height={480} onWheel={zoomStage} ref={stageRef}>
+                <Layer draggable={true} scaleX={scale} scaleY={scale} ref={layerRef}>
                     {RoomImage}
                     {SpaceDropdown()}
                 </Layer>
