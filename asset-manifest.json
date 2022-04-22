@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/Mob_collector_trial/static/css/main.224004fd.css",
+    "main.js": "/Mob_collector_trial/static/js/main.83050eb7.js",
+    "static/js/787.2ce0ee97.chunk.js": "/Mob_collector_trial/static/js/787.2ce0ee97.chunk.js",
+    "static/media/PixelMplus12-Regular.ttf": "/Mob_collector_trial/static/media/PixelMplus12-Regular.35b3b952cc971da434eb.ttf",
+    "static/media/shop.png": "/Mob_collector_trial/static/media/shop.7ab02e122617dcc0cca8.png",
+    "static/media/food.png": "/Mob_collector_trial/static/media/food.2c86b2b7038cb12aef2e.png",
+    "static/media/items.png": "/Mob_collector_trial/static/media/items.85604048d00750cde2c3.png",
+    "static/media/right_menu.png": "/Mob_collector_trial/static/media/right_menu.8335c440d235a623cba7.png",
+    "static/media/crops.png": "/Mob_collector_trial/static/media/crops.6aa90887a6a25216d176.png",
+    "static/media/map.png": "/Mob_collector_trial/static/media/map.8f8de76bf56db50a4768.png",
+    "static/media/tools.png": "/Mob_collector_trial/static/media/tools.b596102a48f4f3a978e9.png",
+    "static/media/ores.png": "/Mob_collector_trial/static/media/ores.67c605491a786558d255.png",
+    "static/media/sign2.png": "/Mob_collector_trial/static/media/sign2.0f00cb467cb9c9c84b09.png",
+    "static/media/crops32.png": "/Mob_collector_trial/static/media/crops32.51f9d7267431a5316fe5.png",
+    "index.html": "/Mob_collector_trial/index.html",
+    "main.224004fd.css.map": "/Mob_collector_trial/static/css/main.224004fd.css.map",
+    "main.83050eb7.js.map": "/Mob_collector_trial/static/js/main.83050eb7.js.map",
+    "787.2ce0ee97.chunk.js.map": "/Mob_collector_trial/static/js/787.2ce0ee97.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.224004fd.css",
+    "static/js/main.83050eb7.js"
+  ]
+}
