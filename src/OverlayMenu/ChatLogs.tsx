@@ -1,12 +1,13 @@
 import React, { useState, useMemo } from "react";
-import { useDataContext } from '../DataContext';
+import { useDataContext } from '../Contexts/DataContext';
 
+import './OverlayMenu.css';
 
 const ChatLogs = () => {
     const { logs } = useDataContext();
 
     return (
-    <div  style={{width: 120, height: 120, position:"absolute", overflowY:"scroll"}}>
+    <div className="log-display" >
         <div>
         {
             logs.slice(-10).map((log, index) => {

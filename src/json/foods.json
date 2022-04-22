@@ -1,0 +1,152 @@
+[
+    {
+        "id": "edible_wheat",
+        "name": "食用小麦",
+		"desc": "主に草食動物が食べます",
+        "image": [0, 0],
+        "craft": {
+			"materials": [
+				{
+					"item": "wheat",
+					"requirement": 1
+				}
+			],
+			"number": 1
+		},
+		"shop": null
+    },
+    {
+        "id": "cooked_cod",
+        "name": "焼き鱈",
+		"desc": "",
+        "image": [1, 0],
+        "craft": {
+			"materials": [
+				{
+					"item": "raw_cod",
+					"requirement": 8
+				},
+				{
+					"item": "coal",
+					"requirement": 1
+				}
+			],
+			"number": 8
+		},
+		"shop": null
+    },
+    {
+        "id": "cooked_chicken",
+        "name": "焼き鳥",
+        "image": [3, 0],
+        "craft": null,
+		"shop": {
+			"money": 10,
+			"items": [],
+			"number": 5
+		}
+    },
+    {
+        "id": "pumpkin_pie",
+        "name": "パンプキンパイ",
+        "image": [0, 1],
+        "craft": {
+			"materials": [
+				{
+					"item": "sugar",
+					"requirement": 1
+				},
+				{
+					"item": "pumpkin",
+					"requirement": 1
+				},
+				{
+					"item": "egg",
+					"requirement": 1
+				}
+			],
+			"number": 1
+		},
+		"shop": null
+    },
+    {
+        "id": "baked_potato",
+        "name": "ベイクドポテト",
+        "image": [1, 1],
+        "craft": {
+			"materials": [
+				{
+					"item": "potato",
+					"requirement": 8
+				},
+				{
+					"item": "coal",
+					"requirement": 1
+				}
+			],
+			"number": 8
+		},
+		"shop": null
+    },
+    {
+        "id": "salad",
+        "name": "サラダ",
+        "image": [2, 0],
+        "craft": {
+			"materials": [
+				{
+					"item": "carrot",
+					"requirement": 2
+				},
+				{
+					"item": "beetroot",
+					"requirement": 2
+				},
+				{
+					"item": "flower",
+					"requirement": 1
+				}
+			],
+			"number": 1
+		},
+		"shop": null
+    },
+    {
+        "id": "squid_ink_pasta",
+        "name": "イカスミパスタ",
+        "image": [2, 1],
+        "craft": {
+			"materials": [
+				{
+					"item": "wheat",
+					"requirement": 3
+				},
+				{
+					"item": "squid_inc",
+					"requirement": 1
+				}
+			],
+			"number": 1
+		},
+		"shop": null
+    },
+    {
+        "id": "glow_ink_pasta",
+        "name": "輝くイカスミパスタ",
+        "image": [3, 1],
+        "craft": {
+			"materials": [
+				{
+					"item": "wheat",
+					"requirement": 3
+				},
+				{
+					"item": "glow_squid_inc",
+					"requirement": 1
+				}
+			],
+			"number": 1
+		},
+		"shop": null
+    }
+]

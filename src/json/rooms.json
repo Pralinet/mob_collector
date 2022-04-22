@@ -21,7 +21,7 @@
             },
             {
                 "id": "o_g_ground1",
-                "x": 5,
+                "x": 12,
                 "y": 5
             },
             {
@@ -33,29 +33,50 @@
                 "id": "o_g_terrace" ,
                 "x": 8,
                 "y": 2
-            }
-        ],
-        "furniture_space": [
+            },
             {
-                "id": "bbq",
+                "id": "o_g_bbq",
                 "x": 0,
                 "y": 0
             },
             {
-                "id": "flowers",
+                "id": "o_g_flowers",
                 "x": 2,
                 "y": 5
+            },
+            {
+                "id": "o_g_pond",
+                "x": 2,
+                "y": 15
+            }
+        ],
+        "merged_spaces": [
+            {
+                "id": "o_g_picnic",
+                "spaces": ["o_g_bbq", "o_g_ground1", "o_g_ground2"],
+                "x": 0,
+                "y": 0
+            },
+            {
+                "id": "o_g_badminton",
+                "spaces": ["o_g_ground1", "o_g_ground2"],
+                "x": 0,
+                "y": 0
             }
         ],
         "food_space": {
             "id": "o_g_food",
-            "x": 0,
+            "x": 18,
             "y": 0,
             "foods": [
                 "wheat",
                 "cooked_cod",
                 "cooked_chicken"
             ]
+        },
+        "unlock":{
+            "money": 0,
+            "items": []
         }
     },
     {
@@ -94,6 +115,7 @@
                 "y": 9
             }
         ],
+        "merged_spaces": [],
         "food_space": {
             "id": "o_r_food",
             "x": 5,
@@ -103,6 +125,10 @@
                 "cookie",
                 "cake"
             ]
+        },
+        "unlock":{
+            "money": 1000,
+            "items": ["compass"]
         }
     }
 ]

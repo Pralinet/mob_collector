@@ -4,48 +4,60 @@
         "name": "石",
         "odds": 1,
         "drop": 1,
-        "amount": 30,
-        "sellable": true
+        "requirement": 30,
+        "sellable": true,
+        "upgradable": [],
+        "minable": ["stone", "iron", "gold", "diamond", "netherite"]
     },
     {
         "id": "coal",
         "name": "石炭",
         "odds": 0.1,
         "drop": 6,
-        "amount": 10,
-        "sellable": true
+        "requirement": 10,
+        "sellable": true,
+        "upgradable": [],
+        "minable": ["stone", "iron", "gold", "diamond", "netherite"]
     },
     {
         "id": "iron",
         "name": "鉄",
         "odds": 0.01,
         "drop": 3,
-        "amount": 4,
-        "sellable": true
+        "requirement": 4,
+        "sellable": true,
+        "upgradable": ["stone"],
+        "minable": ["stone", "iron", "diamond", "netherite"]
     },
     {
         "id": "gold",
         "name": "金",
         "odds": 0.005,
         "drop": 2,
-        "amount": 4,
-        "sellable": true
+        "requirement": 4,
+        "sellable": true,
+        "upgradable": ["stone", "iron"],
+        "minable": ["iron", "gold", "diamond", "netherite"]
     },
     {
         "id": "diamond",
         "name": "ダイヤモンド",
         "odds": 0.001,
         "drop": 1.5,
-        "amount": 1,
-        "sellable": true
+        "requirement": 1,
+        "sellable": true,
+        "upgradable": ["stone", "iron", "gold"],
+        "minable": ["iron", "diamond", "netherite"]
     },
     {
         "id": "redstone",
         "name": "レッドストーン",
         "odds": 0.005,
         "drop": 15,
-        "amount": 0,
-        "sellable": false
+        "requirement": 0,
+        "sellable": false,
+        "upgradable": [],
+        "minable": ["iron", "gold", "diamond", "netherite"]
     }
 
 ]

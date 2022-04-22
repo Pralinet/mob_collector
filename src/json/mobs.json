@@ -2,16 +2,17 @@
     {
         "id": "bee",
         "name": "ハチ",
-        "goods": ["flowers"],
+        "goods": [
+            {
+                "id": "flowers",
+                "rating": 0.25
+            }
+        ],
         "foods": [],
         "present": [
             {
                 "id": "pollen",
-                "times": -1
-            },
-            {
-                "id": "honeycomb",
-                "times": 1
+                "threshold": 1
             }
         ],
         "exp": 0
@@ -19,20 +20,34 @@
     {
         "id": "chicken",
         "name": "ニワトリ",
-        "goods": ["flowers"],
-        "foods": ["wheat"],
+        "goods": [
+            {
+                "id": "puff_ball",
+                "rating": 0.05
+            }
+        ],
+        "foods": [
+            {
+                "id": "edible_wheat",
+                "rating": 0.2
+            },
+            {
+                "id": "cooked_cod",
+                "rating": 0.5
+            },
+            {
+                "id": "salad",
+                "rating": 0.3
+            }
+        ],
         "present": [
             {
                 "id": "feather",
-                "times": -1
+                "threshold": 0.5
             },
             {
                 "id": "egg",
-                "times": 1
-            },
-            {
-                "id": "sweet_berry",
-                "times": 1
+                "threshold": 0.5
             }
         ],
         "exp": 5
@@ -40,34 +55,61 @@
     {
         "id": "sheep",
         "name": "ヒツジ",
-        "goods": ["mushroom_parasol"],
-        "foods": ["wheat"],
+        "goods": [
+            {
+                "id": "puff_ball",
+                "rating": 0.05
+            }
+        ],
+        "foods": [
+            {
+                "id": "edible_wheat",
+                "rating": 0.2
+            },
+            {
+                "id": "salad",
+                "rating": 0.5
+            }
+        ],
         "present": [
             {
                 "id": "wool",
-                "times": -1
+                "threshold": 5
             }
         ],
-        "gift": null,
         "exp": 5
     },
     {
         "id": "fox",
         "name": "キツネ",
-        "goods": ["mushroom_parasol"],
-        "foods": ["wheat", "cooked_chicken"],
+        "goods": [
+            {
+                "id": "mushroom_parasol",
+                "rating": 0.25
+            }
+        ],
+        "foods": [
+            {
+                "id": "edible_wheat",
+                "rating": 0.2
+            },
+            {
+                "id": "cooked_chicken",
+                "rating": 0.5
+            }
+        ],
         "present": [
             {
                 "id": "leather",
-                "times": -1
+                "threshold": 1
             },
             {
                 "id": "rabbit_hide",
-                "times": -1
+                "threshold": 0.5
             },
             {
                 "id": "sweet_berry",
-                "times": 1
+                "threshold": 5
             }
         ],
         "exp": 5
@@ -75,20 +117,38 @@
     {
         "id": "cat",
         "name": "ネコ",
-        "goods": ["balloon_bee", "balloon_squid", "balloon_ghast", "lush_hammock"],
-        "foods": ["cooked_cod", "cooked_salmon"],
+        "goods": [
+            {
+                "id": "balloon_bee",
+                "rating": 0.4
+            },
+            {
+                "id": "balloon_ghast",
+                "rating": 0.7
+            },
+            {
+                "id": "lush_hammock",
+                "rating": 0.1
+            }
+        ],
+        "foods": [
+            {
+                "id": "cooked_cod",
+                "rating": 0.4
+            },
+            {
+                "id": "cooked_chicken",
+                "rating": 0.2
+            }
+        ],
         "present": [
             {
                 "id": "string",
-                "times": -1
+                "threshold": 1
             },
             {
                 "id": "rabbit_hide",
-                "times": -1
-            },
-            {
-                "id": "raw_chicken",
-                "times": 1
+                "threshold": 1
             }
         ],
         "exp": 5
@@ -96,33 +156,96 @@
     {
         "id": "wolf",
         "name": "オオカミ",
-        "goods": [],
-        "foods": ["cooked_chicken"],
+        "goods": [
+            {
+                "id": "puff_ball",
+                "rating": 0.3
+            }
+        ],
+        "foods": [
+            {
+                "id": "cooked_chicken",
+                "rating": 0.6
+            }
+        ],
         "present": [
             {
                 "id": "bone",
-                "times": -1
+                "threshold": 1
             },
             {
                 "id": "wool",
-                "times": -1
+                "threshold": 1
             }
         ],
-        "gift": null,
         "exp": 5
     },
     {
         "id": "zombie",
         "name": "ゾンビ",
-        "goods": ["lush_hammock", "warped_swing"],
+        "goods": [
+            {
+                "id": "lush_hammock",
+                "rating": 0.3
+            },
+            {
+                "id": "warped_swing",
+                "rating": 0.5
+            },
+            {
+                "id": "puff_ball",
+                "rating": 0.1
+            }
+        ],
+        "foods": [
+            {
+                "id": "cooked_chicken",
+                "rating": 0.5
+            },
+            {
+                "id": "baked_potato",
+                "rating": 0.2
+            }
+        ],
         "present": [
             {
-                "id": "flower",
-                "times": -1
+                "id": "sapling",
+                "threshold": 1
             },
             {
                 "id": "carrot",
-                "times": 1
+                "threshold": 5
+            }
+        ],
+        "exp": 10
+    },
+    {
+        "id": "husk",
+        "name": "ハスク",
+        "goods": [
+            {
+                "id": "minecart",
+                "rating": 0.5
+            }
+        ],
+        "foods": [
+            {
+                "id": "cooked_chicken",
+                "rating": 0.5
+            },
+            {
+                "id": "baked_potato",
+                "rating": 0.2
+            }
+        ],
+        "present": [
+            {
+                "id": "sapling",
+                "threshold": 1
+            },
+            {
+                "id": "potato",
+                "threshold": 5
             }
         ],
         "exp": 10
@@ -130,40 +253,77 @@
     {
         "id": "skeleton",
         "name": "スケルトン",
-        "goods": ["lush_hammock", "warped_swing"],
+        "goods": [
+            {
+                "id": "lush_hammock",
+                "rating": 0.1
+            },
+            {
+                "id": "darts",
+                "rating": 0.6
+            },
+            {
+                "id": "puff_ball",
+                "rating": 0.1
+            }
+        ],
+        "foods": [
+            {
+                "id": "cooked_chicken",
+                "rating": 0.25
+            },
+            {
+                "id": "baked_potato",
+                "rating": 0.25
+            }
+        ],
         "present": [
             {
                 "id": "stick",
-                "times": -1
+                "threshold": 1
             },
             {
                 "id": "string",
-                "times": -1
+                "threshold": 1
+            },
+            {
+                "id": "flint",
+                "threshold": 5
             }
         ],
-        "gift": "flint",
         "exp": 10
     },
     {
         "id": "drowned",
         "name": "ドラウンド",
-        "goods": ["lush_hammock", "warped_swing"],
+        "goods": [
+            {
+                "id": "puff_ball",
+                "rating": 0.5
+            }
+        ],
+        "foods": [
+            {
+                "id": "cooked_chicken",
+                "rating": 0.5
+            },
+            {
+                "id": "baked_potato",
+                "rating": 0.2
+            }
+        ],
         "present": [
             {
                 "id": "ink_sac",
-                "times": -1
+                "threshold": 1
             },
             {
                 "id": "copper_ingot",
-                "times": 1
+                "threshold": 5
             },
             {
                 "id": "nautilus_shell",
-                "times": 1
-            },
-            {
-                "id": "fishing_rod",
-                "times": 1
+                "threshold": 7
             }
         ],
         "exp": 10
@@ -171,15 +331,38 @@
     {
         "id": "creeper",
         "name": "クリーパー",
-        "goods": ["minecart", "lush_hammock"],
+        "goods": [
+            {
+                "id": "minecart",
+                "rating": 0.3
+            },
+            {
+                "id": "lush_hammock",
+                "rating": 0.3
+            }
+        ],
+        "foods": [
+            {
+                "id": "salad",
+                "rating": 0.2
+            },
+            {
+                "id": "pumpkin_pie",
+                "rating": 0.8
+            },
+            {
+                "id": "pork_saute",
+                "rating": 0.5
+            }
+        ],
         "present": [
             {
                 "id": "sugar_cane",
-                "times": 1
+                "threshold": 1
             },
             {
                 "id": "record",
-                "times": 1
+                "threshold": 10
             }
         ],
         "exp": 10
@@ -187,19 +370,50 @@
     {
         "id": "enderman",
         "name": "エンダーマン",
-        "goods": ["minecart", "lush_hammock"],
+        "goods": [
+            {
+                "id": "minecart",
+                "rating": 0.2
+            },
+            {
+                "id": "block_plush",
+                "rating": 0.8
+            },
+            {
+                "id": "lush_hammock",
+                "rating": 0.2
+            },
+            {
+                "id": "ballon_ghast",
+                "rating": 0.2
+            }
+        ],
+        "foods": [
+            {
+                "id": "pumpkin_pie",
+                "rating": 0.7
+            },
+            {
+                "id": "squid_ink_pasta",
+                "rating": 0.3
+            }
+        ],
         "present": [
             {
                 "id": "cray",
-                "times": 1
+                "threshold": 5
             },
             {
                 "id": "flower",
-                "times": -1
+                "threshold": 1
             },
             {
                 "id": "pumpkin",
-                "times": 1
+                "threshold": 8
+            },
+            {
+                "id": "melon",
+                "threshold": 10
             }
         ],
         "exp": 10
@@ -207,15 +421,26 @@
     {
         "id": "slime",
         "name": "スライム",
-        "goods": ["minecart", "lush_hammock"],
+        "goods": [
+            {
+                "id": "minecart",
+                "rating": 0.4
+            },
+            {
+                "id": "block_plush",
+                "rating": 0.1
+            }
+        ],
+        "foods": [
+        ],
         "present":[
             {
                 "id": "flower",
-                "times": -1
+                "threshold": 1
             },
             {
                 "id": "sugar_cane",
-                "times": -1
+                "threshold": 1
             }
         ],
         "exp": 5
@@ -223,19 +448,46 @@
     {
         "id": "witch",
         "name": "ウィッチ",
-        "goods": ["bookshelf"],
+        "goods": [
+            {
+                "id": "bookshelf",
+                "rating": 0.5
+            }
+        ],
+        "foods": [
+            {
+                "id": "salad",
+                "rating": 0.3
+            },
+            {
+                "id": "pumpkin_pie",
+                "rating": 0.3
+            },
+            {
+                "id": "squid_ink_pasta",
+                "rating": 0.3
+            },
+            {
+                "id": "glow_ink_pasta",
+                "rating": 0.8
+            }
+        ],
         "present":[
             {
-                "id": "glow_stone",
-                "times": -1
+                "id": "stick",
+                "threshold": 1
+            },
+            {
+                "id": "redstone",
+                "threshold": 1
             },
             {
                 "id": "gunpowder",
-                "times": -1
+                "threshold": 1
             },
             {
-                "id": "glass_bottle",
-                "times": 1
+                "id": "sugar",
+                "threshold": 1
             }
         ],
         "exp": 10
@@ -243,8 +495,43 @@
     {
         "id": "villager",
         "name": "村人",
-        "goods": ["flowers", "warped_swing", "lush_hammock"],
+        "goods": [
+            {
+                "id": "flowers",
+                "rating": 0.05
+            },
+            {
+                "id": "lush_hammock",
+                "rating": 0.3
+            }
+        ],
+        "foods": [
+            {
+                "id": "baked_potato",
+                "rating": 0.3
+            },
+            {
+                "id": "pumpkin_pie",
+                "rating": 0.3
+            },
+            {
+                "id": "squid_ink_pasta",
+                "rating": 0.3
+            },
+            {
+                "id": "glow_ink_pasta",
+                "rating": 0.3
+            }
+        ],
         "present": [],
         "exp": 30
+    },
+    {
+        "id": "zombie_piglin",
+        "name": "ゾンビピグリン",
+        "goods": [],
+        "foods": [],
+        "present": [],
+        "exp": 10
     }
 ]

@@ -1,107 +1,323 @@
 [	
     {
 		"id":"pollen",
-        "name": "花粉"
+        "name": "花粉",
+		"image": [0, 0],
+		"craft": null,
+		"shop": null
 	},
 	{
 		"id":"honeycomb",
-        "name": "ハニカム"
+        "name": "ハニカム",
+		"image": [1, 0],
+		"craft": null,
+		"shop": null
 	},
 	{
 		"id":"feather",
-        "name": "羽根"
+        "name": "羽根",
+		"image": [2, 0],
+		"craft": null,
+		"shop": null
 	},
 	{
 		"id":"egg",
-        "name": "卵"
+        "name": "卵",
+		"image": [3, 0],
+		"craft": null,
+		"shop": null
 	},
 	{
 		"id":"wool",
-        "name": "羊毛"
+        "name": "羊毛",
+		"image": [4, 0],
+		"craft": {
+			"materials": [
+				{
+					"item": "string",
+					"requirement": 9
+				}
+			],
+			"number": 1
+		},
+		"shop": null
 	},
 	{
 		"id":"leather",
-        "name": "革"
+        "name": "革",
+		"image": [5, 0],
+		"craft": {
+			"materials": [
+				{
+					"item": "rabbit_hide",
+					"type": "item",
+					"requirement": 9
+				}
+			],
+			"number": 1
+		},
+		"shop": null
 	},
 	{
 		"id":"rabbit_hide",
-        "name": "ウサギの皮"
-	},
-	{
-		"id":"sweet_berry",
-        "name": "スイートベリー"
+        "name": "ウサギの皮",
+		"image": [6, 0],
+		"craft": null,
+		"shop": null
 	},
 	{
 		"id":"string",
-        "name": "糸"
-	},
-	{
-		"id":"raw_chicken",
-        "name": "鶏肉"
+        "name": "糸",
+		"image": [0, 1],
+		"craft": null,
+		"shop": null
 	},
 	{
 		"id":"bone",
-        "name": "骨"
+        "name": "骨",
+		"image": [2, 1],
+		"craft": null,
+		"shop": null
+	},
+	{
+		"id":"bone_meal",
+        "name": "骨粉",
+		"image": [4, 1],
+		"craft": {
+			"materials": [
+				{
+					"item": "bone",
+					"requirement": 1
+				}
+			],
+			"number": 3
+		},
+		"shop": null
 	},
 	{
 		"id":"flower",
-        "name": "花"
-	},
-	{
-		"id":"carrot",
-        "name": "ニンジン"
+        "name": "花",
+		"image": [3, 1],
+		"craft": null,
+		"shop": null
 	},
 	{
 		"id":"stick",
-        "name": "木の棒"
+        "name": "木の棒",
+		"image": [5, 1],
+		"craft": {
+			"materials": [
+				{
+					"item": "planks",
+					"requirement": 2
+				}
+			],
+			"number": 4
+		},
+		"shop": null
 	},
 	{
-		"id":"string",
-        "name": "糸"
+		"id":"planks",
+        "name": "木材",
+		"image": [7, 0],
+		"craft": {
+			"materials": [
+				{
+					"item": "sapling",
+					"requirement": 1
+				},
+				{
+					"item": "bone_meal",
+					"requirement": 1
+				}
+			],
+			"number": 10
+		},
+		"shop": null
 	},
 	{
 		"id":"ink_sac",
-        "name": "イカスミ"
+        "name": "イカスミ",
+		"image": [6, 1],
+		"craft": null,
+		"shop": null
+	},
+	{
+		"id":"ink_sac",
+        "name": "輝くイカスミ",
+		"image": [7, 1],
+		"craft": null,
+		"shop": null
 	},
 	{
 		"id":"copper_ingot",
-        "name": "銅インゴット"
+        "name": "銅インゴット",
+		"image": [0, 2],
+		"craft": null,
+		"shop": null
 	},
 	{
 		"id":"nautilus_shell",
-        "name": "オウムガイの殻"
+        "name": "オウムガイの殻",
+		"image": [1, 2],
+		"craft": null,
+		"shop": null
 	},
 	{
 		"id":"fishing_rod",
-        "name": "釣り竿"
+        "name": "釣り竿",
+		"image": [2, 2],
+		"craft": {
+			"materials": [
+				{
+					"item": "stick",
+					"requirement": 3
+				},
+				{
+					"item": "string",
+					"requirement": 2
+				}
+			],
+			"number": 1
+		},
+		"shop": null
+	},
+	{
+		"id":"raw_cod",
+        "name": "鱈",
+		"image": [1, 1],
+		"craft": null,
+		"shop": {
+			"money": 10,
+			"items": [
+                {
+                    "item": "fishing_rod",
+                    "requirement": 1
+                }
+            ],
+			"number": 8
+		}
 	},
 	{
 		"id":"sugar_cane",
-        "name": "サトウキビ"
+        "name": "サトウキビ",
+		"image": [3, 2],
+		"craft": {
+			"materials": [
+				{
+					"item": "sugar_cane",
+					"requirement": 1
+				},
+				{
+					"item": "bone_meal",
+					"requirement": 1
+				}
+			],
+			"number": 2
+		},
+		"shop": null
 	},
 	{
 		"id":"record",
-        "name": "レコード"
+        "name": "レコード",
+		"image": [4, 2],
+		"craft": null,
+		"shop": null
 	},
 	{
 		"id":"cray",
-        "name": "粘土"
+        "name": "粘土",
+		"image": [5, 2],
+		"craft": null,
+		"shop": null
 	},
-	{
-		"id":"pumpkin",
-        "name": "カボチャ"
-	},
-	{
-		"id":"glow_stone",
-        "name": "グロウストーン"
-	},
-
 	{
 		"id":"gunpowder",
-        "name": "火薬"
+        "name": "火薬",
+		"image": [7, 2],
+		"craft": null,
+		"shop": null
 	},
 	{
-		"id":"glass_bottle",
-        "name": "ガラス瓶"
+		"id":"sugar",
+        "name": "砂糖",
+		"image": [6, 2],
+		"craft": {
+			"materials": [
+				{
+					"item": "sugar_cane",
+					"requirement": 1
+				}
+			],
+			"number": 1
+		},
+		"shop": null
+	},
+	{
+		"id":"paper",
+        "name": "紙",
+		"image": [1, 3],
+		"craft": {
+			"materials": [
+				{
+					"item": "sugar_cane",
+					"requirement": 3
+				}
+			],
+			"number": 3
+		},
+		"shop": null
+	},
+	{
+		"id":"book",
+        "name": "本",
+		"image": [2, 3],
+		"craft": {
+			"materials": [
+				{
+					"item": "paper",
+					"requirement": 3
+				},
+				{
+					"item": "leather",
+					"requirement": 1
+				}
+			],
+			"number": 1
+		},
+		"shop": null
+	},
+	{
+		"id":"compass",
+        "name": "コンパス",
+		"image": [3, 3],
+		"craft": {
+			"materials": [
+				{
+					"item": "iron",
+					"requirement": 4
+				},
+				{
+					"item": "redstone",
+					"requirement": 1
+				}
+			],
+			"number": 3
+		},
+		"shop": null
+	},
+	{
+		"id":"sapling",
+        "name": "苗木",
+		"image": [4, 3],
+		"craft": null,
+		"shop": null
+	},
+	{
+		"id":"flint",
+        "name": "火打石",
+		"image": [5, 3],
+		"craft": null,
+		"shop": null
 	}
 ]

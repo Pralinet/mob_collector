@@ -1,13 +1,28 @@
 {
     "player": {
         "name": "プレイヤー",
-        "money": 10,
-        "exp": 0
+        "money": 0,
+        "exp": {
+            "exp":  0,
+            "lv": 0,
+            "nextExp": 10
+        },
+        "pickaxe": {
+            "material": 0,
+            "durability": 131,
+            "time": 600,
+            "enchant": {
+                "unbreaking": 0,
+                "efficiency": 0,
+                "fortune": 0,
+                "mending": 0
+            }
+        }
     },
     "goods": [
         {
             "id": "default",
-            "is_sold": false
+            "stock": 0
         }
     ],
     "ores": [
@@ -36,12 +51,12 @@
         {
             "id": "default",
             "unlocked": false,
-            "foods": []
+            "foods": [null, null, null]
         },
         {
             "id": "overworld_garden",
             "unlocked": true,
-            "foods": []
+            "foods": [null, null, null]
         }
     ],
     "spaces":[
@@ -54,24 +69,20 @@
     "mobs":[
         {
             "id": "default",
-            "visit": 0
+            "stamina": 10,
+            "hunger": 3,
+            "visiting": false,
+            "satisfaction": 0
         }
     ],
-    "furniture":[
-        {
-            "id": "default",
-            "unlocked": false,
-            "is_sold": false
-        }
-    ],
-    "recipes":[
+    "foods":[
         {
             "id": "default",
             "unlocked": false,
             "stock": 0
         },
         {
-            "id": "wheat",
+            "id": "edible_wheat",
             "unlocked": true,
             "stock": 0
         }

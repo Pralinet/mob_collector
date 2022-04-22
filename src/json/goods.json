@@ -1,139 +1,417 @@
 [
     {
         "id": "flowers",
-        "name": "お花セット",
-        "price": 5,
-        "spaces": [
-            "o_g_ground1",
-            "o_g_ground2"
-        ]
+        "name": "花壇の花",
+        "desc": "ハチが来て花粉を落としてくれます",
+        "spaces": ["o_g_flower"],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+		"craft": {
+			"materials": [
+				{
+					"item": "flower",
+					"requirement": 10
+				}
+			],
+			"number": 1
+		},
+		"shop": null,
+        "removable": false
 	},
+    {
+        "id": "bbq_grill",
+        "name": "BBQグリル",
+        "desc": "mobが好き勝手に物を焼きます",
+        "spaces": ["o_g_bbq"],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+		"craft": null,
+		"shop": {
+			"money": 100,
+			"items": [],
+			"number": 1
+		},
+        "removable": false
+    },
     {
         "id": "mushroom_parasol",
         "name": "きのこのパラソル",
-        "price": 150,
+        "desc": "テーブルに日陰ができます",
         "spaces": [
             "o_g_bench"
-        ]
+        ],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "craft": null,
+		"shop": {
+			"money": 150,
+			"items": [],
+			"number": 1
+		},
+        "removable": true
 	},
     {
         "id": "glow_squid_lamp",
         "name": "光るイカランプ",
         "price": 50,
     	"spaces":[
-		]
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "craft": null,
+		"shop": {
+			"money": 150,
+			"items": [],
+			"number": 1
+		},
+        "removable": true
 	},
     {
         "id": "slime_sofa",
         "name": "mobをダメにするスライム",
-        "price": 100,
     	"spaces":[
-		]
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "craft": null,
+		"shop": {
+			"money": 300,
+			"items": [],
+			"number": 1
+		},
+        "removable": true
 	},
     {
         "id": "balloon_ghast",
         "name": "ガスト風船",
-        "price": 40,
     	"spaces":[
-		]
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "craft": null,
+		"shop": {
+			"money": 120,
+			"items": [],
+			"number": 1
+		},
+        "removable": true
 	},
     {
         "id": "balloon_bee",
         "name": "ハチ風船",
-        "price": 20,
     	"spaces":[
-		]
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "craft": null,
+		"shop": {
+			"money": 60,
+			"items": [],
+			"number": 1
+		},
+        "removable": true
 	},
     {
         "id": "badminton",
         "name": "イカミントン",
-        "price": 30,
     	"spaces":[
-		]
+            "o_g_badminton"
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "craft": null,
+		"shop": {
+			"money": 300,
+			"items": [],
+			"number": 1
+		},
+        "removable": true
 	},
     {
         "id": "picnic",
         "name": "ピクニックセット",
-        "price": 100,
     	"spaces":[
-		]
+            "o_g_picnic"
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "craft": null,
+		"shop": {
+			"money": 500,
+			"items": [],
+			"number": 1
+		},
+        "removable": true
 	},
     {
         "id": "telescope",
         "name": "望遠鏡",
         "price": 200,
     	"spaces":[
-		]
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "craft": {
+			"materials": [
+				{
+					"item": "copper_ingot",
+					"requirement": 2
+				},
+                {
+					"item": "amethyst_shard",
+					"requirement": 1
+				},
+                {
+					"item": "stick",
+					"requirement": 3
+                }
+			],
+			"number": 1
+		},
+		"shop": null,
+        "removable": false
 	},
     {
         "id": "obsidian_puzzle",
         "name": "黒曜石パズル",
-        "price": 60,
     	"spaces":[
-		]
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "craft": null,
+		"shop": {
+			"money": 600,
+			"items": [],
+			"number": 1
+		},
+        "removable": true
 	},
     {
         "id": "lava_lamp",
         "name": "マグマランプ",
         "price": 60,
     	"spaces":[
-		]
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "removable": true
 	},
     {
         "id": "jukebox",
         "name": "ジュークボックス",
         "price": 150,
     	"spaces":[
-		]
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "craft": {
+			"materials": [
+                {
+                    "item": "plank",
+                    "requirement": 8
+                },
+                {
+                    "item": "diamond",
+                    "requirement": 1 
+                },
+                {
+                    "item": "record",
+                    "requirement": 3 
+                }
+            ],
+            "number": 1
+		},
+		"shop": null,
+        "removable": true
 	},
     {
         "id": "note_block_drums",
         "name": "音ブロックドラム",
-        "price": 300,
     	"spaces":[
-		]
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "craft": null,
+		"shop": {
+			"money": 400,
+			"items": [
+                {
+                    "item": "stick",
+                    "requirement": 2
+                }
+            ],
+			"number": 1
+		},
+        "removable": true
 	},
     {
         "id": "bookshelf",
         "name": "本棚",
-        "price": 100,
     	"spaces":[
-		]
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "craft": null,
+		"shop": {
+			"money": 100,
+			"items": [
+                {
+                    "item": "book",
+                    "requirement": 10
+                }
+            ],
+			"number": 1
+		},
+        "removable": true
 	},
     {
         "id": "brick_jenga",
         "name": "レンガのジェンガ",
-        "price": 70,
     	"spaces":[
-		]
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "craft": null,
+		"shop": {
+			"money": 140,
+			"items": [],
+			"number": 1
+		},
+        "removable": true
 	},
     {
         "id": "skeleton_kit",
         "name": "スケルトン組み立てキット",
-        "price": 120,
     	"spaces":[
-		]
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+		"craft": {
+			"materials": [
+				{
+					"item": "bone",
+					"requirement": 20
+				}
+			],
+			"number": 1
+		},
+        "shop": null,
+        "removable": true
 	},
     {
         "id": "wither_kit",
         "name": "ウィザー召喚キット",
-        "price": 800,
     	"spaces":[
-		]
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "craft": null,
+		"shop": {
+			"money": 800,
+			"items": [],
+			"number": 1
+		},
+        "removable": true
 	},
     {
         "id": "blaze_mobile",
         "name": "ブレイズモビール",
-        "price": 100,
     	"spaces":[
-		]
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "craft": null,
+		"shop": {
+			"money": 400,
+			"items": [],
+			"number": 1
+		},
+        "removable": true
 	},
     {
         "id": "block_plush",
         "name": "ブロックぬい",
         "price": 240,
     	"spaces":[
-		]
+            "o_g_terrace", "o_r_bed_upper"
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "craft": {
+			"materials": [
+				{
+					"item": "wool",
+					"requirement": 10
+				},
+				{
+					"item": "string",
+					"requirement": 5
+				}
+			],
+			"number": 1
+		},
+        "shop": null,
+        "removable": true
 	},
     {
         "id": "lush_hammock",
@@ -141,7 +419,19 @@
         "price": 100,
     	"spaces":[
             "o_g_tree"
-		]
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "craft": null,
+        "shop": {
+			"money": 100,
+			"items": [],
+			"number": 1
+		},
+        "removable": true
 	},
     {
         "id": "warped_swing",
@@ -149,16 +439,121 @@
         "price": 120,
     	"spaces":[
             "o_g_tree"
-		]
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "craft": null,
+        "shop": {
+			"money": 200,
+			"items": [],
+			"number": 1
+		},
+        "removable": true
 	},
     {
         "id": "minecart",
         "name": "トロッコ",
-        "price": 200,
     	"spaces":[
             "o_g_ground1",
             "o_g_ground2"
-		]
+		],
+        "image":{
+            "url": "minecart",
+            "origin_x": 0,
+            "origin_y": 112
+        },
+        "shop": null,
+		"craft": {
+			"materials": [
+				{
+					"item": "iron",
+					"requirement": 5
+				}
+			],
+			"number": 1
+		},
+        "removable": true
+    },
+    {
+        "id": "puff-ball",
+        "name": "フグボール",
+    	"spaces":[
+            "o_g_pond"
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 112
+        },
+        "shop": {
+			"money": 50,
+			"items": [],
+			"number": 1
+		},
+		"craft": null,
+        "removable": true
+    },
+    {
+        "id": "sparkler",
+        "name": "線香花火",
+    	"spaces":[
+            "o_g_badminton"
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 112
+        },
+        "shop": null,
+		"craft": {
+			"materials": [
+				{
+					"item": "paper",
+					"requirement": 10
+				},
+				{
+					"item": "gunpowder",
+					"requirement": 10
+				}
+			],
+			"number": 1
+		},
+        "removable": true
+    },
+    {
+        "id": "darts",
+        "name": "ダーツ",
+    	"spaces":[
+            "o_r_floor1"
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 112
+        },
+        "shop": null,
+		"craft": {
+			"materials": [
+				{
+					"item": "wheat",
+					"requirement": 9
+				},
+				{
+					"item": "redstone",
+					"requirement": 4
+				},
+				{
+					"item": "flint",
+					"requirement": 1
+				}
+			],
+			"number": 1
+		},
+        "removable": true
     }
+
 ]
 

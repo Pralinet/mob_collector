@@ -1,0 +1,33 @@
+.room-monitor {
+    margin: 0;
+    height: calc(100% - 96px);
+}
+
+.stage-wrapper {
+    padding: 8px 0 0 8px;
+}
+
+.stage-wrapper::after {
+    top: 0;
+    left: 0;
+    position: absolute;/*絶対配置*/
+    content: '';/*空に*/
+    border-image-source: url('../../public/img/system/map.png');
+    border-image-slice: 64 fill;
+    border-image-width: 64px;
+    border-image-repeat: round;
+    box-sizing: border-box;
+    height: calc(100% - 96px);
+    width: calc(100% - 320px);
+    pointer-events: none;
+  }
+
+  .stage-background {
+    top: 8px;
+    left: 8px;
+    position: absolute;
+    height: calc(100% - 96px - 16px);
+    width: calc(100% - 320px - 16px);
+    background: 
+    radial-gradient(ellipse, hsl(163deg 29% 63%) 0%, hsl(180deg 50% 57%) 33%, hsl(207deg 55% 43%) 67%, hsl(246deg 64% 23%) 100%);
+  }

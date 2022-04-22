@@ -1,0 +1,116 @@
+.farm-monitor {
+    position:absolute;
+
+    width: calc(100% - 320px);
+    height: 96px;
+    left:0px;
+    bottom:0px;
+    border-image-source: url('../../public/img/system/sign2.png');
+    border-image-slice: 16 32 fill;
+    border-image-width: 16px 32px;
+    border-image-repeat: round;
+}
+
+/* crops */
+.crop-column {
+    display: inline-block;
+    vertical-align:top;
+    height: 96px;
+    width: 80px;
+    border: 2px solid wheat;
+    background-color: rgb(167, 150, 124);
+    margin: 0 4px;
+}
+
+.crop {
+    background: url('../../public/img/others/crops.png');
+    height: 64px;
+    width: 64px;
+    margin: -8px 0 0 8px;
+    display: block;
+}
+
+.crop.locked {
+    background-position-y: -64px;
+}
+
+.crop-lot {
+    height: 16px;
+    font-size: 12px;
+}
+
+/* ore */
+.ore-counter-container {
+    height: 96px;
+    width: 128px;
+    display: flex;
+    float: right;
+    flex-wrap: wrap;
+    vertical-align: top;
+    border: 2px solid wheat;
+    background-color: rgb(167, 150, 124);
+}
+
+.ore-counter-item-wrapper {
+    height: 32px;
+    margin: 0px 2px 4px 2px;
+}
+
+.ore-counter-item {
+    background: url('../../public/img/others/ores.png');
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+}
+
+.ore-counter-counter {
+    font-size: 12px;
+}
+
+
+/* pickaxe */
+.pickaxe-container {
+    display: block;
+    height: 96px;
+    width: 96px;
+    float: right;
+    border: 2px solid wheat;
+    background-color: rgb(167, 150, 124);
+}
+
+@keyframes mining {
+    0%   { transform: translate(4px, 4px) rotate(-5deg); }
+    70% { transform: translate(0px, -12px) rotate(15deg); }
+    100%   { transform: translate(4px, 4px) rotate(-5deg); }
+}
+
+.pickaxe {
+    background: url('../../public/img/others/tools.png');
+    display: inline-block;
+    height: 64px;
+    width: 64px;
+    transform-origin: right bottom;
+}
+.pickaxe:hover {
+    transform: translate(0, -4px);
+}
+
+.pickaxe.mining {
+    animation: mining 0.3s linear infinite;
+}
+
+.durability-meter {
+    height: 12px;
+    width: 64px;
+    background-color: rgb(88, 69, 45);
+    border: 1px solid antiquewhite;
+    border-radius: 2px;
+}
+
+.durability-meter-content{
+    left: 0;
+    height: 12px;
+    width: 64px;
+    background-color: rgb(141, 199, 56);
+    border-radius: 2px;
+}

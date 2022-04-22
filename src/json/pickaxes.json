@@ -1,0 +1,32 @@
+[
+    {
+        "id": "stone",
+        "durability": -1,
+        "time": 600,
+        "image": 0
+    },
+    {
+        "id": "iron",
+        "durability": 250,
+        "time": 400,
+        "image": 1
+    },
+    {
+        "id": "gold",
+        "durability": 32,
+        "time": 200,
+        "image": 2
+    },
+    {
+        "id": "diamond",
+        "durability": 1561,
+        "time": 300,
+        "image": 3
+    },
+    {
+        "id": "netherite",
+        "durability": 2031,
+        "time": 250,
+        "image": 4
+    }
+]

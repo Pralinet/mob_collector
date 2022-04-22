@@ -1,0 +1,126 @@
+.overlay-menu{
+    top: 0;
+    left: 0;
+    position: absolute;
+    box-sizing: border-box;
+    height: calc(100% - 96px);
+    width: calc(100% - 320px);
+    pointer-events: none;
+}
+
+.lv-display {
+    position: absolute;
+    top: 16px;
+    right: 32px;
+    color: rgb(255, 244, 222);
+}
+
+.lv {
+    display: inline-block;
+    height: 64px;
+    width: 64px;
+    background: url('../../public/img/system/lv.png');
+    text-align: center;
+    font-size: 20px;
+    vertical-align: top;
+}
+
+.lv span{
+    line-height: 64px;
+}
+
+.lv-meter-wrapper{
+    padding-top: 8px;
+    display: inline-block;
+}
+
+.exp-meter{
+    height: 24px;
+    width: 128px;
+    background-color: rgb(88, 69, 45);
+    border: 1px solid antiquewhite;
+    border-radius: 2px;
+}
+
+.exp-meter-content{
+    left: 0;
+    height: 24px;
+    width: 128px;
+    background-color: rgb(141, 199, 56);
+    border-radius: 2px;
+}
+
+.exp-meter-text{
+    position: absolute;
+    top: 0;
+    right: 0;
+    line-height: 24px;
+}
+
+.lv-display-money-item {
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+    background: url('../../public/img/others/status.png');
+    background-size: 32px, 32px;
+    filter: drop-shadow(1px 1px 0 black);
+}
+
+.lv-display-money-text {
+    position: absolute;
+    right: 0;
+    line-height: 32px;
+}
+
+.overlay-menu-button-wrapper{
+    position: absolute;
+    bottom: 64px;
+    right: 32px;
+    pointer-events: auto;
+}
+
+.overlay-menu-button{
+    height: 64px;
+    width: 64px;
+    background: url('../../public/img/system/lv.png');
+    vertical-align: top;
+    margin-bottom: 16px;
+    text-align: center;
+    position: relative;
+}
+
+.overlay-menu-button .overlay-menu-button-image{
+    display: inline-block;
+    height: 48px;
+    width: 48px;
+    margin-top: 2px;
+    background: url('../../public/img/system/right_menu_icon48.png');
+    filter: drop-shadow(1px 1px 0 black);
+}
+.overlay-menu-button .overlay-menu-button-text{
+    display: block;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    bottom: 8px;
+}
+
+.overlay-menu-button-menu.overlay-menu-button-image{
+    background-position-x: -48px;
+}
+.overlay-menu-button-shop.overlay-menu-button-image{
+    background-position-x: 0;
+}
+
+
+.log-display {
+background: rgba(0,0,0,0.5);
+color: white;
+font-size: 12px;
+width: 240px;
+height: 120px;
+position: absolute;
+bottom: 32px;
+left: 32px;
+overflow-y: scroll;
+}

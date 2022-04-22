@@ -1,0 +1,91 @@
+.shop-menu{
+    position:absolute;
+    width: 320px;
+    height: 100%;
+    top:0px;
+    right:0px;
+}
+
+.shop-option{
+    background: url('../../public/img/system/shop.png');
+    width: 320px;
+    height: 192px;
+}
+
+
+.goods-list {
+    width: 100%;
+    height: calc(100% - 192px);
+    display: inline-flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    border: 2px solid wheat;
+    border-radius: 2px;
+    background-color: rgba(146, 129, 118, 0.5);
+}
+
+.goods-list-item {
+    width: 128px;
+    height: 128px;
+    font-size: 12px;
+    text-align: center;
+    border: 2px solid wheat;
+    background-color: rgba(200, 200, 200, 0.5);
+    margin: 8px 4px;
+}
+
+.goods-list-item p{
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.goods-list-image {
+    width: 64px;
+    height: 64px;
+    margin: 8px 32px ;
+    background: url('../../public/img/system/dummy64.png');
+}
+
+.goods-list-image-enchant {
+    width: 64px;
+    height: 64px;
+    margin: 8px 32px ;
+    background: url('../../public/img/goods/enchant.png');
+}
+
+.goods-list-image-map {
+    width: 64px;
+    height: 64px;
+    margin: 8px 32px ;
+    background: url('../../public/img/goods/map.png');
+}
+
+
+.shop-sell-item {
+    position: relative;
+    height: 32px;
+    width: 100%;
+    margin: 2px 0;
+    border: 2px solid wheat;
+    background-color: rgba(200, 200, 200, 0.5);
+    display: block;
+}
+.shop-ore-image{
+    background: url('../../public/img/others/ores.png');
+    height: 32px;
+    width: 32px;
+    box-sizing: border-box;
+    display: inline-block;
+}
+.shop-crop-image{
+    background: url('../../public/img/others/crops.png');
+    background-size: 224px 64px;
+    height: 32px;
+    width: 32px;
+    box-sizing: border-box;
+    display: inline-block;
+}
+.shop-sell-stock {
+    display: inline-block;
+}

@@ -1,0 +1,49 @@
+[
+
+    {
+        "id": "magma_cream_croquette",
+        "name": "マグマクリームコロッケ",
+        "image": [0, 0],
+        "craft": {
+            "materials": [
+                {
+                    "item": "wheat",
+                    "requirement": 5
+                },
+                {
+                    "item": "magma_cream",
+                    "requirement": 1
+                },
+                {
+                    "item": "egg",
+                    "requirement": 1
+                }
+            ],
+            "number": 1
+        },
+        "shop": null
+    },
+    {
+        "id": "pork_saute",
+        "name": "ポークソテー",
+        "image": [0, 0],
+        "craft": {
+            "materials": [
+                {
+                    "item": "porkchop",
+                    "requirement": 1
+                },
+                {
+                    "item": "sweet_berry",
+                    "requirement": 4
+                },
+                {
+                    "item": "sugar",
+                    "requirement": 1
+                }
+            ],
+            "number": 1
+        },
+        "shop": null
+    }
+]
