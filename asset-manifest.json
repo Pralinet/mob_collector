@@ -1,26 +1,34 @@
 {
   "files": {
-    "main.css": "/mob_collector/static/css/main.12200724.css",
-    "main.js": "/mob_collector/static/js/main.895a3e9c.js",
+    "main.css": "/mob_collector/static/css/main.2ba4afd2.css",
+    "main.js": "/mob_collector/static/js/main.338124fb.js",
     "static/js/787.2ce0ee97.chunk.js": "/mob_collector/static/js/787.2ce0ee97.chunk.js",
     "static/media/PixelMplus12-Regular.ttf": "/mob_collector/static/media/PixelMplus12-Regular.35b3b952cc971da434eb.ttf",
-    "static/media/shop.png": "/mob_collector/static/media/shop.7ab02e122617dcc0cca8.png",
+    "static/media/shop2.png": "/mob_collector/static/media/shop2.2084cc72570a67739f93.png",
+    "static/media/shop.png": "/mob_collector/static/media/shop.02ff7e84f5e7ced12627.png",
+    "static/media/items48.png": "/mob_collector/static/media/items48.5d63aac4725340463131.png",
+    "static/media/crops.png": "/mob_collector/static/media/crops.ca5249bed8d567dc899b.png",
     "static/media/food.png": "/mob_collector/static/media/food.2c86b2b7038cb12aef2e.png",
     "static/media/items.png": "/mob_collector/static/media/items.85604048d00750cde2c3.png",
     "static/media/right_menu.png": "/mob_collector/static/media/right_menu.8335c440d235a623cba7.png",
-    "static/media/crops.png": "/mob_collector/static/media/crops.6aa90887a6a25216d176.png",
     "static/media/map.png": "/mob_collector/static/media/map.8f8de76bf56db50a4768.png",
+    "static/media/ores64.png": "/mob_collector/static/media/ores64.220679ec16da4442a82d.png",
     "static/media/tools.png": "/mob_collector/static/media/tools.b596102a48f4f3a978e9.png",
-    "static/media/ores.png": "/mob_collector/static/media/ores.67c605491a786558d255.png",
-    "static/media/sign2.png": "/mob_collector/static/media/sign2.0f00cb467cb9c9c84b09.png",
+    "static/media/grass.png": "/mob_collector/static/media/grass.b41a83e07b02babd918e.png",
+    "static/media/item_frame_bg_selected.png": "/mob_collector/static/media/item_frame_bg_selected.a4b48734a2ac6e6b4826.png",
+    "static/media/long_chest.png": "/mob_collector/static/media/long_chest.25a05cc4b51994674bf1.png",
+    "static/media/item_frame_bg.png": "/mob_collector/static/media/item_frame_bg.9d8637aab2251a067b78.png",
+    "static/media/image_frame_mine.png": "/mob_collector/static/media/image_frame_mine.90bb12cd2584e3022d83.png",
     "static/media/crops32.png": "/mob_collector/static/media/crops32.51f9d7267431a5316fe5.png",
+    "static/media/menu-frame.png": "/mob_collector/static/media/menu-frame.53598b5949e847db6fb7.png",
+    "static/media/ores.png": "/mob_collector/static/media/ores.acf7b6faf55ccf6ae9bb.png",
     "index.html": "/mob_collector/index.html",
-    "main.12200724.css.map": "/mob_collector/static/css/main.12200724.css.map",
-    "main.895a3e9c.js.map": "/mob_collector/static/js/main.895a3e9c.js.map",
+    "main.2ba4afd2.css.map": "/mob_collector/static/css/main.2ba4afd2.css.map",
+    "main.338124fb.js.map": "/mob_collector/static/js/main.338124fb.js.map",
     "787.2ce0ee97.chunk.js.map": "/mob_collector/static/js/787.2ce0ee97.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.12200724.css",
-    "static/js/main.895a3e9c.js"
+    "static/css/main.2ba4afd2.css",
+    "static/js/main.338124fb.js"
   ]
 }
