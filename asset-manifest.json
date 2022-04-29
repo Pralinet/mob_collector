@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/mob_collector/static/css/main.2ba4afd2.css",
-    "main.js": "/mob_collector/static/js/main.338124fb.js",
+    "main.css": "/mob_collector/static/css/main.901fe0af.css",
+    "main.js": "/mob_collector/static/js/main.1a164f93.js",
     "static/js/787.2ce0ee97.chunk.js": "/mob_collector/static/js/787.2ce0ee97.chunk.js",
     "static/media/PixelMplus12-Regular.ttf": "/mob_collector/static/media/PixelMplus12-Regular.35b3b952cc971da434eb.ttf",
     "static/media/shop2.png": "/mob_collector/static/media/shop2.2084cc72570a67739f93.png",
@@ -23,12 +23,12 @@
     "static/media/menu-frame.png": "/mob_collector/static/media/menu-frame.53598b5949e847db6fb7.png",
     "static/media/ores.png": "/mob_collector/static/media/ores.acf7b6faf55ccf6ae9bb.png",
     "index.html": "/mob_collector/index.html",
-    "main.2ba4afd2.css.map": "/mob_collector/static/css/main.2ba4afd2.css.map",
-    "main.338124fb.js.map": "/mob_collector/static/js/main.338124fb.js.map",
+    "main.901fe0af.css.map": "/mob_collector/static/css/main.901fe0af.css.map",
+    "main.1a164f93.js.map": "/mob_collector/static/js/main.1a164f93.js.map",
     "787.2ce0ee97.chunk.js.map": "/mob_collector/static/js/787.2ce0ee97.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2ba4afd2.css",
-    "static/js/main.338124fb.js"
+    "static/css/main.901fe0af.css",
+    "static/js/main.1a164f93.js"
   ]
 }
