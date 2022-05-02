@@ -4,27 +4,27 @@
         "max_lv": 3,
         "effect": [1, 2, 3, 4],
         "cost": [1, 2, 4],
-        "price": [12, 20, 28]
+        "price": [2, 6, 10]
     },
     "efficiency": {
         "name": "効率強化",
         "max_lv": 5,
         "effect": [1, 1.5, 2, 2.5, 3, 3.5],
         "cost": [1, 2, 4, 8, 16],
-        "price": [12, 20, 28, 36, 44]
+        "price": [2, 6, 10, 14, 18]
     },
     "fortune": {
         "name": "幸運",
         "max_lv": 3,
         "effect": [1, 1.33, 1.75, 2],
         "cost": [1, 2, 4],
-        "price": [12, 20, 28]
+        "price": [2, 6, 10]
     },
     "mending": {
         "name": "修繕",
         "max_lv": 1,
         "effect": [0, 1],
         "cost": [20],
-        "price": [50]
+        "price": [10]
     }
 }

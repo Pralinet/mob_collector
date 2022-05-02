@@ -5,6 +5,7 @@ import GoodsMenu from "./GoodsMenu"
 import classNames from "classnames";
 
 import './RightMenu.css';
+import SettingMenu from "./SettingMenu";
 
 const RightMenu = () => {
     const [menu, setMenu] = useState("item");
@@ -15,6 +16,8 @@ const RightMenu = () => {
           return (<FoodMenu/>);
         case "item":
           return (<ItemMenu/>);
+        case "setting":
+          return (<SettingMenu/>);
         default:
           return (<GoodsMenu/>);
       }
@@ -31,6 +34,9 @@ const RightMenu = () => {
             </div>
             <div className={classNames("right-menu-select-frame", menu==="goods"?"selected":"" )} onClick={() => setMenu("goods")}>
                 <span className="right-menu-select-item right-menu-select-item-goods"></span>
+            </div>
+            <div className={classNames("right-menu-select-frame", menu==="setting"?"selected":"" )} onClick={() => setMenu("setting")}>
+                <span className="right-menu-select-item right-menu-select-item-setting"></span>
             </div>
         </div>
         <div className="right-menu-wrapper">

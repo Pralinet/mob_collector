@@ -12,7 +12,8 @@ import enchants_data from "./json/enchants.json";
 
 import { UserData, UserGoodsData, UserOreData, UserCropData, 
     UserRoomData, UserSpaceData, UserMobData, UserItemData,
-    UserFoodData } from "./ts/UserData";
+    UserFoodData, 
+    UserMergedSpaceData} from "./ts/UserData";
 import {CashItemListIndex, CraftedListIndex, CraftItemListIndex, Enchant, MerchandiseListIndex, Room, SpaceListIndex, SystemData} from "./ts/SystemData"
 import { ListIndex } from "./ts/CommonData";
 
@@ -75,6 +76,14 @@ export function saveData(userData: UserData){
         console.log("autosaved");
     }catch(e){
         console.log("failed to save");
+    }
+}
+
+export function deleteData(){
+    try{
+        localStorage.removeItem('mob_collector');
+    }catch(e){
+        console.log("failed to delete data");
     }
 }
 
@@ -199,6 +208,7 @@ export const initData = () => {
             rooms: (function(){
                 const df_r = userinit.rooms.find(r => r.id === "default")?? {} as UserRoomData;
                 const df_s = userinit.spaces.find(s => s.id === "default")?? {};
+                const df_m = userinit.merged_spaces.find(s => s.id === "default")?? {};
                 return systemData.rooms.map((r) => {
                     const room = {
                         ...(userinit.rooms.find(u => u.id === r.id) ?? {...df_r, id:r.id}),
@@ -208,6 +218,13 @@ export const initData = () => {
                             return userSpaceData
                             ? {...userSpaceData, mob:getIndex(userSpaceData.mob, systemData.mobs), goods: getIndex(userSpaceData.goods, systemData.goods)} as UserSpaceData
                             : {...df_s, id:s.id, mob:-1, goods:-1} as UserSpaceData;
+                        }),
+                        merged_spaces: r.merged_spaces.map((s) => {
+                            //spaceのデータを読み込み
+                            const userSpaceData = userinit.merged_spaces.find(u => u.id === s.id);
+                            return userSpaceData
+                            ? {...userSpaceData, mobs:[], goods: getIndex(userSpaceData.goods, systemData.goods)} as UserMergedSpaceData
+                            : {...df_m, id:s.id, goods:-1} as UserMergedSpaceData;
                         }),
                     } 
                     return room;

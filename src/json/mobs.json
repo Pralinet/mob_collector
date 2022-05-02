@@ -24,6 +24,14 @@
             {
                 "id": "puff_ball",
                 "rating": 0.05
+            },
+            {
+                "id": "balloon_bee",
+                "rating": 0.05
+            },
+            {
+                "id": "blaze_chime",
+                "rating": 0.05
             }
         ],
         "foods": [
@@ -57,7 +65,7 @@
         "name": "ヒツジ",
         "goods": [
             {
-                "id": "puff_ball",
+                "id": "mushroom_parasol",
                 "rating": 0.05
             }
         ],
@@ -85,6 +93,10 @@
         "goods": [
             {
                 "id": "mushroom_parasol",
+                "rating": 0.25
+            },
+            {
+                "id": "bbq_grill",
                 "rating": 0.25
             }
         ],
@@ -120,15 +132,11 @@
         "goods": [
             {
                 "id": "balloon_bee",
-                "rating": 0.4
+                "rating": 0.2
             },
             {
-                "id": "balloon_ghast",
-                "rating": 0.7
-            },
-            {
-                "id": "lush_hammock",
-                "rating": 0.1
+                "id": "magma_spring",
+                "rating": 0.5
             }
         ],
         "foods": [
@@ -160,6 +168,14 @@
             {
                 "id": "puff_ball",
                 "rating": 0.3
+            },
+            {
+                "id": "magma_spring",
+                "rating": 0.5
+            },
+            {
+                "id": "bbq_grill",
+                "rating": 0.25
             }
         ],
         "foods": [
@@ -186,15 +202,11 @@
         "goods": [
             {
                 "id": "lush_hammock",
-                "rating": 0.3
+                "rating": 0.2
             },
             {
-                "id": "warped_swing",
-                "rating": 0.5
-            },
-            {
-                "id": "puff_ball",
-                "rating": 0.1
+                "id": "slime_sofa",
+                "rating": 0.6
             }
         ],
         "foods": [
@@ -263,8 +275,8 @@
                 "rating": 0.6
             },
             {
-                "id": "puff_ball",
-                "rating": 0.1
+                "id": "slime_sofa",
+                "rating": 0.3
             }
         ],
         "foods": [
@@ -300,11 +312,15 @@
             {
                 "id": "puff_ball",
                 "rating": 0.5
+            },
+            {
+                "id": "darts",
+                "rating": 0.2
             }
         ],
         "foods": [
             {
-                "id": "cooked_chicken",
+                "id": "cooked_cod",
                 "rating": 0.5
             },
             {
@@ -334,10 +350,6 @@
         "goods": [
             {
                 "id": "minecart",
-                "rating": 0.3
-            },
-            {
-                "id": "lush_hammock",
                 "rating": 0.3
             }
         ],
@@ -384,8 +396,8 @@
                 "rating": 0.2
             },
             {
-                "id": "ballon_ghast",
-                "rating": 0.2
+                "id": "slime_sofa",
+                "rating": 0.1
             }
         ],
         "foods": [
@@ -425,10 +437,6 @@
             {
                 "id": "minecart",
                 "rating": 0.4
-            },
-            {
-                "id": "block_plush",
-                "rating": 0.1
             }
         ],
         "foods": [
@@ -450,8 +458,8 @@
         "name": "ウィッチ",
         "goods": [
             {
-                "id": "bookshelf",
-                "rating": 0.5
+                "id": "sparkler",
+                "rating": 0.25
             }
         ],
         "foods": [
@@ -494,14 +502,14 @@
     },
     {
         "id": "villager",
-        "name": "村人",
+        "name": "子供の村人",
         "goods": [
             {
-                "id": "flowers",
-                "rating": 0.05
+                "id": "sparkler",
+                "rating": 0.5
             },
             {
-                "id": "lush_hammock",
+                "id": "balloon_ghast",
                 "rating": 0.3
             }
         ],

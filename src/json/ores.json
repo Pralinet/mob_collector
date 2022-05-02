@@ -22,7 +22,7 @@
     {
         "id": "iron",
         "name": "鉄",
-        "odds": 0.01,
+        "odds": 0.02,
         "drop": 3,
         "requirement": 4,
         "sellable": true,

@@ -2,8 +2,8 @@ import React, { createContext, useState, useContext, useCallback, useMemo } from
 
 import { UserRoomData, UserPickaxeData, UserSpaceData, UserExpData } from "../ts/UserData";
 import { calcExp, calcLotPrice } from "../utils";
-import { initData, saveData } from "../parseData";
-import { CashItemListIndex, Crafted, CraftedListIndex, CraftItemListIndex, Merchandise, MerchandiseListIndex, Space, SystemData } from '../ts/SystemData';
+import { initData, saveData, deleteData } from "../parseData";
+import { CashItemListIndex, Crafted, CraftedListIndex, CraftItemListIndex, Merchandise, MerchandiseListIndex, Space, SpaceListIndex, SystemData } from '../ts/SystemData';
 import { UserData } from '../ts/UserData';
 import { ListIndex, RoomIndex } from '../ts/CommonData';
 
@@ -55,8 +55,11 @@ export interface IDataContext {
     enchantPickaxe: (enchant: keyof SystemData["enchants"]) => void;
     BuyMap: (id_room: number) => void;
 
-    chooseGoods: (id_room:number, id_space: number, id_goods:number) => void;
-    chooseFood: (id_room:number, id_roomFood: number, id_food:number, stock:number) => void;
+    resetData: () => void;
+    manualSave: () => void;
+
+    chooseGoods: (spaceListIndex:SpaceListIndex, id_goods:number) => void;
+    chooseFood: (id_room:number, id_roomFood: number, id_food:number) => void;
     logs: string[];
 
 }
@@ -86,15 +89,17 @@ export function DataProvider({ children }: any) {
             const foods = []
             userData.rooms.forEach((room, id_room)=>{
                 room.spaces.forEach((space, id_space) => {
-                    const mobGoodsIndex = mob.goods.findIndex((gz) => gz.id === space.goods);
-                    if(mobGoodsIndex >= 0)
-                        spaces.push({room:id_room, space:id_space, rating:mob.goods[mobGoodsIndex].rating})
+                    if(space.goods >= 0){
+                        const mobGoodsIndex = mob.goods.findIndex((gz) => gz.id === space.goods);
+                        if(mobGoodsIndex >= 0)
+                            spaces.push({room:id_room, space:id_space, rating:mob.goods[mobGoodsIndex].rating})
+                    }
                 })
                 //foods
                 let foodRate = 0;
                 room.foods.forEach((food) => {
                     if(food){
-                        const mobFoodIndex = mob.foods.findIndex((mFood) => {return mFood.id === food.id});
+                        const mobFoodIndex = mob.foods.findIndex((mFood) => {return mFood.id === food});
                         if(mobFoodIndex >= 0)foodRate += mob.foods[mobFoodIndex].rating;
                     }
                 })
@@ -130,12 +135,12 @@ export function DataProvider({ children }: any) {
         //穀物が育つ
         CropGrows();
         //30秒に一回判定mobが来るか判定
-        if(time % 5 === 3){
+        if(time % 15 === 3){
             MobVisits();
         }
         //60秒に一回セーブ
         if(time % 60 === 59){
-            const save = {
+            /*const save = {
                 ...userData,
                 player:{
                     ...userData.player,
@@ -144,8 +149,21 @@ export function DataProvider({ children }: any) {
                     pickaxe: userData.player.pickaxe
                 },
             }
-            saveData(save);
+            saveData(save);*/
+            saveData(userData);
         }
+    }
+    //データのリセット
+    const resetData = () => {
+        deleteData();
+        const {systemData:_systemData, userData:userData_init} = initData();
+        setUserData(userData_init);
+        setMobProbabilities(systemData.mobs.map(_ => ({spaces:[], foods:[]}) ))
+        setLogs([]);
+    }
+
+    const manualSave = () => {
+        saveData(userData);
     }
 
     //ログ
@@ -183,7 +201,9 @@ export function DataProvider({ children }: any) {
         let exp = 0;
         let logs = []
         const newMobs = [...userData.mobs]
+        const newFoods = [...userData.foods]
 
+        console.log( mobProbabilities)
         //visitingじゃないmobが行く場所をmobごとに決め、場所ごとに集計
         const newVisitingList = systemData.rooms.map(room => room.spaces.map(space => []))
         mobProbabilities.forEach((goals, i_m) => {
@@ -191,20 +211,19 @@ export function DataProvider({ children }: any) {
                 //空腹度で分岐
                 if(newMobs[i_m].hunger < MAXHunger){
                     //空腹度が回復してなければ回復さす
-                    newMobs[i_m].hunger += 1;
+                    newMobs[i_m].hunger += 0.1;
                 } else if(goals.spaces.length){
                     //十分空腹になっている、かつ行きたい所がある
                     //行くか行かないかを決める
                     const goalOddsSum = 
                         goals.spaces.reduce((prev, cur) => prev + cur.rating, 0) + 
                         goals.foods.reduce((prev, cur) => prev + cur, 0);
-
                     //行く場合
-                    if(goalOddsSum > 1){
+                    if(goalOddsSum > Math.random()){
                         //mineと同じ決め方でレートを産出(各スペースの確率には各部屋の料理の確率を加算)
                         const goalOddsList = goals.spaces.reduce((prev, cur) => {
                             //スペースが埋まっていなければ
-                            const rating = userData.rooms[cur.room].spaces[cur.space].mob? 0
+                            const rating = (userData.rooms[cur.room].spaces[cur.space].mob >= 0)? 0
                                 : cur.rating + goals.foods[cur.room];
                             return [...prev, prev[prev.length-1] + rating]
                         }, [0])
@@ -212,17 +231,21 @@ export function DataProvider({ children }: any) {
                         const r = Math.random();
                         const i_g = goalOddsList.findIndex( (odds: number) => r <= odds ) - 1;
                         //mobが行くと決めた場所に格納
-                        if(i_g >= 0) newVisitingList[goals[i_g].room][goals[i_g].space].push(i_m);
+                        if(i_g >= 0) newVisitingList[goals.spaces[i_g].room][goals.spaces[i_g].space].push(i_m);
                     }
                 }
             }
         })
+        
 
         const foodUpdateFlags = userData.rooms.map((room) => false)
         const newRooms = userData.rooms.map((room,i_r) => {
-            const newFoods = [...room.foods];
+            if(!room.unlocked) return room;
+
+            const newRoomFoods = [...room.foods]
             const newSpaces = room.spaces.map((space:UserSpaceData, i_s:number) => {
                 if(space.mob >= 0){
+                    //console.log(newMobs[space.mob])
                     //既にいる場合
                     //スタミナを消費
                     newMobs[space.mob].stamina -= 1;
@@ -236,6 +259,7 @@ export function DataProvider({ children }: any) {
                     //スタミナなくなったら
                     if(newMobs[space.mob].stamina < 0){
                         //料理を食べるかどうか決める
+                        let canEat = -1;
                         //空腹度が0より大きく、食べる料理がある
                         if(newMobs[space.mob].hunger > 0 && mobProbabilities[space.mob].foods[i_r] > 0){
                             //料理を食べる場合
@@ -243,22 +267,28 @@ export function DataProvider({ children }: any) {
                             //何を食べるか決める処理
                             const foodOddsList = systemData.mobs[space.mob].foods.reduce((prev, cur) => {
                                 //ちゃんとその料理があれば確率を計算
-                                const roomFoodIndex = newFoods.findIndex(food => food && food.id === cur.id )
-                                const rating = (newFoods[roomFoodIndex] && newFoods[roomFoodIndex].stock)? cur.rating : 0;
+                                const roomFoodIndex = newRoomFoods.findIndex(food => food>=0 && food === cur.id )
+                                const rating = (newRoomFoods[roomFoodIndex]>=0 && newFoods[room.foods[roomFoodIndex]].stock>0)? cur.rating : 0;
                                 return [...prev, prev[prev.length-1] + rating]
                             }, [0])
                             const r = Math.random();
                             const i_f = foodOddsList.findIndex( (odds: number) => r <= odds ) - 1;
                             //何を食べるか決める処理ここまで
 
+                            if(i_f >= 0){
+                                canEat = i_f;
+                            }
+
+                        }
+                        if(canEat >= 0){
                             newMobs[space.mob].hunger -= 1;//空腹度をひとつ減らす
-                            newMobs[space.mob].stamina = MAXStamina * systemData.mobs[space.mob].foods[i_f].rating;//スタミナ回復
+                            newMobs[space.mob].stamina = MAXStamina * systemData.mobs[space.mob].foods[canEat].rating;//スタミナ回復
                             //その部屋のその料理を一つ減らす
-                            const roomFoodIndex = newFoods.findIndex(food => food && food.id === systemData.mobs[space.mob].foods[i_f].id);
-                            newFoods[roomFoodIndex].stock -= 1;//※nullを考慮してないけど大丈夫か？？？
+                            const roomFoodIndex = newRoomFoods.findIndex(food => food>=0 && food === systemData.mobs[space.mob].foods[canEat].id);
+                            newFoods[newRoomFoods[roomFoodIndex]].stock -= 1;//※nullを考慮してないけど大丈夫か？？？
                             //もし食べ物なくなってたら、その食べ物をnullにして食べ物更新のフラグをたてる
                             if(newFoods[roomFoodIndex].stock <= 0){
-                                newFoods[roomFoodIndex] = null;
+                                newRoomFoods[roomFoodIndex] = -1;
                                 foodUpdateFlags[i_r] = true;
                             }
                         }else{
@@ -285,12 +315,15 @@ export function DataProvider({ children }: any) {
                     //ここにmobがいない、かつ候補がいる場合ランダムでひとり選ぶ
                     const r = Math.floor(Math.random() * (newVisitingList[i_r][i_s].length));
                     const visitor = newVisitingList[i_r][i_s][r]
+                    //visitingをつける
+                    newMobs[visitor].visiting = true;
+                    console.log(i_r,i_s,visitor)
                     logs.push(systemData.mobs[visitor].name + "が来ました");
                     return {...space, mob:visitor}           
                 }
                 return space;
             })
-            return {...room, spaces: newSpaces, foods:newFoods}
+            return {...room, spaces: newSpaces, foods:newRoomFoods}
         })
 
         //修繕の処理
@@ -306,14 +339,15 @@ export function DataProvider({ children }: any) {
                 pickaxe:{
                     ...userData.player.pickaxe,
                     durability: userData.player.pickaxe.durability + mending
-                }
+                },
+                exp: getNewExp(userData.player.exp, exp - mending)
             },
             crops:[...userData.crops],
             ores:[...userData.ores],
             items:[...userData.items],
             rooms: newRooms,
             mobs: newMobs,
-            exp: getNewExp(userData.player.exp, exp - mending)
+            foods: newFoods,
         };
         //プレゼントの分、アイテムを増やす
         presents.forEach(listIndex => {
@@ -459,10 +493,10 @@ export function DataProvider({ children }: any) {
                 foods:[...userData.foods],
                 goods:[...userData.goods],
             };
-            //結果を1増やす
+            //結果を増やす
             newUserData[listIndex.list][listIndex.index] = {
                 ...newUserData[listIndex.list][listIndex.index], 
-                stock:(newUserData[listIndex.list][listIndex.index].stock + 1)
+                stock:(newUserData[listIndex.list][listIndex.index].stock + crafted.craft?.number)
             }
 
             //材料を減らす
@@ -479,7 +513,7 @@ export function DataProvider({ children }: any) {
 
     const Buyable = (merchandise: Merchandise) => {
         if(merchandise.shop){
-            return (userData.player.money > merchandise.shop.money) &&
+            return (userData.player.money >= merchandise.shop.money) &&
             (merchandise.shop.items.every((item) => 
                 item.requirement <= userData[item.item.list][item.item.index].stock
             ) )
@@ -489,7 +523,7 @@ export function DataProvider({ children }: any) {
 
     const Buyable_Map = (id_room: number) => {
         //金があるか
-        return (userData.player.money > systemData.rooms[id_room].unlock.money) &&
+        return (userData.player.money >= systemData.rooms[id_room].unlock.money) &&
         //各アイテムがあるか
         (systemData.rooms[id_room].unlock.items.every((item) => 
             userData.items[item].stock >= 1
@@ -498,7 +532,7 @@ export function DataProvider({ children }: any) {
 
     const Buyable_Enchant = (enchant: keyof SystemData["enchants"], lv:number) => {
         //金があるか
-        return (userData.player.money > systemData.enchants[enchant].price[lv]) &&
+        return (userData.player.money >= systemData.enchants[enchant].price[lv]) &&
         //本が1個あるか
         userData.items[bookId].stock >= 1 &&
         //経験値があるか
@@ -517,67 +551,115 @@ export function DataProvider({ children }: any) {
         return false;
     }
 
-    const chooseGoods = (id_room:number, id_space: number, id_goods:number) => {
-        setUserData(userData => {
-            const newrooms = userData.rooms.map((room:UserRoomData, i_r) => {
-                return id_room === i_r 
-                ? {...room, spaces:room.spaces.map((space, i_s) => {
-                    return id_space === i_s 
-                    ? {...space, goods:(id_goods)}
-                    : space;})
-                }
-                : room;
+    const chooseGoods = (spaceListIndex:SpaceListIndex, id_goods:number) => {
+        const mobUpdate = (id_room:number, id_space:number) => {
+            //来れるmobをアプデ
+            updateMobProbabilities(id_room, id_space);
+            //mobがいた場合、帰らせる
+            MobLeave({room: id_room, space:id_space});
+        }
+
+        const{room:id_room, space:id_space} = spaceListIndex.index
+        
+        const newrooms = userData.rooms.map((room) => ({
+            ...room, spaces:[...room.spaces], merged_spaces:[...room.merged_spaces]
+        }))
+        //merged_spaceの処理
+        if(spaceListIndex.list==="merged_spaces"){
+            //そのgoodsがもともとあった場所→mergedとその全てのspaceからgoodsを撤去
+            userData.rooms.forEach((room, i_r) => {
+                room.merged_spaces.forEach((space, i_s) => {
+                    //goodsの実体があり、既に置いてある場所があれば、そこを撤去する
+                    if(id_goods >= 0 && space.goods === id_goods){
+                        newrooms[i_r].merged_spaces[i_s].goods = -1;
+                        systemData.rooms[i_r].merged_spaces[id_space].spaces.forEach(space => {
+                            newrooms[i_r].spaces[space].goods = -1;
+                            mobUpdate(i_r, space);
+                        })
+                    }
+                })
             })
-            return {...userData, rooms:newrooms}
-        })
-        //来れるmobをアプデ
-        updateMobProbabilities(id_room, id_space);
-        //mobがいた場合、帰らせる
-        MobLeave({room: id_room, space:id_space});
+            //mergedをそのgoodsに変化させる
+            newrooms[id_room].merged_spaces[id_space].goods = id_goods;
+            //mergedに含まれるspaceを変化させる
+            systemData.rooms[id_room].merged_spaces[id_space].spaces.forEach(space => {
+                //前のgoodsがmergedに置かれていたのをどかせた場合
+                if(newrooms[id_room].spaces[space].goods >= 0){
+                    //変化したspaceが含まれるmergedのspaceを撤去　mergedも撤去
+                    const oldGoodsMSpace = newrooms[id_room].merged_spaces.findIndex((mSpace) => mSpace.goods===newrooms[id_room].spaces[space].goods);
+                    if(oldGoodsMSpace >= 0){
+                        systemData.rooms[id_room].merged_spaces[oldGoodsMSpace].spaces.forEach(s => {
+                            newrooms[id_room].spaces[s].goods= -1;
+                            mobUpdate(id_room, s);
+                        });
+                    }
+                }
+
+                //mergedに含まれるspaceを変化させる
+                newrooms[id_room].spaces[space].goods = id_goods;
+                mobUpdate(id_room, space);
+            })
+        }else{
+            //そのgoodsがもともとあった場所→goodsを撤去
+            userData.rooms.forEach((room, i_r) => {
+                room.spaces.forEach((space, i_s) => {
+                    //goodsの実体があり、既に置いてある場所があれば、そこを撤去する
+                    if(id_goods >= 0 && space.goods === id_goods){
+                        newrooms[i_r].spaces[i_s].goods = -1;
+                        mobUpdate(i_r, i_s);
+                    }
+                })
+            })
+
+            //前のgoodsがmergedに置かれていたのをどかせた場合
+            if(newrooms[id_room].spaces[id_space].goods >= 0){
+                //変化したspaceが含まれるmergedのspaceを撤去　mergedも撤去
+                const oldGoodsMSpace = newrooms[id_room].merged_spaces.findIndex((mSpace) => mSpace.goods===newrooms[id_room].spaces[id_space].goods);
+                if(oldGoodsMSpace >= 0){
+                    systemData.rooms[id_room].merged_spaces[oldGoodsMSpace].spaces.forEach(s => {
+                        newrooms[id_room].spaces[s].goods= -1;
+                        mobUpdate(id_room, s);
+                    });
+                }
+            }
+            //spaceをそのgoodsに変化させる
+            newrooms[id_room].spaces[id_space].goods = id_goods;
+            mobUpdate(id_room, id_space);
+        }
+
+        setUserData({...userData, rooms:newrooms})
+
     }
 
-    const chooseFood = (id_room:number, id_roomFood:number, id_food:number, stock:number) => {
-        const roomFood_old = userData.rooms[id_room].foods[id_roomFood];
+    const chooseFood = (id_room:number, id_roomFood:number, id_food:number) => {
+        const id_food_old = userData.rooms[id_room].foods[id_roomFood];
         const newUserData = {
             ...userData,
             rooms: [...userData.rooms],
             foods: [...userData.foods],
         }
         //食べ物が変わってたら
-        if(id_food !== roomFood_old.id){
-            if(id_food === -1){
-                //idが-1なら食べ物を外す
-                newUserData.rooms[id_room].foods[id_roomFood] = null
-            }else {
-                //idを変えて1個セット
-                newUserData.rooms[id_room].foods[id_roomFood] = {id:id_food, stock: 1}
-                //変わる前のやつを手持ちの料理に戻し、手持ちの料理の数を1個減らす
-                if(roomFood_old !== null){
-                    newUserData.foods[roomFood_old.id].stock += 1;
-                }
-                newUserData.foods[id_food].stock -= 1;
-            }
-        } else{ //変わってなかったら
-            //元のstockとの差分を手持ちの料理数から引く
-            newUserData.foods[id_food].stock -= (stock - newUserData.rooms[id_room].foods[id_roomFood].stock);
-            //idを変えずにstockの数セット
-            newUserData.rooms[id_room].foods[id_roomFood] = {...newUserData.rooms[id_room].foods[id_roomFood], stock: stock}
+        if(id_food !== id_food_old){
+            newUserData.rooms[id_room].foods[id_roomFood] = id_food;
+            setUserData(newUserData)
+            //来れるmobをアプデ -1でfood
+            updateMobProbabilities(id_room, -1);
         }
-        setUserData(newUserData)
-        //来れるmobをアプデ -1でfood
-        updateMobProbabilities(id_room, -1);
     }
 
     const updateMobProbabilities = (id_room:number, id_space: number) => {
         console.log("updatemobProbabilities")
+        //console.log(userData.rooms);
         //space=-1でfoodの更新
         if(id_space === -1){
             setMobProbabilities(mobProbabilities => {
                 const newPml = mobProbabilities.map((mobProbability, i_m) => {
                     let foodRate = 0;
                     userData.rooms[id_room].foods.forEach((food) => {
-                        const mobFoodIndex = systemData.mobs[i_m].foods.findIndex((gz) => gz.id === food.id);
-                        if(mobFoodIndex >= 0)foodRate += systemData.mobs[i_m].foods[mobFoodIndex].rating;
+                        if(food >= 0){
+                            const mobFoodIndex = systemData.mobs[i_m].foods.findIndex((gz) => gz.id === food);
+                            if(mobFoodIndex >= 0)foodRate += systemData.mobs[i_m].foods[mobFoodIndex].rating;
+                        }
                     })
                     mobProbability.foods[id_room] = foodRate;
                     return {spaces:mobProbability.spaces, foods:mobProbability.foods}
@@ -590,10 +672,12 @@ export function DataProvider({ children }: any) {
             setMobProbabilities(mobProbabilities => {
                 const newPml = mobProbabilities.map((mobProbability, i_m) => {
                     const id_goods = userData.rooms[id_room].spaces[id_space].goods;
-                    const newSpaces = mobProbability.spaces.filter((space) => (space.room !== id_room && space.space !== id_space));
-                    const mobGoodsIndex = systemData.mobs[i_m].goods.findIndex(gz => gz.id === id_goods)
-                    if(mobGoodsIndex >= 0){//ここあとでGoodsの形式かえる
-                        newSpaces.push({room: id_room, space: id_space, rating:systemData.mobs[i_m].goods[mobGoodsIndex].rating})
+                    const newSpaces = mobProbability.spaces.filter((space) => (space.room !== id_room || space.space !== id_space));
+                    if(id_goods >= 0){
+                        const mobGoodsIndex = systemData.mobs[i_m].goods.findIndex(gz => gz.id === id_goods)
+                        if(mobGoodsIndex >= 0){//ここあとでGoodsの形式かえる
+                            newSpaces.push({room: id_room, space: id_space, rating:systemData.mobs[i_m].goods[mobGoodsIndex].rating})
+                        }
                     }
                     return {spaces:newSpaces, foods:mobProbability.foods}
                 })
@@ -778,6 +862,10 @@ export function DataProvider({ children }: any) {
         Craftable,
         chooseGoods,
         chooseFood,
+
+        resetData,
+        manualSave,
+
         logs,
     };
     

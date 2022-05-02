@@ -5,7 +5,7 @@ import { IndexedAccessType } from "typescript";
 import { useDataContext, getGoodsList, getRoomList, getMobList, getFoodList } from "../Contexts/DataContext";
 import { useFrameContext } from "../Contexts/FrameContext";
 import {MergedSpace, Room, Space, SpaceListIndex} from "../ts/SystemData"
-import { RoomFood, UserRoomData, UserSpaceData } from "../ts/UserData";
+import { UserRoomData, UserSpaceData } from "../ts/UserData";
 
 import './RoomMonitor.css';
 
@@ -17,14 +17,27 @@ const mobList =getMobList();
 const cellX:number = 64;
 const cellY:number = 37;
 
-const calcXY = (room:Room, space:Space | null) => {
+const calcRoomXY = (room:Room) => {
     const {origin_x, origin_y} = room.stage;
-    let x=room.stage.x;
+    const x=room.stage.x;
+    const y=room.stage.y;
+
+    const posX = -origin_x + (x + y) * cellX;
+    const posY = -origin_y + (y - x) * cellY;
+
+    return {x: posX, y: posY};
+}
+
+const calcXY = (room:Room, space:Space) => {
+    const {origin_x, origin_y} = room.stage;
+    /*let x=room.stage.x;
     let y=room.stage.y;
     if(space){
         x = room.stage.x + space.x;
         y = room.stage.y + space.y;
-    }
+    }*/
+    const x = space.x;
+    const y = space.y;
 
     const posX = origin_x + (x + y) * cellX;
     const posY = origin_y + (y - x) * cellY;
@@ -39,8 +52,15 @@ const stageImages = roomList.map((room) => {
 })
 const goodsImages = goodsList.map((goods) => {
     const image = new window.Image();
-    image.src = `${process.env.PUBLIC_URL}/img/goods/${goods.image.url}.png`;
+    image.src = `${process.env.PUBLIC_URL}/img/goods/${goods.image.url}/default.png`;
     return image;
+})
+const goodsMobImages = goodsList.map((goods) => {
+    return mobList.map((mob) => {
+        const image = new window.Image();
+        image.src = `${process.env.PUBLIC_URL}/img/goods/${goods.image.url}/${mob.id}.png`;
+        return image;
+    })
 })
 const foodsImage = (() => {
     const image = new window.Image();
@@ -50,6 +70,16 @@ const foodsImage = (() => {
 const operationImage = (() => {
     const image = new window.Image();
     image.src = `${process.env.PUBLIC_URL}/img/system/operation.png`;
+    return image;
+})()
+const signImage = (() => {
+    const image = new window.Image();
+    image.src = `${process.env.PUBLIC_URL}/img/system/sign2.png`;
+    return image;
+})()
+const frameImage = (() => {
+    const image = new window.Image();
+    image.src = `${process.env.PUBLIC_URL}/img/system/item_frame_bg.png`;
     return image;
 })()
 
@@ -72,15 +102,18 @@ const RoomMonitor= (props:RoomProps) => {
         chooseGoods,
         chooseFood
     } = useDataContext();
-    const { goodsIndex: selectedGoods, foodIndex: selectedFood } = useFrameContext();
+    const { goodsIndex: selectedGoods, foodIndex: selectedFood,
+    } = useFrameContext();
 
     const [scale, setScale] = useState(0.25);
     const stageRef = useRef(null as any);
     const layerRef = useRef(null as any);
+    const[foodWindow, setFoodWindow] = useState(-1);
 
     const SelectArea = useCallback((spaceListIndex: SpaceListIndex) => {
         let operation = -1;
         const goodsNow = rooms[spaceListIndex.index.room][spaceListIndex.list][spaceListIndex.index.space].goods;
+
         if(goodsNow >= 0){
             if(goodsNow == selectedGoods) operation = 2; //撤去
             else operation = 1; //交換
@@ -90,31 +123,10 @@ const RoomMonitor= (props:RoomProps) => {
             switch(operation){
                 case 0:
                 case 1:
-                    //既に置いてある場所があれば、そこを撤去する mergedでも処理は同じ
-                    rooms.forEach((room, i_r2) => {
-                        room.spaces.forEach((space, i_s2) => {
-                            if(space.goods === selectedGoods){
-                                chooseGoods(i_r2, i_s2, -1);
-                            }
-                        })
-                    })
-                    //選択した場所にグッズを置く
-                    if(spaceListIndex.list ==="spaces") chooseGoods(spaceListIndex.index.room, spaceListIndex.index.space, selectedGoods);
-                    else {
-                        //マージしてあるスペース全てを外す
-                        roomList[spaceListIndex.index.room].merged_spaces[spaceListIndex.index.space].spaces.forEach(space =>{
-                            chooseGoods(spaceListIndex.index.room, space, selectedGoods);
-                        })
-                    }
+                    chooseGoods(spaceListIndex, selectedGoods);
                     break;
                 case 2:
-                    if(spaceListIndex.list ==="spaces") chooseGoods(spaceListIndex.index.room, spaceListIndex.index.space, -1);
-                    else {
-                        //マージしてあるスペース全てを外す
-                        roomList[spaceListIndex.index.room].merged_spaces[spaceListIndex.index.space].spaces.forEach(space =>{
-                            chooseGoods(spaceListIndex.index.room, space, -1);
-                        })
-                    }
+                    chooseGoods(spaceListIndex, -1)
                     break;
                 default:
                     break;
@@ -122,7 +134,9 @@ const RoomMonitor= (props:RoomProps) => {
         }
         
         return(
-            <Group>
+            //選択中のgoodsを置けるスペースならば表示
+            isPlaceable({list:spaceListIndex.list, index:spaceListIndex.index})?
+            <Group className="select-area" onMouseDown={() => handleClick()}>
                 <Shape
                     sceneFunc={(context, shape) => {
                         context.beginPath();
@@ -138,84 +152,82 @@ const RoomMonitor= (props:RoomProps) => {
                 />
                 <Rect 
                     fillPatternImage={operationImage} width={64} height={64}
-                    fillPatternOffset={{x:-64*operation, y:0}} x={cellX*0.5} y={-cellY}
-                    onClick={() => handleClick()}
+                    fillPatternOffset={{x:64*operation, y:0}} x={cellX*0.5} y={-cellY}
+                    
                 ></Rect>
-            </Group>
+            </Group>:null
         )
     },[selectedGoods, goods])
 
     const FoodsWindow = useCallback((i_r: number) => {
 
+        const handleClick = (id_rf: number, operation:number) => {
+            console.log(rooms[i_r].foods)
+            switch(operation){
+                case 0:
+                case 1:
+                    //既に置いてある場所があれば、そこを撤去する
+                    rooms[i_r].foods.forEach((food, id_rf2) => {
+                        if(food>=0 && food === selectedFood){
+                            chooseFood(i_r, id_rf2, -1);
+                        }
+                    })
+                    //選択した場所に食べ物を置く
+                    chooseFood(i_r, id_rf, selectedFood);
+                    break;
+                case 2:
+                    chooseFood(i_r, id_rf, -1);
+                    break;
+                default:
+                    break;
+            }
+        }
+
         const FoodWindowItem = (id_rf: number) => {
             const roomFood = rooms[i_r].foods[id_rf];
+            console.log(foodList[roomFood]);
             let operation = -1;
-            if(roomFood != null){
-                if(roomFood.id == selectedGoods) operation = 2; //撤去
+            if(roomFood >= 0){
+                if(roomFood === selectedFood) operation = 2; //撤去
                 else operation = 1; //交換
             } else operation = 0; //設置
 
-            const handleClick = () => {
-                switch(operation){
-                    case 0:
-                    case 1:
-                        //既に置いてある場所があれば、そこを撤去する
-                        rooms[i_r].foods.forEach((food, id_rf2) => {
-                            if(food.id === selectedFood){
-                                chooseFood(i_r, id_rf2, -1, -1);
-                            }
-                        })
-                        //選択した場所に食べ物を置く
-                        chooseFood(i_r, id_rf, selectedFood, 1);
-                        break;
-                    case 2:
-                        chooseFood(i_r, id_rf, -1, -1);
-                        break;
-                    default:
-                        break;
-                }
-            }
-
             return (
-                <Group x={108*(id_rf-1)}>
-                    <Rect 
-                        fill="green" width={96} height={96}
-                    ></Rect>
+                <Group x={108*(id_rf-1)} onMouseDown={() => {handleClick(id_rf, operation);}}
+                onMouseOver={( ) => setFoodWindow(i_r)} onMouseOut={( ) => setFoodWindow(-1)}
+                >
+                    <Image image={frameImage}/>
                     {
                         //食べ物が配置されてる時だけ表示
-                        roomFood?
+                        roomFood >= 0?
                         <Rect 
-                        fill="green" width={64} height={64} x={16} y={16}
+                        width={64} height={64} x={16} y={16}
                         fillPatternImage={foodsImage}
-                        fillPatternOffset={{x:-64*foodList[roomFood.id].image[0], y:-64*foodList[roomFood.id].image[1]}}
+                        fillPatternOffset={{x:64*foodList[roomFood].image[0], y:64*foodList[roomFood].image[1]}}
                         ></Rect>
                         :null
                     }
                     <Rect 
                         fillPatternImage={operationImage} width={64} height={64}
-                        fillPatternOffset={{x:-64*operation, y:0}} x={16} y={16}
-                        onClick={() => handleClick()}
+                        fillPatternOffset={{x:64*operation, y:0}} x={16} y={16}
                     ></Rect>
-                    {
-                        roomFood?
-                        <Text text={roomFood.stock.toString()}></Text>
-                        : null
-                    }
                 </Group>
             )
         }
         
 
         return(
-            <Group>
+            isPlaceableFood(i_r) || (foodWindow === i_r) ?
+            <Group x={-48} y={-128}  className="select-area">
+                <Image image={signImage} x={-144} y={-24}/>
                 {
                     rooms[i_r].foods.map((_, id_rf) => {
                         return FoodWindowItem(id_rf)
                     })
                 }
-            </Group>
+            </Group>: null
         )
-    },[selectedFood])
+    },[selectedFood, foodWindow, rooms])
     
     const isPlaceable = useCallback((spaceListIndex: SpaceListIndex) => {
         const placeable = (
@@ -242,26 +254,23 @@ const RoomMonitor= (props:RoomProps) => {
             //console.log("room")
             if(room.unlocked){
                 //spacesのうち、merged_spaceのグッズが占めてるものを除外する
-                const occupiedSpaceList = []
+                const occupiedSpaceList: number[] = []
                 roomList[i_r].merged_spaces.forEach((mSpace, i_ms) => {
                     //console.log(mSpace.spaces[0], room.spaces)
-                    if(room.spaces[mSpace.spaces[0]].goods >= 0){
+                    if(room.merged_spaces[i_ms].goods >= 0){
                         mSpace.spaces.forEach(space => {occupiedSpaceList.push(space)})
                     }
                 })
                 return (
-                    <Group x={-roomList[i_r].stage.origin_x} y={-roomList[i_r].stage.origin_y}>
-                        <Image image={stageImages[i_r]} perfectDrawEnabled={false}/>
+                    <Group {...calcRoomXY(roomList[i_r])}>
+                        <Image image={stageImages[i_r]} perfectDrawEnabled={false} hitStrokeWidth={1} />
                         {
                             roomList[i_r].merged_spaces.map((mSpace:MergedSpace, i_ms) => {
-                                const mSpaceGoods = room.spaces[mSpace.spaces[0]].goods;
+                                const mSpaceGoods = room.merged_spaces[i_ms].goods;
                                 return (
                                     <Group {...calcXY(roomList[i_r], roomList[i_r].merged_spaces[i_ms])}>
                                         {
-                                            //選択中のgoodsを置けるスペースならば表示
-                                            isPlaceable({list:"merged_spaces", index:{room:i_r, space:i_ms}})?
                                             SelectArea({list:"merged_spaces", index:{room:i_r, space:i_ms}})
-                                            : null
                                         }
                                         {
                                             (mSpaceGoods >= 0)
@@ -276,23 +285,20 @@ const RoomMonitor= (props:RoomProps) => {
                         {
                             room.spaces.map((space:UserSpaceData, i_s) => {
                                 return (
-                                    <Group {...calcXY(roomList[i_r], roomList[i_r].spaces[i_s])}>
-                                        { 
-                                            //選択中のgoodsを置けるスペースならば表示
-                                            isPlaceable({list:"spaces", index:{room:i_r, space:i_s}})?
-                                            SelectArea({list:"spaces", index:{room:i_r, space:i_s}})
-                                            : null
-                                        }
+                                    <Group {...calcXY(roomList[i_r], roomList[i_r].spaces[i_s])}  >
                                         {
                                             (space.goods >= 0 && !occupiedSpaceList.includes(i_s))
-                                            ? <Image image={goodsImages[space.goods]} 
-                                            x={-goodsList[space.goods].image.origin_x} y={-goodsList[space.goods].image.origin_y} />
+                                            ? (
+                                                space.mob >= 0?
+                                                <Image image={goodsMobImages[space.goods][space.mob]} 
+                                                x={-goodsList[space.goods].image.origin_x} y={-goodsList[space.goods].image.origin_y} />:
+                                                <Image image={goodsImages[space.goods]} 
+                                                x={-goodsList[space.goods].image.origin_x} y={-goodsList[space.goods].image.origin_y} />
+                                            )
                                             : null
                                         }
-                                        {
-                                            space.mob >= 0
-                                            ? <Text y={16} text={mobList[space.mob].name} />
-                                            : null
+                                        { 
+                                            SelectArea({list:"spaces", index:{room:i_r, space:i_s}})
                                         }
                                     </Group>
                                 )
@@ -302,8 +308,7 @@ const RoomMonitor= (props:RoomProps) => {
                         {
                             <Group {...calcXY(roomList[i_r], roomList[i_r].food_space)}>
                                 {
-                                    isPlaceableFood?
-                                    FoodsWindow(i_r): null
+                                    FoodsWindow(i_r)
                                 }
                             </Group>
                         }
@@ -313,21 +318,8 @@ const RoomMonitor= (props:RoomProps) => {
                 <Text x={-roomList[i_r].stage.origin_x} y={-roomList[i_r].stage.origin_y} text="locked" ></Text>
             );
         })
-    }, [rooms, selectedGoods]);//あとでroomsの更新抑える
+    }, [rooms, selectedGoods, selectedFood]);//あとでroomsの更新抑える
 
-    const dropdownRef = useRef(null);
-    /*const handleOutsideClick = (e: any) => {
-        if (dropdownRef.current) {
-            document.removeEventListener("mousedown", handleOutsideClick);
-            setMenuSpace([-1, -1]);
-        }
-    };*/
-
-    const handleClickSpace = (i_r:number, i_s:number) => {
-        //setMenuSpace([i_r, i_s]);
-        //document.addEventListener("mousedown", handleOutsideClick);
-
-    }
 
     const zoomStage = (event:any) => {
         const newScale = event.evt.deltaY < 0 ? scale * 2 : scale / 2;
@@ -350,13 +342,13 @@ const RoomMonitor= (props:RoomProps) => {
             <div className="stage-wrapper">
                 <div className="stage-background"></div>
                 <Stage width={props.dimensions.width - 320 - 16} height={props.dimensions.height - 96 - 16} onWheel={zoomStage} ref={stageRef}>
-                    <Layer draggable={true} scaleX={scale} scaleY={scale} ref={layerRef}>
+                    <Layer draggable={true} scaleX={scale} scaleY={scale} ref={layerRef} x={100} y={400}>
                         {RoomImage}
                     </Layer>
                 </Stage>
             </div>
         </div>
-    ), [props.dimensions, scale, rooms, selectedGoods]);
+    ), [props.dimensions, scale, rooms, selectedGoods, selectedFood]);
 };
 
 export default RoomMonitor;

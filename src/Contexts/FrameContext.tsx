@@ -2,9 +2,11 @@ import React, { createContext, useState, useContext, useCallback, useMemo } from
 
 export interface IFrameContext {
     goodsIndex: number;
-    setGoodsIndex: (index:number) => void;
+    chooseGoods: (index:number) => void;
     foodIndex: number;
-    setFoodIndex: (index:number) => void;
+    chooseFood: (index:number) => void;
+    toggleMenu: string;
+    setToggleMenu: (select:string) => void;
 }
 
 const FrameContext = createContext({} as IFrameContext);
@@ -17,10 +19,36 @@ export function FrameProvider({ children }: any) {
 
     const[goodsIndex, setGoodsIndex] = useState(-1);
     const[foodIndex, setFoodIndex] = useState(-1);
+    const[toggleMenu, setToggleMenu] = useState("menu");
+
+
+    const chooseGoods = (index: number) => {
+        setGoodsIndex(index);
+        document.addEventListener("mousedown", handleOutsideClick);
+    }
+
+    const chooseFood = (index: number) => {
+        setFoodIndex(index);
+        document.addEventListener("mousedown", handleOutsideClick);
+    }
+
+    const handleOutsideClick = (e: any) => {
+        if(!e.target.closest('.food-list-item') && !e.target.closest('.goods-list-item')) {
+            setFoodIndex(-1);
+            setGoodsIndex(-1);
+        } else {
+            //ここに内側をクリックしたときの処理
+            
+        }
+        document.removeEventListener("mousedown", handleOutsideClick);
+    };
+
+
 
     const value = {
-        goodsIndex, setGoodsIndex, 
-        foodIndex, setFoodIndex,
+        goodsIndex, chooseGoods, 
+        foodIndex, chooseFood,
+        toggleMenu, setToggleMenu,
     };
 
     return (

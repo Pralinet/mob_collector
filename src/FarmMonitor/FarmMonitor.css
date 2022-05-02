@@ -1,42 +1,127 @@
 .farm-monitor {
     position:absolute;
-
     width: calc(100% - 320px);
     height: 96px;
     left:0px;
     bottom:0px;
-    border-image-source: url('../../public/img/system/sign2.png');
+
+    /*border-image-source: url('../../public/img/system/sign2.png');
     border-image-slice: 16 32 fill;
     border-image-width: 16px 32px;
-    border-image-repeat: round;
+    border-image-repeat: round;*/
+}
+.farm-monitor-inner{
+    position:absolute;
+    width: 100%;
+    height: 128px;
+    margin-top: -20px;
+    padding-top: 20px;
+    background: url('../../public/img/system/grass.png');
+    background-repeat: repeat;
 }
 
 /* crops */
 .crop-column {
     display: inline-block;
     vertical-align:top;
-    height: 96px;
+    text-align: center;
+    height: 92px;
     width: 80px;
-    border: 2px solid wheat;
-    background-color: rgb(167, 150, 124);
-    margin: 0 4px;
+    margin: 0 0 4px 8px;
+    position: relative;
+    border-image-source: url('../../public/img/system/item_frame_bg.png');
+    border-image-slice: 32 fill;
+    border-image-width: 32px;
+    border-image-repeat: round;
 }
 
-.crop {
-    background: url('../../public/img/others/crops.png');
+.crop-space{
     height: 64px;
     width: 64px;
-    margin: -8px 0 0 8px;
+    display: inline-block;
+    position: relative;
+}
+.crop {
+    height: 64px;
+    width: 64px;
     display: block;
+    position: absolute;
+    
+    filter: drop-shadow(1px 1px 0 black);
+    background: url('../../public/img/others/crops.png');
+    top: -16px;
+}
+
+
+.crop-text {
+    display: block;
+    position: absolute;
+    bottom: 8px;
+    right: 4px;
 }
 
 .crop.locked {
     background-position-y: -64px;
 }
 
-.crop-lot {
-    height: 16px;
-    font-size: 12px;
+.crop-meter {
+    height: 12px;
+    width: 64px;
+    background-color: rgb(88, 69, 45);
+    border: 1px solid antiquewhite;
+    border-radius: 2px;
+    margin: -16px 8px;
+}
+.crop-meter.hidden{
+    background-color: transparent;
+}
+.crop-meter-mature{
+    left: 0;
+    height: 5px;
+    width: 64px;
+    background-color: rgb(213, 243, 79);
+    border-radius: 1px;
+}
+.crop-meter-redstone{
+    left: 0;
+    height: 5px;
+    width: 64px;
+    background-color: rgb(199, 23, 44);
+    border-radius: 1px;
+}
+.crop-counter-control{
+    margin: 8px 0;
+}
+.crop-counter-item-wrapper{
+    display: inline-block;
+    position: relative;
+    height: 36px;
+    width: 32px;
+}
+.crop-counter-item {
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+    background: url('../../public/img/system/farm_icon.png');
+}
+.crop-counter-redstone {
+    background-position-x: -32px;
+}
+.crop-counter-text{
+    position: absolute;
+    display: inline-block;
+    bottom: 0;
+    right: 0;
+}
+
+.emerald {
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+
+    background: url('../../public/img/others/emerald.png');
+
+    filter: drop-shadow(1px 1px 0 black);
 }
 
 /* ore */
@@ -47,13 +132,15 @@
     float: right;
     flex-wrap: wrap;
     vertical-align: top;
-    border: 2px solid wheat;
-    background-color: rgb(167, 150, 124);
+    background: url('../../public/img/system/long_chest.png');
 }
 
 .ore-counter-item-wrapper {
-    height: 32px;
-    margin: 0px 2px 4px 2px;
+    display: inline-block;
+    position: relative;
+    height: 36px;
+    width: 32px;
+    margin: 0px 2px;
 }
 
 .ore-counter-item {
@@ -61,21 +148,31 @@
     display: inline-block;
     height: 32px;
     width: 32px;
+    filter: drop-shadow(1px 1px 0 black);
 }
 
 .ore-counter-counter {
-    font-size: 12px;
+    display: inline-block;
+    height: 12px;
+    width: 100%;
+    position: absolute;
+    font-size: 14px;
+    bottom: 0px;
+    text-align: right;
 }
 
 
 /* pickaxe */
 .pickaxe-container {
     display: block;
-    height: 96px;
-    width: 96px;
+    height: 112px;
+    width: 112px;
     float: right;
-    border: 2px solid wheat;
-    background-color: rgb(167, 150, 124);
+    margin-top: -16px;
+    border-image-source: url('../../public/img/system/image_frame_mine.png');
+    border-image-slice: 32 fill;
+    border-image-width: 32px;
+    border-image-repeat: round;
 }
 
 @keyframes mining {
@@ -89,6 +186,7 @@
     display: inline-block;
     height: 64px;
     width: 64px;
+    margin-left: 24px;
     transform-origin: right bottom;
 }
 .pickaxe:hover {
@@ -100,8 +198,9 @@
 }
 
 .durability-meter {
-    height: 12px;
+    height: 6px;
     width: 64px;
+    margin-left: 24px;
     background-color: rgb(88, 69, 45);
     border: 1px solid antiquewhite;
     border-radius: 2px;
@@ -109,8 +208,42 @@
 
 .durability-meter-content{
     left: 0;
-    height: 12px;
+    height: 8px;
     width: 64px;
     background-color: rgb(141, 199, 56);
     border-radius: 2px;
+}
+
+.pickaxe-enchant-container{
+    margin-top: 4px;
+    text-align: center;
+}
+.pickaxe-enchant{
+    display: inline-block;
+    height: 32px;
+    width: 24px;
+    position: relative;
+    font-size: 14px;
+}
+
+.pickaxe-enchant-image{
+    background: url('../../public/img/system/enchant.png');
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+}
+.pickaxe-enchant-text{
+    display: inline-block;
+    bottom: 0;
+    right:0;
+    position: absolute;
+}
+.pickaxe-enchant-image-unbreaking{
+    background-position-x: -24px;
+}
+.pickaxe-enchant-image-fortune{
+    background-position-x: -48px;
+}
+.pickaxe-enchant-image-mending{
+    background-position-x: -72px;
 }

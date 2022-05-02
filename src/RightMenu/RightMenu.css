@@ -55,6 +55,9 @@
 .right-menu-select-item-goods {
     background-position: -96px 0px;
 }
+.right-menu-select-item-setting{
+    background-position: -128px 0px;
+}
 
 
 .right-menu-title {
@@ -76,105 +79,54 @@
 .right-menu-content {
     width: 100%;
     height: 100%;
-    overflow-y: scroll;
+    overflow: auto;
 }
-
-
-/* farm */
-
-.pickaxe-container {
-    display: inline-block;
-    height: 128px;
-    width: 88px;
+.right-menu-content .simplebar-scrollbar::before{
+    background-color: rgb(146, 129, 118);
 }
-
-@keyframes mining {
-    0%   { transform: translate(4px, 4px) rotate(-5deg); }
-    70% { transform: translate(0px, -12px) rotate(15deg); }
-    100%   { transform: translate(4px, 4px) rotate(-5deg); }
-}
-
-.pickaxe {
-    background: url('../../public/img/others/tools.png');
-    display: inline-block;
-    height: 64px;
-    width: 64px;
-    transform-origin: right bottom;
-}
-.pickaxe:hover {
-    transform: translate(0, -4px);
-}
-
-.pickaxe.mining {
-    animation: mining 0.3s linear infinite;
-}
-
-.item-sell {
-    background: url('../../public/img/system/sell.png');
-    display: inline-block;
-    height: 18px;
-    width: 24px;
-}
-
-.item-sell.sellable{
-    background-position: -24px 0px;
-}
-
-.crop {
-    background: url('../../public/img/others/crops.png');
-    height: 64px;
-    width: 64px;
-    display: inline-block;
-}
-
-.crop-counter {
-    display: inline-block;
-    vertical-align: top;
-}
-
-.crop-counter-control {
-    display: block;
-    height: 16px;
-    width: 32px;
-    position: relative;
-}
-.crop-counter-control span{
-    display: inline-block;
-    height: 16px;
-    width: 16px;
-}
-
-.crop-lot {
-    height: 64px;
-    vertical-align: top;
-    display: inline-flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-}
-
-.crop-lot-item{
-    background: url('../../public/img/others/crops_grow.png');
-    display: inline-block;
-    height: 16px;
-    width: 16px;
-    box-sizing: border-box;
-}
-
-.crop-lot-item.red-stone{
-    border-bottom: 1px solid red;
-}
-
 
 /* food */
+.food-list-item{
+    height: 80px;
+    width: 256px;
+    border-image-source: url('../../public/img/system/item_frame_bg.png');
+    border-image-slice: 32 fill;
+    border-image-width: 32px;
+    border-image-repeat: repeat;
+    margin: 2px 4px;
+    position: relative;
+}
+.food-list-item.selected{
+    border-image-source: url('../../public/img/system/item_frame_bg_selected.png');
+}
+
 .food-list-item-image {
     background: url('../../public/img/others/food.png');
     height: 64px;
     width: 64px;
     box-sizing: border-box;
+    position: relative;
+    margin: 0px 8px;
     display: inline-block;
+    filter: drop-shadow(1px 1px 0 black);
 }
 .food-list-item-stock {
     display: inline-block;
+    position: absolute;
+    bottom: 8px;
+    right: 176px;
+}
+.food-info {
+    display: inline-block;
+    height: 64px;
+    width: 160px;
+    position: relative;
+}
+.food-info-title{
+    font-size: 14px;
+}
+.food-info-desc{
+    font-size: 12px;
 }
 
 /* item */
@@ -187,58 +139,56 @@
 .item-frame {
     position: relative;
     background: url('../../public/img/system/item_frame.png');
-    height: 48px;
-    width: 48px;
+    height: 64px;
+    width: 64px;
+    border-image-source: url('../../public/img/system/item_frame_bg.png');
+    border-image-slice: 32 fill;
+    border-image-width: 32px;
+    border-image-repeat: round;
     margin: 0px 4px 8px 0px;
+    text-align: center;
 }
 
 .item-image {
-    background: url('../../public/img/others/items.png');
-    height: 32px;
-    width: 32px;
-    margin: 8px;
+    background: url('../../public/img/others/items48.png');
+    height: 48px;
+    width: 48px;
+
     box-sizing: border-box;
+    display: inline-block;
     filter: drop-shadow(1px 1px 0 black);
 }
-.item-image.item-image-items{
-    background: url('../../public/img/others/items.png');
-}
-.item-image.item-image-crops{
-    background: url('../../public/img/others/crops32.png');
-}
-.item-image.item-image-ores{
-    background: url('../../public/img/others/ores.png');
-}
-
-
 .item-image-stock {
     position: absolute;
-    right: 0;
-    bottom: 0;
+    right: 8px;
+    bottom: 8px;
+    display: block;
+}
+.item-image-craft {
+    position: absolute;
+    font-size: 16px;
+    line-height: 12px;
+    right: 8px;
+    top: 0;
+    height: 16px;
+    width: 16px;
+    display: block;
 }
 
 /* goods */
-
-.goods-list {
-    width: 100%;
-    height: calc(100% - 192px);
-    display: inline-flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    overflow-y: scroll;
-    border: 2px solid wheat;
-    border-radius: 2px;
-    background-color: rgba(146, 129, 118, 0.5);
-}
-
 .goods-list-item {
     width: 128px;
     height: 128px;
     font-size: 12px;
     text-align: center;
-    border: 2px solid wheat;
-    background-color: rgba(200, 200, 200, 0.5);
-    margin: 8px 4px;
+    border-image-source: url('../../public/img/system/item_frame_bg.png');
+    border-image-slice: 32 fill;
+    border-image-width: 32px;
+    border-image-repeat: round;
+    margin: 4px 4px;
+}
+.goods-list-item.selected{
+    border-image-source: url('../../public/img/system/item_frame_bg_selected.png');
 }
 
 .goods-list-item p{
@@ -249,10 +199,71 @@
 .goods-list-image {
     width: 64px;
     height: 64px;
-    margin: 8px 32px ;
+    margin: 8px 32px 0 32px;
     background: url('../../public/img/system/dummy64.png');
 }
 
-.locked .goods-list-image {
-    opacity: 0.5;
+.locked .goods-list-image ,.locked-ready .goods-list-image{
+    width: 32px;
+    height: 32px;
+    margin: 16px 48px 16px 48px;
+    background: url('../../public/img/system/locked.png');
+}
+
+
+.craft-item-container{
+    text-align: center;
+    display: block;
+}
+.craft-item-frame{
+    position: relative;
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+}
+.craft-item-image {
+    background: url('../../public/img/others/items.png');
+    height: 32px;
+    width: 32px;
+
+    box-sizing: border-box;
+    display: inline-block;
+    filter: drop-shadow(1px 1px 0 black);
+}
+.craft-item-image.item-image-items{
+    background: url('../../public/img/others/items.png');
+}
+.craft-item-image.item-image-crops{
+    background: url('../../public/img/others/crops32.png');
+}
+.craft-item-image.item-image-ores{
+    background: url('../../public/img/others/ores.png');
+}
+.craft-item-image-stock{
+    position: absolute;
+    display: block;
+    right: 0px;
+    bottom: 0;
+}
+.craft-item-image-craft {
+    height: 24px;
+    width: 24px;
+    font-size: 24px;
+    line-height: 24px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+
+.craft-arrow{
+    height: 32px;
+    width: 24px;
+    display: inline-block;
+    background: url('../../public/img/system/arrow.png');
+}
+.craft-number{
+    display: inline-block;
+    font-size: 20px;
+    line-height: 32px;
+    vertical-align: top;
 }

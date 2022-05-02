@@ -26,3 +26,36 @@ body{
   text-shadow:1px 1px 0 black, -1px -1px 0 black,
               -1px 1px 0 black, 1px -1px 0 black;
 }
+
+.clickable:hover{
+  transform: translate(0, -2px) scale(1.05);
+}
+.clickable:active{
+  transform: translate(0, 0px) scale(0.95);
+}
+
+.disabled{
+  filter: grayscale(50%);
+  color: gray;
+}
+.locked{
+  filter: grayscale(50%);
+  color: gray;
+}
+
+.button{
+  background-color: burlywood;
+  border: 2px solid antiquewhite;
+  border-radius: 8px;
+  box-shadow: 2px 2px 1px rgba(0,0,0,0.5);
+}
+.button:hover{
+  background-color: antiquewhite;
+  border: 2px solid burlywood;
+}
+.button.inactive{
+  background-color: gray;
+  border: 2px solid darkgrey;
+  color: darkgrey;
+  box-shadow: none;
+}

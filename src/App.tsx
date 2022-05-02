@@ -10,6 +10,8 @@ import { DataProvider } from './Contexts/DataContext';
 import { FrameProvider } from './Contexts/FrameContext';
 
 import './App.css';
+import "simplebar/dist/simplebar.min.css";
+import MenuContainer from "./Menu/MenuContainer";
 
 
 
@@ -20,7 +22,6 @@ function App() {
     width: window.innerWidth
   })
 
-  const [toggleMenu, setToggleMenu] = React.useState("menu")
 
   React.useEffect(() => {
     function handleResize() {
@@ -31,29 +32,14 @@ function App() {
   }
     window.addEventListener('resize', handleResize)
   },[])
-
-  const contents = () => {
-    switch(toggleMenu){
-      case "menu":
-        return (<RightMenu/>);
-      case "shop":
-        return (<ShopMenu/>);
-      default:
-        return null;
-    }
-  }
-
-  const onClickMenu = (select: string) => {
-    setToggleMenu(select);
-  }
-
+  
   return (
     <div className="App">
       <DataProvider>
         <FrameProvider>
           <RoomMonitor dimensions={dimensions} />
-          <OverlayMenu onClickMenu={onClickMenu} ></OverlayMenu>
-          {contents()}
+          <OverlayMenu></OverlayMenu>
+          <MenuContainer/>
           <FarmMonitor />
         </FrameProvider>
       </DataProvider>

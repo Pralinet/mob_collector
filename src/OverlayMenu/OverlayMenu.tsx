@@ -1,39 +1,43 @@
+import classNames from "classnames";
 import React, { useState, useMemo } from "react";
 import { useDataContext } from '../Contexts/DataContext'
+import { useFrameContext } from "../Contexts/FrameContext";
 import ChatLogs from "./ChatLogs";
 
 import './OverlayMenu.css';
 
-type OverlayProps = {
-  onClickMenu: (select: string)=> void;
-}
 
-
-const OverlayMenu = (props : OverlayProps) => {
+const OverlayMenu = () => {
     const { 
       userData:{player:{money, exp }}
     } = useDataContext();
 
+    const {
+      toggleMenu, setToggleMenu
+    } = useFrameContext();
+
     const handleClickMenu = (select: string) => {
-      //console.log(select)
-      props.onClickMenu(select);
+      setToggleMenu(select);
     }
 
     return useMemo(() =>(
       <div className="overlay-menu">
         <div className="overlay-menu-button-wrapper">
-          <div className="overlay-menu-button" onClick={() => handleClickMenu("menu")}>
+          <div className={classNames("overlay-menu-button", toggleMenu==="menu"?"selected":"clickable")} onClick={() => handleClickMenu("menu")}>
             <span className="overlay-menu-button-image overlay-menu-button-menu"></span>
             <span className="overlay-menu-button-text">menu</span>
           </div>
-          <div className="overlay-menu-button" onClick={() => handleClickMenu("shop")}>
+          <div className={classNames("overlay-menu-button", toggleMenu==="shop"?"selected":"clickable")} onClick={() => handleClickMenu("shop")}>
             <span className="overlay-menu-button-image overlay-menu-button-shop"></span>
             <span className="overlay-menu-button-text">shop</span>
           </div>
         </div>
         <ChatLogs/>
             <div className="lv-display">
-              <div className="lv"><span>{exp.lv}</span></div>
+              <div className="lv">
+                <span className="lv-title"></span>
+                <p>{exp.lv}</p>
+              </div>
               <div className="lv-meter-wrapper">
                   <div className="exp-meter">
                     <div className="exp-meter-content" style={{width: (exp.exp/exp.nextExp*128)}}></div>
@@ -46,7 +50,7 @@ const OverlayMenu = (props : OverlayProps) => {
               </div>
             </div>
       </div>
-    ), [money, exp]);
+    ), [money, exp, toggleMenu]);
 
 }
 

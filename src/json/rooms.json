@@ -1,5 +1,62 @@
 [
     {
+        "id": "overworld_room",
+        "name": "部屋",
+        "stage": {
+            "origin_x": 270,
+            "origin_y": 1425,
+            "x": 7,
+            "y": -28
+        },
+        "spaces": [
+            {
+                "id": "o_r_audio",
+                "x": 15,
+                "y": 5
+            },
+            {
+                "id": "o_r_desk",
+                "x": 3,
+                "y": 14
+            },
+            {
+                "id": "o_r_floor1",
+                "x": 15,
+                "y": -5
+            },
+            {
+                "id": "o_r_floor2",
+                "x": 3,
+                "y": 1
+            },
+            {
+                "id": "o_r_balcony",
+                "x": -2,
+                "y": 2
+            }
+        ],
+        "merged_spaces": [],
+        "food_space": {
+            "id": "o_r_food",
+            "x": 13,
+            "y": 3,
+            "foods": [
+                "cooked_chicken",
+                "baked_potato",
+                "salad",
+                "pumpkin_pie",
+                "squid_ink_pasta",
+                "glow_ink_pasta"
+            ]
+        },
+        "unlock":{
+            "money": 1000,
+            "items": ["compass"]
+        }
+    },
+
+
+    {
         "id": "overworld_garden",
         "name": "庭先",
         "stage": {
@@ -11,43 +68,38 @@
         "spaces": [
             {
                 "id": "o_g_tree",
-                "x": 8,
-                "y": 8
+                "x": 18,
+                "y": 10
             },
             {
                 "id": "o_g_bench",
-                "x": 2,
-                "y": 9
+                "x": 6,
+                "y": -5
             },
             {
                 "id": "o_g_ground1",
-                "x": 12,
-                "y": 5
+                "x": 10,
+                "y": 2
             },
             {
                 "id": "o_g_ground2",
-                "x": 2,
-                "y": 2
-            },
-            {
-                "id": "o_g_terrace" ,
-                "x": 8,
-                "y": 2
+                "x": 12,
+                "y": 8
             },
             {
                 "id": "o_g_bbq",
-                "x": 0,
+                "x": 15,
                 "y": 0
             },
             {
                 "id": "o_g_flowers",
                 "x": 2,
-                "y": 5
+                "y": 3
             },
             {
                 "id": "o_g_pond",
-                "x": 2,
-                "y": 15
+                "x": 4,
+                "y": 13
             }
         ],
         "merged_spaces": [
@@ -69,66 +121,16 @@
             "x": 18,
             "y": 0,
             "foods": [
-                "wheat",
+                "edible_wheat",
                 "cooked_cod",
-                "cooked_chicken"
+                "cooked_chicken",
+                "baked_potato",
+                "salad"
             ]
         },
         "unlock":{
             "money": 0,
             "items": []
-        }
-    },
-    {
-        "id": "overworld_room",
-        "name": "部屋",
-        "stage": {
-            "origin_x": 0,
-            "origin_y": 425.5,
-            "x": 0,
-            "y": -11
-        },
-        "spaces": [
-            {
-                "id": "o_r_bed_upper",
-                "x": 5,
-                "y": 2
-            },
-            {
-                "id": "o_r_desk",
-                "x": 6,
-                "y": 6
-            },
-            {
-                "id": "o_r_floor1",
-                "x": 9,
-                "y": 2
-            },
-            {
-                "id": "o_r_floor2",
-                "x": 2,
-                "y": 8
-            },
-            {
-                "id": "o_r_ceil",
-                "x": 9,
-                "y": 9
-            }
-        ],
-        "merged_spaces": [],
-        "food_space": {
-            "id": "o_r_food",
-            "x": 5,
-            "y": 5,
-            "foods": [
-                "pumpkin_pie",
-                "cookie",
-                "cake"
-            ]
-        },
-        "unlock":{
-            "money": 1000,
-            "items": ["compass"]
         }
     }
 ]

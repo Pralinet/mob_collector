@@ -4,35 +4,89 @@
     height: 100%;
     top:0px;
     right:0px;
+    border-image-source: url('../../public/img/system/shop.png');
+    border-image-slice: 236 162 12 162 fill;
+    border-image-width: 236px 162px 12px 162px;
+    border-image-repeat: round;
+    margin-left: -4px;
+    padding-left: 4px;
+}
+.shop-menu.buy{
+    border-image-source: url('../../public/img/system/shop2.png');
 }
 
 .shop-option{
-    background: url('../../public/img/system/shop.png');
+    position:relative;
     width: 320px;
-    height: 192px;
+    height: 200px;
+}
+.shop-option-content{
+    padding-left: 16px;
+}
+.shop-option-title{
+    font-size: 20px;
+    line-height: 32px;
+    position:absolute;
+    top: 96px;
+    vertical-align: top;
+}
+.shop-option-change{
+    /*background: url('../../public/img/system/shop_change.png');*/
+
+    height: 32px;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 4px;
+    font-size: 16px;
 }
 
+.toggle-buyable-wrapper{
+    position:absolute;
+    bottom: 32px;
+
+}
+.toggle-buyable-wrapper span{
+    line-height: 24px;
+    vertical-align: top;
+}
+.toggle-buyable{
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background: url('../../public/img/system/toggle.png');
+    margin-right: 4px;
+    margin-left: 4px;
+}
+.toggle-buyable.buyable-only{
+    background-position-x: -24px;
+}
+
+.shop-list-wrapper{
+    overflow: auto;
+    width: 100%;
+    height: calc(100% - 200px);
+}
+.shop-list-wrapper .simplebar-scrollbar::before{
+    background-color: rgb(146, 129, 118);
+}
 
 .goods-list {
     width: 100%;
-    height: calc(100% - 192px);
     display: inline-flex;
     justify-content: center;
     flex-wrap: wrap;
-    overflow-y: scroll;
-    border: 2px solid wheat;
-    border-radius: 2px;
-    background-color: rgba(146, 129, 118, 0.5);
-}
+}    
 
 .goods-list-item {
     width: 128px;
     height: 128px;
     font-size: 12px;
     text-align: center;
-    border: 2px solid wheat;
-    background-color: rgba(200, 200, 200, 0.5);
-    margin: 8px 4px;
+    border-image-source: url('../../public/img/system/item_frame_bg.png');
+    border-image-slice: 32 fill;
+    border-image-width: 32px;
+    border-image-repeat: round;
+    margin: 4px 4px;
 }
 
 .goods-list-item p{
@@ -40,11 +94,21 @@
     word-wrap: break-word;
 }
 
+
 .goods-list-image {
     width: 64px;
     height: 64px;
     margin: 8px 32px ;
     background: url('../../public/img/system/dummy64.png');
+}
+.goods-list-image-food {
+    background: url('../../public/img/others/food.png');
+}
+.goods-list-image-item {
+    height: 48px;
+    width: 48px;
+    margin: 16px 40px ;
+    background: url('../../public/img/others/items48.png');
 }
 
 .goods-list-image-enchant {
@@ -61,30 +125,68 @@
     background: url('../../public/img/goods/map.png');
 }
 
+.shop-requirement{
+    display: inline-block;
+    position: relative;
+    width: 32px;
+    height: 32px;
+    margin: 0 2px;
+}
+.shop-requirement-image{
+    display: block;
+    width: 32px;
+    height: 32px;
+}
+.shop-requirement-money{
+    background: url('../../public/img/others/emerald.png');
+}
+.shop-requirement-crop{
+    background: url('../../public/img/others/crops32.png');
+}
+.shop-requirement-ore{
+    background: url('../../public/img/others/ores.png');
+}
+.shop-requirement-item{
+    background: url('../../public/img/others/items.png');
+}
+.shop-requirement-lv{
+    background: url('../../public/img/system/lv_text.png');
+}
+.shop-requirement-text{
+    height: 12px;
+    width: 100%;
+    display: block;
+    position: absolute;
+    bottom:0;
+    text-align: right;
+}
 
 .shop-sell-item {
     position: relative;
-    height: 32px;
-    width: 100%;
-    margin: 2px 0;
-    border: 2px solid wheat;
-    background-color: rgba(200, 200, 200, 0.5);
+    text-align: center;
     display: block;
+    width: 96px;
+    height: 96px;
+    border-image-source: url('../../public/img/system/item_frame_bg.png');
+    border-image-slice: 32 fill;
+    border-image-width: 32px;
+    border-image-repeat: round;
+    margin: 4px 4px;
+}
+.shop-sell-image{
+    height: 64px;
+    width: 64px;
+    display: block;
+    margin: 2px 16px;
+    box-sizing: border-box;
+    filter: drop-shadow(1px 1px 0 black);
 }
 .shop-ore-image{
-    background: url('../../public/img/others/ores.png');
-    height: 32px;
-    width: 32px;
-    box-sizing: border-box;
-    display: inline-block;
+    background: url('../../public/img/others/ores64.png');
+
 }
 .shop-crop-image{
     background: url('../../public/img/others/crops.png');
-    background-size: 224px 64px;
-    height: 32px;
-    width: 32px;
-    box-sizing: border-box;
-    display: inline-block;
 }
 .shop-sell-stock {
     display: inline-block;

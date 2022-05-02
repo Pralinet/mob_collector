@@ -45,5 +45,213 @@
             "number": 1
         },
         "shop": null
-    }
+    },
+
+    {
+        "id": "telescope",
+        "name": "望遠鏡",
+        "price": 200,
+    	"spaces":[
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "craft": {
+			"materials": [
+				{
+					"item": "copper_ingot",
+					"requirement": 2
+				},
+                {
+					"item": "amethyst_shard",
+					"requirement": 1
+				},
+                {
+					"item": "stick",
+					"requirement": 3
+                }
+			],
+			"number": 1
+		},
+		"shop": null,
+        "removable": false
+	},
+
+    {
+        "id": "badminton",
+        "name": "イカミントン",
+        "desc": "空中を舞い踊るイカ！",
+    	"spaces":[
+            "o_g_badminton"
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "craft": null,
+		"shop": {
+			"money": 300,
+			"items": [],
+			"number": 1
+		},
+        "removable": true
+	},
+    {
+        "id": "picnic",
+        "name": "ピクニックセット",
+        "desc": "天気のいい日はピクニック！",
+    	"spaces":[
+            "o_g_picnic"
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "craft": null,
+		"shop": {
+			"money": 500,
+			"items": [],
+			"number": 1
+		},
+        "removable": true
+	},
+    {
+        "id": "note_block_drums",
+        "name": "音ブロックドラム",
+    	"spaces":[
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "craft": null,
+		"shop": {
+			"money": 400,
+			"items": [
+                {
+                    "item": "stick",
+                    "requirement": 2
+                }
+            ],
+			"number": 1
+		},
+        "removable": true
+	},
+    {
+        "id": "bookshelf",
+        "name": "本棚",
+    	"spaces":[
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "craft": null,
+		"shop": {
+			"money": 100,
+			"items": [
+                {
+                    "item": "book",
+                    "requirement": 10
+                }
+            ],
+			"number": 1
+		},
+        "removable": true
+	},
+    {
+        "id": "wither_kit",
+        "name": "ウィザー召喚キット",
+    	"spaces":[
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "craft": null,
+		"shop": {
+			"money": 800,
+			"items": [],
+			"number": 1
+		},
+        "removable": true
+	},
+    {
+        "id": "warped_swing",
+        "name": "歪んだブランコ",
+        "price": 120,
+    	"spaces":[
+            "o_g_tree"
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "craft": null,
+        "shop": {
+			"money": 200,
+			"items": [],
+			"number": 1
+		},
+        "removable": true
+	},
+	{
+		"id":"raw_cod",
+        "name": "鱈",
+		"image": [1, 1],
+		"craft": null,
+		"shop": {
+			"money": 10,
+			"items": [
+                {
+                    "item": "fishing_rod",
+                    "requirement": 1
+                }
+            ],
+			"number": 8
+		}
+	},
+
+    {
+        "id": "audio_compo",
+        "name": "オーディオコンポ",
+        "desc": "お部屋を音楽のある空間に",
+        "price": 150,
+    	"spaces":[
+            "o_r_audio"
+		],
+        "image":{
+            "url": "dummy",
+            "origin_x": 0,
+            "origin_y": 64
+        },
+        "craft": {
+			"materials": [
+                {
+                    "item": "planks",
+                    "requirement": 8
+                },
+                {
+                    "item": "diamond",
+                    "requirement": 1 
+                },
+                {
+                    "item": "record",
+                    "requirement": 3 
+                }
+            ],
+            "number": 1
+		},
+		"shop": null,
+        "removable": true
+	}
+
 ]

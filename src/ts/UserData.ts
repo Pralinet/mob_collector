@@ -69,19 +69,19 @@ export type UserRoomData = {
     id: string,
     unlocked: boolean
     spaces: UserSpaceData[];
-    foods: RoomFood[]
+    merged_spaces: UserMergedSpaceData[];
+    foods: number[]
 };
-
-export type RoomFood = {
-    id: number,
-    stock: number
-} | null
 
 export type UserSpaceData = {
     id: string,
     goods: number,
     mob: number,
 };
+
+export type UserMergedSpaceData = Omit<UserSpaceData, "mobs"> &{
+    mobs: number[],
+}
 
 export type UserMobData = {
     id: string,

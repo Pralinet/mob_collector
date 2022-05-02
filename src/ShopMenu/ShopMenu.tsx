@@ -1,7 +1,9 @@
+import classNames from "classnames";
 import React, { useState, useMemo } from "react";
+import SimpleBar from "simplebar-react";
 
 import { useDataContext, getGoodsList, getCropList, getOreList, getEnchants, getRoomList, getItemList, getFoodList } from '../Contexts/DataContext';
-import { CashItemListIndex, MerchandiseListIndex, SystemData } from "../ts/SystemData";
+import { CashItemListIndex, CraftItemListIndex, Merchandise, MerchandiseListIndex, SystemData } from "../ts/SystemData";
 
 import './ShopMenu.css'
 
@@ -12,6 +14,8 @@ const roomList = getRoomList();
 const itemList = getItemList();
 const foodList = getFoodList();
 const enchants = getEnchants();
+
+const bookIndex = itemList.findIndex(item => item.id==='book');
 
 const ShopMenu = () => {
     const { 
@@ -27,10 +31,11 @@ const ShopMenu = () => {
         BuyMap,
     } = useDataContext();
     const [shopMode, setShopMode] = useState("buy");
+    const [buyableOnly, setBuyableOnly] = useState(false);
 
-    const handleModeClick = (select: string) => {
-        setShopMode(select);
-      }
+    const handleModeClick = (mode:string) => {
+        setShopMode(mode);
+    }
 
     const handleBuyGoods = (list: "goods" | "items" | "foods", index: number) => {
         const merchandiseListIndex: MerchandiseListIndex = {
@@ -61,9 +66,9 @@ const ShopMenu = () => {
                     ores.map((ore, index) => { 
                         const sellable = (ores[index].stock >= oreList[index].requirement);
                         return (oreList[index].sellable)?(
-                            <div className="shop-sell-item" onClick={() => sellable? handleSellOre(index): null}>
-                                <div className="shop-ore-image"
-                                style={{backgroundPositionX : -32*index}}
+                            <div className={classNames("shop-sell-item", sellable?"clickable":"disabled")} onClick={() => sellable? handleSellOre(index): null}>
+                                <div className="shop-sell-image shop-ore-image"
+                                style={{backgroundPositionX : -64*index}}
                                 ></div>
                                 <div className="shop-sell-stock">{ore.stock} / {oreList[index].requirement}</div>
                             </div>
@@ -73,9 +78,9 @@ const ShopMenu = () => {
                     crops.map((crop, index) => {
                         const sellable = (crops[index].stock >= cropList[index].requirement);
                         return (
-                        <div className="shop-sell-item" onClick={() => sellable? handleSellCrop(index): null}>
-                            <div className="shop-crop-image"
-                            style={{backgroundPositionX : -32*index}}
+                        <div className={classNames("shop-sell-item", sellable?"clickable":"disabled")} onClick={() => sellable? handleSellCrop(index): null}>
+                            <div className="shop-sell-image shop-crop-image"
+                            style={{backgroundPositionX : -64*index}}
                             ></div>
                             <div className="shop-sell-stock">{crop.stock} / {cropList[index].requirement}</div>
                         </div>
@@ -86,65 +91,133 @@ const ShopMenu = () => {
     }, [ores, crops]);
 
     const ShopBuy = useMemo(() => {
+
+        const rqImage = (listIndex :CraftItemListIndex) => {
+            switch(listIndex.list){
+                case 'crops':
+                    return (
+                        <span className="shop-requirement-image shop-requirement-crop"
+                        style={{backgroundPositionX:-32*listIndex.index}}
+                        ></span>
+                    )
+                case 'ores':
+                    return (
+                        <span className="shop-requirement-image shop-requirement-ore"
+                        style={{backgroundPositionX:-32*listIndex.index}}
+                        ></span>
+                    )
+                default:
+                    return (
+                        <span className="shop-requirement-image shop-requirement-item"
+                        style={{backgroundPositionX : -32*itemList[listIndex.index].image[0], backgroundPositionY : -32*itemList[listIndex.index].image[1]}}
+                        ></span>
+                    )
+            }
+        }
+
+        const merchandiseDisplay = (listIndex:MerchandiseListIndex) => {
+            const merch:Merchandise = (() => {
+                switch(listIndex.list){
+                    case "foods":
+                        return foodList[listIndex.index];
+                    case "goods":
+                        return goodsList[listIndex.index];
+                    default:
+                        return itemList[listIndex.index];
+                }
+            })()
+
+            const merchImage = () => {
+                switch(listIndex.list){
+                    case "goods":
+                        return (
+                            <div className="goods-list-image"
+                            style={{backgroundImage:`url(${process.env.PUBLIC_URL}/img/goods/thumbnail/${goodsList[listIndex.index].image.url}.png)`}}
+                            ></div>
+                        );
+                    case "foods":
+                        return(
+                            <div className="goods-list-image goods-list-image-food" 
+                            style={{backgroundPositionX : -64*foodList[listIndex.index].image[0], backgroundPositionY : -64*foodList[listIndex.index].image[1]}}
+                            ></div>
+                        )
+                    default:
+                        return(
+                            <div className="goods-list-image goods-list-image-item" 
+                            style={{backgroundPositionX : -48*itemList[listIndex.index].image[0], backgroundPositionY : -48*itemList[listIndex.index].image[1]}}
+                            ></div>
+                        )
+                }
+            }
+            
+            if(merch.shop){
+                const buyable = Buyable(merch)
+                return(
+                    !(!buyable && buyableOnly) && !(listIndex.list==="goods" && goods[listIndex.index].stock)?
+                    <div className={classNames("goods-list-item", (buyable)?"clickable":"disabled")} onClick={() => {if(buyable)handleBuyGoods(listIndex.list, listIndex.index);} }>
+                        {merchImage()}
+                        <p>{merch.name}</p>
+                        <div className="shop-requirement-wrapper">
+                            <div className="shop-requirement">
+                                <span className="shop-requirement-image shop-requirement-money"></span>
+                                <span className="shop-requirement-text">{merch.shop?.money}</span>
+                            </div>
+                            {
+                                merch.shop?.items.map(item => {
+                                    return (
+                                        <div className="shop-requirement">
+                                            {rqImage(item.item)}
+                                            <span className="shop-requirement-text">{item.requirement}</span>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                        <p></p>
+                    </div>:null
+                )
+            }
+            return null;
+        }
+
         return (
             <div className="goods-list">
                 {
-                    goodsList.map((item, i) => {
-                        if(goodsList[i].shop){
-                            const disabled = goods[i].stock || !Buyable(goodsList[i])
-                            return(
-                                <div className="goods-list-item" onClick={() => {if(!disabled)handleBuyGoods("goods", i);} }>
-                                    <div className="goods-list-image"></div>
-                                    <p>{goodsList[i].name}</p>
-                                    <p>{goodsList[i].shop?.money}</p>
-                                </div>
-                            )
-                        }
-                        return null;
-                    })
+                    goodsList.map((_, i) => merchandiseDisplay({list:"goods", index:i}) )
                 }
                 {
-                    itemList.map((item, i) => {
-                        if(itemList[i].shop){
-                            const disabled = !Buyable(itemList[i])
-                            return(
-                                <div className="goods-list-item" onClick={() => {if(!disabled)handleBuyGoods("items",i);} }>
-                                    <div className="goods-list-image"></div>
-                                    <p>{itemList[i].name}</p>
-                                    <p>{itemList[i].shop?.money}</p>
-                                </div>
-                            )
-                        }
-                        return null;
-                    })
+                    itemList.map((_, i) => merchandiseDisplay({list:"items", index:i}) )
                 }
                 {
-                    foodList.map((item, i) => {
-                        if(foodList[i].shop){
-                            const disabled = !Buyable(foodList[i])
-                            return(
-                                <div className="goods-list-item" onClick={() => {if(!disabled)handleBuyGoods("foods",i);} }>
-                                    <div className="goods-list-image"></div>
-                                    <p>{foodList[i].name}</p>
-                                    <p>{foodList[i].shop?.money}</p>
-                                </div>
-                            )
-                        }
-                        return null;
-                    })
+                    foodList.map((_, i) => merchandiseDisplay({list:"foods", index:i}) )
                 }
 
                 {
                     Object.keys(enchants).map((enchant: keyof SystemData["enchants"], i) => {
                         if(pickaxe.enchant[enchant] < enchants[enchant].max_lv){
-                            const disabled = Buyable_Enchant(enchant, pickaxe.enchant[enchant])
+                            const buyable = Buyable_Enchant(enchant, pickaxe.enchant[enchant])
+                            console.log(buyable)
                             return(
-                                <div className="goods-list-item" onClick={() => {if(!disabled)enchantPickaxe(enchant)} }>
+                                !(!buyable && buyableOnly)?
+                                <div className={classNames("goods-list-item", (buyable)?"clickable":"disabled")} onClick={() => {if(buyable)enchantPickaxe(enchant)} }>
                                     <div className="goods-list-image-enchant"></div>
                                     <p>{enchants[enchant].name + (pickaxe.enchant[enchant]+1)}</p>
-                                    <p>値段:{enchants[enchant].price[pickaxe.enchant[enchant]]}</p>
-                                    <p>必要レベル:{enchants[enchant].cost[pickaxe.enchant[enchant]]}</p>
-                                </div>
+                                    <div className="shop-requirement-wrapper">
+                                        <div className="shop-requirement">
+                                            <span className="shop-requirement-image shop-requirement-money"></span>
+                                            <span className="shop-requirement-text">{enchants[enchant].price[pickaxe.enchant[enchant]]}</span>
+                                        </div>
+                                        <div className="shop-requirement">
+                                            <span className="shop-requirement-image shop-requirement-item"
+                                            style={{backgroundPositionX : -32*itemList[bookIndex].image[0], backgroundPositionY : -32*itemList[bookIndex].image[1]}}></span>
+                                            <span className="shop-requirement-text">1</span>
+                                        </div>
+                                        <div className="shop-requirement">
+                                            <span className="shop-requirement-image shop-requirement-lv"></span>
+                                            <span className="shop-requirement-text">{enchants[enchant].price[pickaxe.enchant[enchant]]}</span>
+                                        </div>
+                                    </div>
+                                </div>:null
                             )
                         }else return null;
                     })
@@ -153,13 +226,29 @@ const ShopMenu = () => {
                 {
                     roomList.map((room, i) => {
                         if(!rooms[i].unlocked){
-                            const disabled = Buyable_Map(i) //金とアイテムがあるか？
+                            const buyable = Buyable_Map(i) //金とアイテムがあるか？
                             return(
-                                <div className="goods-list-item" onClick={() => {if(!disabled)BuyMap(i);} }>
+                                !(!buyable && buyableOnly)?
+                                <div className={classNames("goods-list-item", (buyable)?"clickable":"disabled")} onClick={() => {if(buyable)BuyMap(i);} }>
                                     <div className="goods-list-image-map"></div>
                                     <p>{roomList[i].name}のマップ</p>
-                                    <p>{roomList[i].unlock.money}</p>
-                                </div>
+                                    <div className="shop-requirement-wrapper">
+                                        <div className="shop-requirement">
+                                            <span className="shop-requirement-image shop-requirement-money"></span>
+                                            <span className="shop-requirement-text">{roomList[i].unlock.money}</span>
+                                        </div>
+                                        {
+                                            roomList[i].unlock.items.map(item => {
+                                                return (
+                                                    <div className="shop-requirement">
+                                                        {rqImage({list:"items", index:item})}
+                                                        <span className="shop-requirement-text">{1}</span>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                </div>:null
                             )
                         }
                         return null;
@@ -167,15 +256,35 @@ const ShopMenu = () => {
                 }
             </div>
         )
-    }, [goods, money])
+    }, [goods, money, buyableOnly])
 
     return useMemo (() => (
-        <div className="shop-menu">
+        <div className={classNames("shop-menu", shopMode==="buy"?"buy":"sell" )}>
             <div className="shop-option">
-                <span onClick={() => handleModeClick("sell")}>売る</span>
-                <span onClick={() => handleModeClick("buy")}>買う</span>
+                {
+                    (shopMode === "buy")?
+                    <div className="shop-option-content">
+                        <div className="shop-option-title">
+                            <span  className="shop-option-change button" onClick={() => handleModeClick("sell")}>切替</span>
+                            商品を買う
+                        </div>
+                        <div className="toggle-buyable-wrapper" onClick={() => setBuyableOnly(!buyableOnly)}>
+                            <span className={classNames("toggle-buyable clickable", buyableOnly?"buyable-only":"" )}></span>
+                            <span >買えるものだけ</span>
+                        </div>
+                    </div>
+                    : 
+                    <div className="shop-option-content">
+                        <div className="shop-option-title">
+                            <span  className="shop-option-change button" onClick={() => handleModeClick("buy")}>切替</span>
+                            持ち物を売る
+                            </div>
+                    </div>
+                }
             </div>
-            {(shopMode === "buy")? ShopBuy: ShopSell}
+            <SimpleBar className="shop-list-wrapper">
+                {(shopMode === "buy")? ShopBuy: ShopSell}
+            </SimpleBar>
         </div>
     ), [shopMode, goods, money, ores, crops]);
 };

@@ -15,12 +15,6 @@ export type SystemData = Omit<CommonData, keyof CommonData> & {
         fortune: Enchant,
         mending: Enchant
     }
-    /*combinedLists:{
-        craftItems:CraftItemListIndex[];
-        cashItems:CashItemListIndex[];
-        crafted:CraftedListIndex[];
-        merchandise:MerchandiseListIndex[];
-    }*/
 };
 
 

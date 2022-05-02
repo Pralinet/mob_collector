@@ -1,11 +1,11 @@
 import React, { useState, useMemo } from "react";
-import { Stage, Layer, Text, Rect, Image, Group } from 'react-konva';
 
 import { useDataContext, getCropList, getOreList, getPickaxeList } from '../Contexts/DataContext';
 import { calcLotPrice } from "../utils";
 import classNames from "classnames";
 
 import './FarmMonitor.css';
+import ReactTooltip from "react-tooltip";
 
 const cropList = getCropList();
 const oreList = getOreList();
@@ -75,7 +75,8 @@ const FarmMonitor = () => {
                             <span className="ore-counter-counter">{ore.stock.toString()}</span>
                             {
                                 (oreList[i].upgradable.includes(pickaxe.material) && ore.stock >= 3)
-                                ?<span className="ore-counter-upgrade" onClick={() => upGradePickaxe(ore.id)} >↑</span>: null
+                                ?<span className="ore-counter-upgrade" onClick={() => upGradePickaxe(ore.id)}
+                                data-for='farm-tooltip' data-tip="グレードアップ" >↑</span>: null
                             }
                         </div>
                     )
@@ -93,37 +94,65 @@ const FarmMonitor = () => {
         }, 0)
 
         const Lots = (() =>{
-            return (
-            <div className="crop-lot">
-                {cropCount} / {crops[i_c].lots.length}
+            return crops[i_c].lots.length?(
+            <div className="crop-meter">
+                <div className="crop-meter-mature" style={{width: (cropCount/crops[i_c].lots.length*64)}}></div>
+                <div className="crop-meter-redstone" style={{width: (crops[i_c].redstone/crops[i_c].lots.length*64)}}></div>
             </div>
+            ): (
+                <div className="crop-meter hidden"></div>
             )
         })();
 
         return crops[i_c].unlocked ? (
             <div className="crop-column">
-                <div className="crop" style={{backgroundPositionX:-64*i_c}}
-                onClick={() => Harvest(i_c)} ></div>
+                <div className="crop-space">
+                    <div className={classNames("crop", cropCount>0?"clickable":"")} style={{backgroundPositionX:-64*i_c}}
+                    onClick={() => Harvest(i_c)} 
+                    data-for='farm-tooltip' data-tip="収穫"
+                    ></div>
+                    <span className="crop-text" >{crops[i_c].stock}</span>
+                </div>
                 {Lots}
 
                 <div className="crop-counter-control">
+                    <span className="crop-counter-item-wrapper">
                         {
                             money >= lotPrice
-                            ? <span onClick={() => handleBuyLot(i_c)} >+</span>
-                            : <span>+</span>
+                            ? <span className="crop-counter-item crop-counter-hoe clickable" 
+                            onClick={() => handleBuyLot(i_c)}
+                            data-for='farm-tooltip' data-html={true}
+                            data-tip={"耕地を増やす<br/><span class='emerald'></span>" + lotPrice}
+                            ></span>
+                            : <span className="crop-counter-item crop-counter-hoe disabled" 
+                            data-for='farm-tooltip' data-html={true}
+                            data-tip={"耕地を増やす<br/><span class='emerald'></span>" + lotPrice}
+                            ></span>
+                            
                         }
+                        <span className="crop-counter-text">{crops[i_c].lots.length}</span>
+                    </span>
+                    <span className="crop-counter-item-wrapper">
                         {
                             (ores[redstone_idx].stock<1 || crops[i_c].redstone >=crops[i_c].lots.length)
-                            ? <span>r</span>
-                            : <span onClick={() => buyAutoHarvest(i_c)}>r</span>
+                            ? <span className="crop-counter-item crop-counter-redstone disabled" 
+                            data-for='farm-tooltip' data-tip="自動収穫"></span>
+                            : <span className="crop-counter-item crop-counter-redstone clickable" 
+                            onClick={() => buyAutoHarvest(i_c)}
+                            data-for='farm-tooltip' data-tip="自動収穫"
+                            ></span>
                         }
+                        <span className="crop-counter-text">{crops[i_c].redstone}</span>
+                    </span>
                 </div>
 
             </div>
         ):(
             <div className="crop-column">
-                <div className="crop locked" style={{backgroundPositionX:-64*i_c}}></div>
-                <span>locked</span>
+                <div className="crop-space">
+                    <div className="crop locked" style={{backgroundPositionX:-64*i_c}}></div>
+                    <span className="crop-text" >locked</span>
+                </div>
             </div>
         )
     }), [crops, money]);
@@ -139,15 +168,32 @@ const FarmMonitor = () => {
                 onTouchEnd={handleMouseUp}
                 onMouseLeave={handleMouseUp}
                 onTouchMove={handleMouseUp}
+                data-for='farm-tooltip' data-tip="採掘"
             ></div>
             <div className="durability-meter">
                 <div className="durability-meter-content" style={{width: (pickaxe.durability/pickaxeList[pickaxe.material].durability*64)}}></div>
             </div>
-            <div>
-                <span>{pickaxe.enchant.efficiency}</span>
-                <span>{pickaxe.enchant.unbreaking}</span>
-                <span>{pickaxe.enchant.fortune}</span>
-                <span>{pickaxe.enchant.mending}</span>
+            <div className="pickaxe-enchant-container">
+                <span className="pickaxe-enchant">
+                    <span className="pickaxe-enchant-image pickaxe-enchant-image-efficiency"
+                        data-for='farm-tooltip' data-tip="効率強化"></span>
+                    <span className="pickaxe-enchant-text">{pickaxe.enchant.efficiency}</span>
+                </span>
+                <span className="pickaxe-enchant">
+                    <span className="pickaxe-enchant-image pickaxe-enchant-image-unbreaking"
+                        data-for='farm-tooltip' data-tip="耐久力"></span>
+                    <span className="pickaxe-enchant-text">{pickaxe.enchant.unbreaking}</span>
+                </span>
+                <span className="pickaxe-enchant">
+                    <span className="pickaxe-enchant-image pickaxe-enchant-image-fortune"
+                        data-for='farm-tooltip' data-tip="幸運"></span>
+                    <span className="pickaxe-enchant-text">{pickaxe.enchant.fortune}</span>
+                </span>
+                <span className="pickaxe-enchant">
+                    <span className="pickaxe-enchant-image pickaxe-enchant-image-mending"
+                        data-for='farm-tooltip' data-tip="修繕"></span>
+                    <span className="pickaxe-enchant-text">{pickaxe.enchant.mending}</span>
+                </span>
             </div>
         </div>
         );
@@ -155,9 +201,12 @@ const FarmMonitor = () => {
 
     return(
         <div className="farm-monitor">
-            {cropColumns}
-            {pickaxeContainer}
-            {oreCounter}
+            <div className="farm-monitor-inner">
+                {cropColumns}
+                {pickaxeContainer}
+                {oreCounter}
+                <ReactTooltip id='farm-tooltip' ></ReactTooltip>
+            </div>
         </div>
 
 );

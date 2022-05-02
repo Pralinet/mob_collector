@@ -122,7 +122,7 @@
 					"requirement": 3
 				},
 				{
-					"item": "squid_inc",
+					"item": "ink_sac",
 					"requirement": 1
 				}
 			],
@@ -141,7 +141,7 @@
 					"requirement": 3
 				},
 				{
-					"item": "glow_squid_inc",
+					"item": "glow_ink_sac",
 					"requirement": 1
 				}
 			],
